@@ -1,0 +1,24 @@
+{
+  "name": "plugin-mesa-gutenberg",
+  "version": "1.0.0",
+  "description": "Custom Gutenberg blocks for iConnections",
+  "private": true,
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "zip": "node scripts/zip.js",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "packages-update": "wp-scripts packages-update"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0",
+    "archiver": "^7.0.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "*",
+    "@wordpress/blocks": "*",
+    "@wordpress/components": "*",
+    "@wordpress/i18n": "*"
+  }
+}

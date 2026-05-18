@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/example-block",
+	"version": "1.0.0",
+	"title": "Example Block",
+	"category": "mesa-gutenberg",
+	"icon": "star-filled",
+	"description": "A starter example block.",
+	"keywords": ["example", "mesa", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": "p",
+			"default": ""
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#130419"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": {
+			"text": true,
+			"background": true,
+			"gradients": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
+	}
+}
