@@ -1,0 +1,10 @@
+{
+  "name": "iconnections-preview",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "chokidar": "^5.0.0"
+  }
+}
