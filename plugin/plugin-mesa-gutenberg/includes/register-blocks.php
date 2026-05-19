@@ -22,3 +22,16 @@ function mesa_gutenberg_register_blocks(): void {
 	}
 }
 add_action( 'init', 'mesa_gutenberg_register_blocks' );
+
+/**
+ * Registers the "Mesa" block category.
+ */
+function mesa_gutenberg_register_category( array $categories ): array {
+	array_unshift( $categories, [
+		'slug'  => 'mesa-gutenberg',
+		'title' => 'Mesa',
+		'icon'  => null,
+	] );
+	return $categories;
+}
+add_filter( 'block_categories_all', 'mesa_gutenberg_register_category' );

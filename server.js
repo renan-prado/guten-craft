@@ -7,6 +7,7 @@ const PORT = 3000;
 const SRC_DIR = path.join(__dirname, 'src');
 const STYLES_DIR = path.join(__dirname, 'styles');
 const IMAGES_DIR = path.join(__dirname, 'images');
+const PLUGIN_BUILD_DIR = path.join(__dirname, 'plugin', 'plugin-mesa-gutenberg', 'build');
 
 // SSE clients waiting for reload signals
 const sseClients = new Set();
@@ -24,7 +25,67 @@ chokidar
     broadcast();
   });
 
+const COBE_INIT_SCRIPT = `
+<script type="module">
+  import createGlobe from 'https://esm.sh/cobe@0.6.3';
+  function project(lat, lng, phi, theta, w, h) {
+    var latR = lat * Math.PI / 180, lngR = lng * Math.PI / 180;
+    var x = Math.cos(latR) * Math.sin(lngR);
+    var y = Math.sin(latR);
+    var z = Math.cos(latR) * Math.cos(lngR);
+    var x1 = x * Math.cos(phi) + z * Math.sin(phi);
+    var z1 = -x * Math.sin(phi) + z * Math.cos(phi);
+    var y2 = y * Math.cos(theta) - z1 * Math.sin(theta);
+    var z2 = y * Math.sin(theta) + z1 * Math.cos(theta);
+    if (z2 < 0) return null;
+    var r = Math.min(w, h) * 0.5 * 0.96;
+    return { x: w / 2 + x1 * r, y: h / 2 - y2 * r };
+  }
+  document.querySelectorAll('.wp-block-mesa-gutenberg-cobe-globe').forEach(function(wrapper) {
+    var canvas = wrapper.querySelector('canvas[data-cobe-globe]');
+    if (!canvas) return;
+    var size = parseInt(wrapper.dataset.globeSize || '600', 10);
+    var dpr = window.devicePixelRatio || 1;
+    var theta = 0.15, phi = 0.3;
+    var cards = Array.from(wrapper.querySelectorAll('.cobe-globe-card'));
+    createGlobe(canvas, {
+      devicePixelRatio: dpr,
+      width: size * dpr,
+      height: size * dpr,
+      phi: phi,
+      theta: theta,
+      dark: 1,
+      diffuse: 1.0,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: [0.18, 0.04, 0.28],
+      markerColor: [0.71, 0.40, 0.95],
+      glowColor: [0.35, 0.08, 0.52],
+      markers: [
+        { location: [40.7128, -74.006], size: 0.08 },
+        { location: [51.5074, -0.1278], size: 0.06 },
+        { location: [35.6762, 139.6503], size: 0.06 },
+        { location: [-33.8688, 151.2093], size: 0.05 },
+        { location: [1.3521, 103.8198], size: 0.05 },
+        { location: [48.8566, 2.3522], size: 0.05 },
+        { location: [55.7558, 37.6176], size: 0.05 },
+      ],
+      onRender: function(state) {
+        state.phi = phi;
+        phi += 0.003;
+        var w = canvas.offsetWidth, h = canvas.offsetHeight;
+        cards.forEach(function(card) {
+          var p = project(parseFloat(card.dataset.lat), parseFloat(card.dataset.lng), phi, theta, w, h);
+          if (p) { card.style.left = p.x + 'px'; card.style.top = p.y + 'px'; card.classList.add('is-visible'); }
+          else { card.classList.remove('is-visible'); }
+        });
+      },
+    });
+  });
+<\/script>`;
+
 function shell(title, bodyContent) {
+  const hasGlobe = bodyContent.includes('data-cobe-globe');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +95,7 @@ function shell(title, bodyContent) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="/styles/base.css">
+  ${ hasGlobe ? '<link rel="stylesheet" href="/plugin-build/blocks/cobe-globe/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
@@ -123,6 +185,7 @@ ${bodyContent}
   es.onmessage = () => location.reload();
   es.onerror = () => { es.close(); setTimeout(() => location.reload(), 2000); };
 </script>
+${hasGlobe ? COBE_INIT_SCRIPT : ''}
 </body>
 </html>`;
 }
@@ -168,6 +231,17 @@ const server = http.createServer((req, res) => {
   if (pathname.startsWith('/styles/')) {
     const file = path.join(STYLES_DIR, pathname.replace('/styles/', ''));
     if (!file.startsWith(STYLES_DIR)) { res.writeHead(403); res.end(); return; }
+    if (!fs.existsSync(file)) { res.writeHead(404); res.end('Not found'); return; }
+    const ext = path.extname(file);
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'text/plain' });
+    fs.createReadStream(file).pipe(res);
+    return;
+  }
+
+  // Plugin build assets (custom blocks CSS/JS for local preview)
+  if (pathname.startsWith('/plugin-build/')) {
+    const file = path.join(PLUGIN_BUILD_DIR, pathname.replace('/plugin-build/', ''));
+    if (!file.startsWith(PLUGIN_BUILD_DIR)) { res.writeHead(403); res.end(); return; }
     if (!fs.existsSync(file)) { res.writeHead(404); res.end('Not found'); return; }
     const ext = path.extname(file);
     res.writeHead(200, { 'Content-Type': MIME[ext] || 'text/plain' });

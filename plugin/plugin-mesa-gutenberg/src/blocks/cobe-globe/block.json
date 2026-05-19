@@ -1,0 +1,47 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/cobe-globe",
+	"version": "1.2.0",
+	"title": "Cobe Globe",
+	"category": "mesa-gutenberg",
+	"icon": "admin-site",
+	"description": "Interactive 3D globe with floating notification cards that follow the globe rotation.",
+	"keywords": ["globe", "cobe", "3d", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"size": {
+			"type": "number",
+			"default": 600
+		},
+		"overlays": {
+			"type": "array",
+			"default": [
+				{ "id": 1, "message": "Anna Fletcher viewed your profile", "subtext": "", "initials": "AF", "avatarColor": "#7c3aed", "avatarUrl": "", "location": [40.7128, -74.006] },
+				{ "id": 2, "message": "Meeting confirmed", "subtext": "with Bryan Richards", "initials": "BR", "avatarColor": "#2563eb", "avatarUrl": "", "location": [51.5074, -0.1278] },
+				{ "id": 3, "message": "You have a new chat message!", "subtext": "", "initials": "JD", "avatarColor": "#059669", "avatarUrl": "", "location": [35.6762, 139.6503] },
+				{ "id": 4, "message": "John Smith downloaded your document", "subtext": "", "initials": "JS", "avatarColor": "#be123c", "avatarUrl": "", "location": [1.3521, 103.8198] }
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":          { "type": "number" },
+					"message":     { "type": "string" },
+					"subtext":     { "type": "string" },
+					"initials":    { "type": "string" },
+					"avatarColor": { "type": "string" },
+					"avatarUrl":   { "type": "string" },
+					"location":    { "type": "array", "items": { "type": "number" } }
+				}
+			}
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	}
+}

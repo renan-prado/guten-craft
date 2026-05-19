@@ -19,6 +19,7 @@
     "@wordpress/block-editor": "*",
     "@wordpress/blocks": "*",
     "@wordpress/components": "*",
-    "@wordpress/i18n": "*"
+    "@wordpress/i18n": "*",
+    "cobe": "0.6.3"
   }
 }
