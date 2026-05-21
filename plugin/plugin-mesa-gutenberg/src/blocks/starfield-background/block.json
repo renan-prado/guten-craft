@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/starfield-background",
+	"version": "1.0.0",
+	"title": "Starfield Background",
+	"category": "mesa-gutenberg",
+	"icon": "star-filled",
+	"description": "Full-width section background with slowly blinking star particles rendered on canvas.",
+	"keywords": ["starfield", "stars", "background", "particles", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"starCount": {
+			"type": "number",
+			"default": 50
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#08000f"
+		},
+		"starColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"minHeight": {
+			"type": "number",
+			"default": 600
+		},
+		"glowColor": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": false
+	}
+}

@@ -25,67 +25,206 @@ chokidar
     broadcast();
   });
 
+const STARFIELD_INIT_SCRIPT = `
+<script>
+(function () {
+  function hexToRgb(hex) {
+    var h = hex.replace('#', '');
+    if (h.length === 3) h = h.split('').map(function(c){return c+c;}).join('');
+    var n = parseInt(h, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  function buildStars(count, w, h) {
+    return Array.from({length: count}, function() {
+      return {
+        x:           Math.random() * w,
+        y:           Math.random() * h,
+        radius:      0.6 + Math.random() * 1.5,
+        baseOpacity: 0.30 + Math.random() * 0.45,
+        amplitude:   0.30 + Math.random() * 0.60,
+        period:      1500 + Math.random() * 5000,
+        phase:       Math.random() * Math.PI * 2,
+      };
+    });
+  }
+  document.querySelectorAll('.wp-block-mesa-gutenberg-starfield-background').forEach(function(wrapper) {
+    var canvas = wrapper.querySelector('canvas[data-starfield]');
+    if (!canvas) return;
+    var starCount = parseInt(wrapper.dataset.starCount || '160', 10);
+    var bgColor   = wrapper.dataset.bgColor   || '#08000f';
+    var starColor = wrapper.dataset.starColor || '#ffffff';
+    var rgb = hexToRgb(starColor);
+    var sr = rgb[0], sg = rgb[1], sb = rgb[2];
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var raf;
+    function resize() {
+      var dpr = window.devicePixelRatio || 1;
+      var w = wrapper.offsetWidth  || 800;
+      var h = wrapper.offsetHeight || 600;
+      canvas.width  = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width  = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      stars = buildStars(starCount, w, h);
+    }
+    function draw(ts) {
+      var w = wrapper.offsetWidth  || 800;
+      var h = wrapper.offsetHeight || 600;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, w, h);
+      stars.forEach(function(s) {
+        var t     = ts / s.period;
+        var alpha = Math.max(0, Math.min(1, s.baseOpacity + s.amplitude * Math.sin(t * Math.PI * 2 + s.phase)));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + sr + ',' + sg + ',' + sb + ',' + alpha.toFixed(3) + ')';
+        ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    }
+    resize();
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(function() {
+        cancelAnimationFrame(raf);
+        resize();
+        raf = requestAnimationFrame(draw);
+      }).observe(wrapper);
+    }
+    raf = requestAnimationFrame(draw);
+  });
+})();
+<\/script>`;
+
 const COBE_INIT_SCRIPT = `
 <script type="module">
-  import createGlobe from 'https://esm.sh/cobe@0.6.3';
+  import createGlobe from 'https://esm.sh/cobe@2.0.1';
+  // Mirrors cobe's fragment shader (sphere radius 0.8 in normalized space,
+  // so r_px = min(w,h)*0.4). Same formula used by the plugin's view.js.
   function project(lat, lng, phi, theta, w, h) {
     var latR = lat * Math.PI / 180, lngR = lng * Math.PI / 180;
-    var x = Math.cos(latR) * Math.sin(lngR);
-    var y = Math.sin(latR);
-    var z = Math.cos(latR) * Math.cos(lngR);
-    var x1 = x * Math.cos(phi) + z * Math.sin(phi);
-    var z1 = -x * Math.sin(phi) + z * Math.cos(phi);
-    var y2 = y * Math.cos(theta) - z1 * Math.sin(theta);
-    var z2 = y * Math.sin(theta) + z1 * Math.cos(theta);
-    if (z2 < 0) return null;
-    var r = Math.min(w, h) * 0.5 * 0.96;
-    return { x: w / 2 + x1 * r, y: h / 2 - y2 * r };
+    var a = phi + lngR;
+    var fx = Math.cos(latR) * Math.cos(a);
+    var fy = Math.sin(latR) * Math.cos(theta) + Math.cos(latR) * Math.sin(a) * Math.sin(theta);
+    var fz = Math.sin(latR) * Math.sin(theta) - Math.cos(latR) * Math.sin(a) * Math.cos(theta);
+    if (fz <= 0) return null;
+    var r = Math.min(w, h) * 0.4;
+    return { x: w / 2 + fx * r, y: h / 2 - fy * r };
+  }
+  function hexToRgb(hex) {
+    if (!hex) return [1, 1, 1];
+    var h = hex.replace('#', '');
+    if (h.length !== 6) return [1, 1, 1];
+    return [
+      parseInt(h.slice(0, 2), 16) / 255,
+      parseInt(h.slice(2, 4), 16) / 255,
+      parseInt(h.slice(4, 6), 16) / 255,
+    ];
   }
   document.querySelectorAll('.wp-block-mesa-gutenberg-cobe-globe').forEach(function(wrapper) {
     var canvas = wrapper.querySelector('canvas[data-cobe-globe]');
     if (!canvas) return;
+    // Drop any pre-existing SVG arc overlay (legacy v0.6 markup).
+    var legacySvg = wrapper.querySelector('.cobe-globe-arcs');
+    if (legacySvg) legacySvg.remove();
+
     var size = parseInt(wrapper.dataset.globeSize || '600', 10);
+    // Expose globe size as a CSS variable so style.scss can compute anchor offsets
+    // (matches the plugin's view.js so localhost == WP).
+    wrapper.style.setProperty('--cobe-globe-size', size + 'px');
+    var mapSamples = parseInt(wrapper.dataset.mapSamples || '6000', 10);
+    var arcsData = [];
+    try { arcsData = wrapper.dataset.arcs ? JSON.parse(wrapper.dataset.arcs) : []; } catch (e) { arcsData = []; }
+    var arcColor = hexToRgb(wrapper.dataset.arcColor || '#ffffff');
+    var baseColor = hexToRgb(wrapper.dataset.baseColor || '#a640e6');
+    var glowColor = hexToRgb(wrapper.dataset.glowColor || '#e659e6');
+    var arcWidth = parseFloat(wrapper.dataset.arcWidth || '0.5');
+    var arcHeight = parseFloat(wrapper.dataset.arcHeight || '0.3');
+    var arcs = arcsData.map(function(a) {
+      var o = { from: a.from, to: a.to };
+      if (a.color) o.color = hexToRgb(a.color);
+      return o;
+    });
+
     var dpr = window.devicePixelRatio || 1;
-    var theta = 0.15, phi = 0.3;
+    // Initial phi centers Tokyo (lng 139.7°) so the westward auto-rotation
+    // passes through Asia → Europe → Americas instead of the empty Pacific.
+    var theta = 0.15, phi = -Math.PI / 2 - (139.7 * Math.PI) / 180;
+    var isDragging = false, prevX = 0;
     var cards = Array.from(wrapper.querySelectorAll('.cobe-globe-card'));
-    createGlobe(canvas, {
+    var markers = cards.map(function(card) {
+      return {
+        location: [parseFloat(card.dataset.lat), parseFloat(card.dataset.lng)],
+        size: 0.032,
+      };
+    });
+
+    canvas.style.cursor = 'grab';
+    canvas.addEventListener('pointerdown', function(e) {
+      isDragging = true;
+      prevX = e.clientX;
+      canvas.style.cursor = 'grabbing';
+      canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointermove', function(e) {
+      if (!isDragging) return;
+      var dx = e.clientX - prevX;
+      prevX = e.clientX;
+      phi += dx / 200;
+    });
+    canvas.addEventListener('pointerup', function() {
+      isDragging = false;
+      canvas.style.cursor = 'grab';
+    });
+    canvas.addEventListener('pointercancel', function() {
+      isDragging = false;
+      canvas.style.cursor = 'grab';
+    });
+
+    // cobe v2: width/height are passed un-multiplied; the lib applies dpr.
+    var globe = createGlobe(canvas, {
       devicePixelRatio: dpr,
-      width: size * dpr,
-      height: size * dpr,
+      width: size,
+      height: size,
       phi: phi,
       theta: theta,
       dark: 1,
-      diffuse: 1.0,
-      mapSamples: 16000,
+      diffuse: 1.2,
+      mapSamples: mapSamples,
       mapBrightness: 6,
-      baseColor: [0.18, 0.04, 0.28],
-      markerColor: [0.71, 0.40, 0.95],
-      glowColor: [0.35, 0.08, 0.52],
-      markers: [
-        { location: [40.7128, -74.006], size: 0.08 },
-        { location: [51.5074, -0.1278], size: 0.06 },
-        { location: [35.6762, 139.6503], size: 0.06 },
-        { location: [-33.8688, 151.2093], size: 0.05 },
-        { location: [1.3521, 103.8198], size: 0.05 },
-        { location: [48.8566, 2.3522], size: 0.05 },
-        { location: [55.7558, 37.6176], size: 0.05 },
-      ],
-      onRender: function(state) {
-        state.phi = phi;
-        phi += 0.003;
-        var w = canvas.offsetWidth, h = canvas.offsetHeight;
-        cards.forEach(function(card) {
-          var p = project(parseFloat(card.dataset.lat), parseFloat(card.dataset.lng), phi, theta, w, h);
-          if (p) { card.style.left = p.x + 'px'; card.style.top = p.y + 'px'; card.classList.add('is-visible'); }
-          else { card.classList.remove('is-visible'); }
-        });
-      },
+      mapBaseBrightness: 0,
+      baseColor: baseColor,
+      markerColor: [1, 1, 1],
+      glowColor: glowColor,
+      markers: markers,
+      arcs: arcs,
+      arcColor: arcColor,
+      arcWidth: arcWidth,
+      arcHeight: arcHeight,
+      markerElevation: 0.02,
     });
+
+    // cobe v2 has no onRender callback; we drive animation + card projection.
+    function frame() {
+      if (!isDragging) phi += 0.0012;
+      globe.update({ phi: phi });
+      var w = size, h = size;
+      cards.forEach(function(card) {
+        var p = project(parseFloat(card.dataset.lat), parseFloat(card.dataset.lng), phi, theta, w, h);
+        if (p) { card.style.left = p.x + 'px'; card.style.top = p.y + 'px'; card.classList.add('is-visible'); }
+        else { card.classList.remove('is-visible'); }
+      });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   });
 <\/script>`;
 
 function shell(title, bodyContent) {
-  const hasGlobe = bodyContent.includes('data-cobe-globe');
+  const hasGlobe      = bodyContent.includes('data-cobe-globe');
+  const hasStarfield  = bodyContent.includes('data-starfield');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,7 +234,8 @@ function shell(title, bodyContent) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="/styles/base.css">
-  ${ hasGlobe ? '<link rel="stylesheet" href="/plugin-build/blocks/cobe-globe/style-index.css">' : '' }
+  ${ hasGlobe     ? '<link rel="stylesheet" href="/plugin-build/blocks/cobe-globe/style-index.css">' : '' }
+  ${ hasStarfield ? '<link rel="stylesheet" href="/plugin-build/blocks/starfield-background/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
@@ -138,10 +278,17 @@ ${bodyContent}
       const gap = attrs.style?.spacing?.blockGap;
 
       if (layout.type === 'flex') {
+        const isVertical = layout.orientation === 'vertical';
         el.style.display        = 'flex';
-        el.style.flexWrap       = layout.flexWrap || 'wrap';
-        el.style.alignItems     = ALIGN[layout.verticalAlignment] || 'center';
-        el.style.justifyContent = JUSTIFY[layout.justifyContent] || 'flex-start';
+        el.style.flexDirection  = isVertical ? 'column' : 'row';
+        el.style.flexWrap       = layout.flexWrap || (isVertical ? 'nowrap' : 'wrap');
+        if (isVertical) {
+          el.style.justifyContent = JUSTIFY[layout.justifyContent] || 'flex-start';
+          el.style.alignItems     = ALIGN[layout.verticalAlignment] || 'stretch';
+        } else {
+          el.style.alignItems     = ALIGN[layout.verticalAlignment] || 'center';
+          el.style.justifyContent = JUSTIFY[layout.justifyContent] || 'flex-start';
+        }
         if (gap) el.style.gap  = gap;
       }
 
@@ -185,7 +332,8 @@ ${bodyContent}
   es.onmessage = () => location.reload();
   es.onerror = () => { es.close(); setTimeout(() => location.reload(), 2000); };
 </script>
-${hasGlobe ? COBE_INIT_SCRIPT : ''}
+${hasGlobe     ? COBE_INIT_SCRIPT     : ''}
+${hasStarfield ? STARFIELD_INIT_SCRIPT : ''}
 </body>
 </html>`;
 }

@@ -111,3 +111,24 @@ html, body {
   border: none;
   border-top: 1px solid currentColor;
 }
+
+.wp-block-mesa-gutenberg-starfield-background::before,
+.wp-block-mesa-gutenberg-starfield-background::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 160px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wp-block-mesa-gutenberg-starfield-background::before {
+  top: 0;
+  background: linear-gradient(to bottom, #000000, transparent);
+}
+
+.wp-block-mesa-gutenberg-starfield-background::after {
+  bottom: 0;
+  background: linear-gradient(to top, #000000, transparent);
+}

@@ -1,0 +1,251 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: This website stores cookies on your computer. These cookies are used to improve your website experience and provide more personalized services to you, both on this website and through other media. To find out more about the cookies we use, see our Privacy Policy.
+    - paragraph [ref=e5]: We won't track your information when you visit our site. But in order to comply with your preferences, we'll have to use just one tiny cookie so that you're not asked to make this choice again.
+    - generic [ref=e7]:
+      - button "Accept" [ref=e8] [cursor=pointer]
+      - button "Decline" [ref=e9] [cursor=pointer]
+  - link "Skip to content" [ref=e10] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e11]:
+    - generic [ref=e15]:
+      - generic [ref=e19]:
+        - paragraph [ref=e22]: iConnections Global Allocator Report 2026.
+        - link "Read More" [ref=e26] [cursor=pointer]:
+          - /url: /insights/global-allocator-report-2026/
+          - generic [ref=e27]:
+            - img [ref=e29]
+            - generic [ref=e32]: Read More
+      - generic [ref=e34]:
+        - link [ref=e39] [cursor=pointer]:
+          - /url: https://iconnsdev.wpengine.com/
+        - navigation "Menu" [ref=e44]:
+          - list [ref=e45]:
+            - listitem [ref=e46]:
+              - link "Platform" [ref=e47] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/platform/
+            - listitem [ref=e48]:
+              - generic [ref=e49]: Users
+            - listitem [ref=e50]:
+              - link "Events" [ref=e51] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/events
+            - listitem [ref=e52]:
+              - link "Insights" [ref=e53] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/insights/
+            - listitem [ref=e54]:
+              - generic [ref=e55]: Company
+        - generic [ref=e61]:
+          - link "Book a Demo" [ref=e65] [cursor=pointer]:
+            - /url: https://share.hsforms.com/1PbR9TcBSTeOqm1Uty_YCew4rr50
+            - generic [ref=e67]: Book a Demo
+          - link "Login" [ref=e71] [cursor=pointer]:
+            - /url: https://app.iconnsdev.wpengine.com/
+            - generic [ref=e72]:
+              - img [ref=e74]
+              - generic [ref=e76]: Login
+  - main [ref=e81]:
+    - heading "Teste – Nova estrutura – Gutenberg" [level=1] [ref=e83]
+    - generic [ref=e87]:
+      - generic [ref=e89]:
+        - paragraph [ref=e90]: The Alternative Investment Network
+        - heading "The AI-Powered Platform for LP-GP Capital Introduction" [level=1] [ref=e91]
+        - paragraph [ref=e92]: Powered by the deepest relationship data in alternatives. iConnections matches LPs and GPs on real intent, real behavior, and real capital decisions. Year-round. Across the world’s largest active network in alternatives.
+        - generic [ref=e94]:
+          - link "Request Access" [ref=e96] [cursor=pointer]:
+            - /url: "#"
+          - link "See How It Works" [ref=e98] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e99]:
+        - generic:
+          - generic:
+            - generic:
+              - img "AF"
+          - generic:
+            - generic: Anna Fletcher viewed your profile
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "BR"
+          - generic:
+            - generic: Meeting confirmed
+            - generic: with Bryan Richards
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "LR"
+          - generic:
+            - generic: Laila Rajoelina shared a deal
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "SA"
+          - generic:
+            - generic: Sarah Ahmed connected with you
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "MD"
+          - generic:
+            - generic: Marcus Doe accepted your invite
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "JD"
+          - generic:
+            - generic: You have a new chat message!
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "JS"
+          - generic:
+            - generic: John Smith downloaded your document
+          - text: ×
+  - contentinfo [ref=e102]:
+    - generic [ref=e107]:
+      - button "Ask AI" [ref=e108] [cursor=pointer]:
+        - img [ref=e109]
+        - text: Ask AI
+      - generic:
+        - heading "Ask with AI" [level=4]
+        - paragraph: What are iConnections’ strengths versus other capital introduction or networking platforms?
+        - generic:
+          - button "ChatGPT"
+          - button "Grok"
+          - button "Gemini"
+          - button "Claude"
+          - button "Perplexity"
+    - contentinfo [ref=e111]:
+      - generic [ref=e114]:
+        - generic [ref=e116]:
+          - link "Linkedin" [ref=e122] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/iconnections-llc/
+            - img [ref=e125]
+          - link "Twitter" [ref=e132] [cursor=pointer]:
+            - /url: https://twitter.com/iconnections_io
+            - img [ref=e135]
+          - link "Youtube" [ref=e142] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCY6TEokyfC4sw--JMLoojDg/featured
+            - img [ref=e145]
+          - link "Instagram" [ref=e153] [cursor=pointer]:
+            - /url: https://www.instagram.com/iconnections_io/
+            - img [ref=e156]
+          - generic [ref=e165]:
+            - textbox "Email* Email*" [ref=e168]:
+              - /placeholder: Subscribe to our latest news
+            - button "Send" [ref=e171] [cursor=pointer]
+          - link "App Store" [ref=e176] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/iconnections-llc/id1534676334
+          - link "Google Play" [ref=e181] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=io.iconnections.mobile&utm_source=appgrooves&utm_medium=agp_c6fe391874e1f7a624c6c5f01c31b879_io.iconnections.mobile_us_others_16624164658844
+        - generic [ref=e183]:
+          - generic [ref=e190]:
+            - generic [ref=e192]: Go to
+            - list [ref=e195]:
+              - listitem [ref=e196]:
+                - link "Platform" [ref=e197] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/platform/
+                  - generic [ref=e198]: Platform
+              - listitem [ref=e199]:
+                - link "Events" [ref=e200] [cursor=pointer]:
+                  - /url: /events/
+                  - generic [ref=e201]: Events
+              - listitem [ref=e202]:
+                - link "About Us" [ref=e203] [cursor=pointer]:
+                  - /url: /about-us/
+                  - generic [ref=e204]: About Us
+          - generic [ref=e206]:
+            - generic [ref=e208]: Users
+            - list [ref=e211]:
+              - listitem [ref=e212]:
+                - link "Allocators" [ref=e213] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/allocators/
+                  - generic [ref=e214]: Allocators
+              - listitem [ref=e215]:
+                - link "Fund Managers" [ref=e216] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/fund-managers/
+                  - generic [ref=e217]: Fund Managers
+              - listitem [ref=e218]:
+                - link "Service Providers" [ref=e219] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/service-providers/
+                  - generic [ref=e220]: Service Providers
+          - generic [ref=e222]:
+            - generic [ref=e224]: See Our
+            - list [ref=e227]:
+              - listitem [ref=e228]:
+                - link "Insights" [ref=e229] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/insights/
+                  - generic [ref=e230]: Insights
+            - list [ref=e233]:
+              - listitem [ref=e234]:
+                - link "2024 Q2 Release" [ref=e235] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/q2-release-2024
+                  - generic [ref=e236]: 2024 Q2 Release
+          - generic [ref=e238]:
+            - generic [ref=e240]: Get in Touch
+            - link "info@iconnsdev.wpengine.com" [ref=e244] [cursor=pointer]:
+              - /url: mailto:info@iconnsdev.wpengine.com
+            - link "1 888 878 6310" [ref=e248] [cursor=pointer]:
+              - /url: tel:1%20888%20878%206310
+            - list [ref=e251]:
+              - listitem [ref=e252]:
+                - link "Get In Touch" [ref=e253] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/get-in-touch/
+                  - generic [ref=e254]: Get In Touch
+          - link "Back to top" [ref=e260] [cursor=pointer]:
+            - /url: "#top"
+            - img [ref=e262]
+            - generic [ref=e265]: Back to top
+        - generic [ref=e267]:
+          - list [ref=e272]:
+            - listitem [ref=e273]:
+              - generic [ref=e274]: © 2026 iConnections LLC. All Rights Reserved
+            - listitem [ref=e275]:
+              - link "Terms of Use" [ref=e276] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/terms/
+                - generic [ref=e277]: Terms of Use
+            - listitem [ref=e278]:
+              - link "Privacy Policy" [ref=e279] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/privacy-policy/
+                - generic [ref=e280]: Privacy Policy
+          - link "iconnections-logo.png" [ref=e285] [cursor=pointer]:
+            - /url: /
+            - img "iconnections-logo.png" [ref=e286]
+  - generic [ref=e287]: desktop
+  - generic [ref=e288]:
+    - generic [ref=e289]:
+      - generic:
+        - generic [ref=e290]: Valorizamos sua privacidade
+        - link "Configurações" [ref=e292] [cursor=pointer]:
+          - /url: javascript:void(0)
+          - generic [ref=e294]: Configurações
+      - generic [ref=e296]:
+        - generic [ref=e297]:
+          - text: A NextRoll, Inc. ("NextRoll") e nossos
+          - link "20 parceiros de publicidade" [ref=e298] [cursor=pointer]:
+            - /url: javascript:void(0)
+          - text: usam cookies e tecnologias semelhantes neste site e utilizam dados pessoais (por exemplo, seu endereço IP). Se você consentir, os cookies, identificadores de dispositivos ou outras informações poderão ser armazenados ou acessados em seu dispositivo para os fins descritos abaixo. Você pode clicar em "Permitir tudo" ou "Recusar tudo" ou clicar em Configurações acima para personalizar seu consentimento em relação às finalidades e aos recursos para os quais seus dados pessoais serão processados e/ou aos parceiros com os quais você compartilhará dados pessoais.
+        - generic [ref=e299]:
+          - text: A NextRoll e nossos
+          - link "parceiros de publicidade" [ref=e300] [cursor=pointer]:
+            - /url: javascript:void(0)
+          - text: "processam dados pessoais para: ● Armazenar e/ou acessar informações em um dispositivo; ● Criar um perfil de conteúdo personalizado; ● Selecionar conteúdo personalizado; ● Publicidade personalizada, mensuração de publicidade, pesquisa de público e desenvolvimento de serviços; ● Desenvolvimento de serviços. Para algumas das finalidades acima, nossos parceiros de publicidade: ● Usam dados precisos de geolocalização. Alguns de nossos parceiros se baseiam em interesses comerciais legítimos para processar dados pessoais. Consulte nossos"
+          - link "parceiros de publicidade" [ref=e301] [cursor=pointer]:
+            - /url: javascript:void(0)
+          - text: se desejar fornecer ou negar consentimento para parceiros específicos, revisar as finalidades nas quais cada parceiro acredita ter um interesse legítimo e se opor a tal processamento.
+        - generic [ref=e302]:
+          - text: Se você selecionar Recusar tudo, ainda poderá visualizar o conteúdo deste site e continuará recebendo publicidade, mas ela não será personalizada para você. Você pode alterar suas configurações ao ver
+          - img "Gerenciar preferências de consentimento" [ref=e306]
+          - text: neste site.
+    - generic [ref=e309]:
+      - link "Recusar tudo" [ref=e310] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic [ref=e312]: Recusar tudo
+      - link "Permitir Tudo" [ref=e313] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic [ref=e315]: Permitir Tudo

@@ -1,0 +1,54 @@
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - paragraph [ref=e7]: The Alternative Investment Network
+    - heading "The AI-Powered Platform for LP-GP Capital Introduction" [level=1] [ref=e8]
+    - paragraph [ref=e9]: Powered by the deepest relationship data in alternatives. iConnections matches LPs and GPs on real intent, real behavior, and real capital decisions. Year-round. Across the world's largest active network in alternatives.
+    - generic [ref=e11]:
+      - link "Request Access" [ref=e13] [cursor=pointer]:
+        - /url: "#"
+      - link "See How It Works" [ref=e15] [cursor=pointer]:
+        - /url: "#"
+  - generic [ref=e16]:
+    - generic:
+      - generic:
+        - img "AF"
+      - generic:
+        - generic: Anna Fletcher viewed your profile
+      - text: ×
+    - generic:
+      - generic:
+        - img "BR"
+      - generic:
+        - generic: Meeting confirmed
+        - generic: with Bryan Richards
+      - text: ×
+    - generic:
+      - generic:
+        - img "LR"
+      - generic:
+        - generic: Laila Rajoelina shared a deal
+      - text: ×
+    - generic:
+      - generic:
+        - img "SA"
+      - generic:
+        - generic: Sarah Ahmed connected with you
+      - text: ×
+    - generic:
+      - generic:
+        - img "MD"
+      - generic:
+        - generic: Marcus Doe accepted your invite
+      - text: ×
+    - generic:
+      - generic:
+        - img "JD"
+      - generic:
+        - generic: You have a new chat message!
+      - text: ×
+    - generic:
+      - generic:
+        - img "JS"
+      - generic:
+        - generic: John Smith downloaded your document
+      - text: ×

@@ -3,6 +3,17 @@ import { PanelBody, RangeControl, TextControl, Button } from '@wordpress/compone
 import { useEffect, useRef } from '@wordpress/element';
 import createGlobe from 'cobe';
 
+function hexToRgb( hex ) {
+	if ( ! hex ) return [ 1, 1, 1 ];
+	const h = hex.replace( '#', '' );
+	if ( h.length !== 6 ) return [ 1, 1, 1 ];
+	return [
+		parseInt( h.slice( 0, 2 ), 16 ) / 255,
+		parseInt( h.slice( 2, 4 ), 16 ) / 255,
+		parseInt( h.slice( 4, 6 ), 16 ) / 255,
+	];
+}
+
 function project( lat, lng, phi, theta, w, h ) {
 	const latR = ( lat * Math.PI ) / 180;
 	const lngR = ( lng * Math.PI ) / 180;
@@ -19,24 +30,33 @@ function project( lat, lng, phi, theta, w, h ) {
 }
 
 const MARKERS = [
-	{ location: [ 40.7128, -74.006 ], size: 0.08 },
-	{ location: [ 51.5074, -0.1278 ], size: 0.06 },
-	{ location: [ 35.6762, 139.6503 ], size: 0.06 },
-	{ location: [ -33.8688, 151.2093 ], size: 0.05 },
-	{ location: [ 1.3521, 103.8198 ], size: 0.05 },
-	{ location: [ 48.8566, 2.3522 ], size: 0.05 },
-	{ location: [ 55.7558, 37.6176 ], size: 0.05 },
+	{ location: [ 40.7128, -74.006 ], size: 0.03 },
+	{ location: [ 51.5074, -0.1278 ], size: 0.025 },
+	{ location: [ 35.6762, 139.6503 ], size: 0.025 },
+	{ location: [ -33.8688, 151.2093 ], size: 0.02 },
+	{ location: [ 1.3521, 103.8198 ], size: 0.02 },
+	{ location: [ 48.8566, 2.3522 ], size: 0.02 },
+	{ location: [ 55.7558, 37.6176 ], size: 0.02 },
 ];
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { size, overlays } = attributes;
+	const { size, mapSamples, overlays, topOffset, arcs, arcColor, arcWidth, arcHeight, rotationSpeed, baseColor, glowColor } = attributes;
 	const canvasRef = useRef( null );
 	const wrapperRef = useRef( null );
+	const rotationSpeedRef = useRef( rotationSpeed );
+	useEffect( () => { rotationSpeedRef.current = rotationSpeed; }, [ rotationSpeed ] );
 
 	const blockProps = useBlockProps( {
 		ref: wrapperRef,
 		'data-globe-size': size,
-		style: { width: `${ size }px`, height: `${ size }px`, maxWidth: '100%' },
+		style: {
+			width: `${ size }px`,
+			height: `${ size }px`,
+			maxWidth: '100%',
+			// Mirror the runtime CSS variable set by view.js, so editor preview
+			// reflects `is-anchor-right` and any other size-derived CSS.
+			'--cobe-globe-size': `${ size }px`,
+		},
 	} );
 
 	useEffect( () => {
@@ -44,25 +64,42 @@ export default function Edit( { attributes, setAttributes } ) {
 		const dpr = window.devicePixelRatio || 1;
 		const theta = 0.15;
 		let phi = 0.3;
+		let rafId = 0;
 
+		const cobeArcs = ( arcs || [] ).map( ( a ) => {
+			const o = { from: a.from, to: a.to };
+			if ( a.color ) o.color = hexToRgb( a.color );
+			return o;
+		} );
+
+		// cobe v2: width/height un-multiplied; the lib applies dpr internally.
 		const globe = createGlobe( canvasRef.current, {
 			devicePixelRatio: dpr,
-			width: size * dpr,
-			height: size * dpr,
+			width: size,
+			height: size,
 			phi,
 			theta,
 			dark: 1,
-			diffuse: 1.0,
-			mapSamples: 16000,
+			diffuse: 1.2,
+			mapSamples,
 			mapBrightness: 6,
-			baseColor: [ 0.18, 0.04, 0.28 ],
-			markerColor: [ 0.71, 0.40, 0.95 ],
-			glowColor: [ 0.35, 0.08, 0.52 ],
+			mapBaseBrightness: 0,
+			baseColor: hexToRgb( baseColor ),
+			markerColor: [ 1, 1, 1 ],
+			glowColor: hexToRgb( glowColor ),
 			markers: MARKERS,
-			onRender( state ) {
-				state.phi = phi;
-				phi += 0.003;
-				if ( ! wrapperRef.current ) return;
+			arcs: cobeArcs,
+			arcColor: hexToRgb( arcColor ),
+			arcWidth,
+			arcHeight,
+			markerElevation: 0.02,
+		} );
+
+		// cobe v2 has no onRender callback — animate via RAF.
+		const tick = () => {
+			phi += rotationSpeedRef.current * 0.0002;
+			globe.update( { phi } );
+			if ( wrapperRef.current && canvasRef.current ) {
 				const w = canvasRef.current.offsetWidth;
 				const h = canvasRef.current.offsetHeight;
 				wrapperRef.current
@@ -79,11 +116,16 @@ export default function Edit( { attributes, setAttributes } ) {
 							card.classList.remove( 'is-visible' );
 						}
 					} );
-			},
-		} );
+			}
+			rafId = requestAnimationFrame( tick );
+		};
+		rafId = requestAnimationFrame( tick );
 
-		return () => globe.destroy();
-	}, [ size ] );
+		return () => {
+			cancelAnimationFrame( rafId );
+			globe.destroy();
+		};
+	}, [ size, mapSamples, arcs, arcColor, arcWidth, arcHeight, baseColor, glowColor ] );
 
 	const updateCard = ( index, field, value ) =>
 		setAttributes( {
@@ -113,6 +155,32 @@ export default function Edit( { attributes, setAttributes } ) {
 			],
 		} );
 
+	const updateArc = ( index, field, value ) =>
+		setAttributes( {
+			arcs: ( arcs || [] ).map( ( a, i ) => ( i === index ? { ...a, [ field ]: value } : a ) ),
+		} );
+
+	const updateArcEndpoint = ( index, end, axis, value ) =>
+		setAttributes( {
+			arcs: ( arcs || [] ).map( ( a, i ) => {
+				if ( i !== index ) return a;
+				const coords = [ ...( a[ end ] || [ 0, 0 ] ) ];
+				coords[ axis ] = parseFloat( value ) || 0;
+				return { ...a, [ end ]: coords };
+			} ),
+		} );
+
+	const removeArc = ( index ) =>
+		setAttributes( { arcs: ( arcs || [] ).filter( ( _, i ) => i !== index ) } );
+
+	const addArc = () =>
+		setAttributes( {
+			arcs: [
+				...( arcs || [] ),
+				{ id: Date.now(), from: [ 40.7128, -74.006 ], to: [ 51.5074, -0.1278 ], color: '' },
+			],
+		} );
+
 	return (
 		<>
 			<InspectorControls>
@@ -124,6 +192,42 @@ export default function Edit( { attributes, setAttributes } ) {
 						min={ 200 }
 						max={ 1200 }
 						step={ 50 }
+					/>
+					<RangeControl
+						label="Map density (samples)"
+						value={ mapSamples }
+						onChange={ ( val ) => setAttributes( { mapSamples: val } ) }
+						min={ 1000 }
+						max={ 32000 }
+						step={ 500 }
+						help="Densidade do mapa de pontos. Valores maiores = mais pontos (mais detalhado, mais pesado)."
+					/>
+					<RangeControl
+						label="Rotation speed"
+						value={ rotationSpeed }
+						onChange={ ( val ) => setAttributes( { rotationSpeed: val } ) }
+						min={ 0 }
+						max={ 10 }
+						step={ 0.5 }
+						help="0 = parado, 3 = lento (padrão), 6 = velocidade original, 10 = rápido"
+					/>
+					<TextControl
+						label="Top offset (is-overlay)"
+						value={ topOffset || '' }
+						onChange={ ( val ) => setAttributes( { topOffset: val } ) }
+						help="CSS value, ex: 0, -80px. Só funciona com a classe is-overlay."
+					/>
+					<TextControl
+						label="Base color (hex)"
+						value={ baseColor }
+						onChange={ ( val ) => setAttributes( { baseColor: val } ) }
+						help="Cor dos pontos das massas terrestres. Ex: #a640e6"
+					/>
+					<TextControl
+						label="Glow color (hex)"
+						value={ glowColor }
+						onChange={ ( val ) => setAttributes( { glowColor: val } ) }
+						help="Cor do halo atmosférico ao redor do globo. Ex: #e659e6"
 					/>
 				</PanelBody>
 
@@ -166,6 +270,50 @@ export default function Edit( { attributes, setAttributes } ) {
 						</div>
 					) ) }
 					<Button variant="primary" onClick={ addCard } style={ { width: '100%' } }>+ Add Card</Button>
+				</PanelBody>
+
+				<PanelBody title="Arcs" initialOpen={ false }>
+					<TextControl
+						label="Default arc color (hex)"
+						value={ arcColor }
+						onChange={ ( v ) => setAttributes( { arcColor: v } ) }
+						help="Cor padrão dos arcos sem cor própria."
+					/>
+					<RangeControl
+						label="Arc width"
+						value={ arcWidth }
+						onChange={ ( v ) => setAttributes( { arcWidth: v } ) }
+						min={ 0.1 }
+						max={ 2 }
+						step={ 0.05 }
+					/>
+					<RangeControl
+						label="Arc height"
+						value={ arcHeight }
+						onChange={ ( v ) => setAttributes( { arcHeight: v } ) }
+						min={ 0 }
+						max={ 1 }
+						step={ 0.05 }
+						help="Curvatura do arco acima da superfície (0 = reto, 1 = bem alto)."
+					/>
+					{ ( arcs || [] ).map( ( arc, index ) => (
+						<div key={ arc.id } style={ { marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid #ddd' } }>
+							<p style={ { margin: '0 0 8px', fontWeight: 600, fontSize: 12 } }>Arc { index + 1 }</p>
+							<p style={ { margin: '0 0 4px', fontSize: 11, fontWeight: 600 } }>From</p>
+							<div style={ { display: 'flex', gap: 8 } }>
+								<TextControl label="Latitude" value={ String( ( arc.from || [ 0, 0 ] )[ 0 ] ) } onChange={ ( v ) => updateArcEndpoint( index, 'from', 0, v ) } />
+								<TextControl label="Longitude" value={ String( ( arc.from || [ 0, 0 ] )[ 1 ] ) } onChange={ ( v ) => updateArcEndpoint( index, 'from', 1, v ) } />
+							</div>
+							<p style={ { margin: '0 0 4px', fontSize: 11, fontWeight: 600 } }>To</p>
+							<div style={ { display: 'flex', gap: 8 } }>
+								<TextControl label="Latitude" value={ String( ( arc.to || [ 0, 0 ] )[ 0 ] ) } onChange={ ( v ) => updateArcEndpoint( index, 'to', 0, v ) } />
+								<TextControl label="Longitude" value={ String( ( arc.to || [ 0, 0 ] )[ 1 ] ) } onChange={ ( v ) => updateArcEndpoint( index, 'to', 1, v ) } />
+							</div>
+							<TextControl label="Color (hex, optional)" value={ arc.color || '' } onChange={ ( v ) => updateArc( index, 'color', v ) } />
+							<Button isDestructive isSmall variant="secondary" onClick={ () => removeArc( index ) }>Remove</Button>
+						</div>
+					) ) }
+					<Button variant="primary" onClick={ addArc } style={ { width: '100%' } }>+ Add Arc</Button>
 				</PanelBody>
 			</InspectorControls>
 

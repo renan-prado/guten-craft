@@ -99,6 +99,7 @@ Always deliver the final block markup as a single fenced code block so it can be
 - **Never reference external asset URLs** (e.g. Figma MCP asset URLs). Visual effects like gradients, glows, and overlays must be reproduced with CSS values inside block attributes — `linear-gradient`, `radial-gradient`, `rgba()`, etc.
 - **Never use `<!-- wp:html -->`** — it does not work well in this project. Always use native blocks.
 - **Every file created in this project is Gutenberg markup** ready to paste into the WordPress Code Editor, regardless of file extension.
+- **Plugin CSS changes must go in `style.scss`, never in `styles/base.css`.** `styles/base.css` is local preview-only and is never shipped to WordPress. Any visual change to a custom block (gradients, overlays, positioning, etc.) must be implemented in the block's `src/blocks/*/style.scss` and deployed via `/plugin-zip`. This ensures the change works universally across all WordPress installs that use the plugin, not just the local preview.
 
 ---
 
@@ -146,7 +147,7 @@ WordPress re-serializes inline styles in a specific order during block validatio
 
 | Block type | Style order |
 |---|---|
-| **Layout containers** (`wp:group`, `wp:column`) | `border-*` → `background-color` / `background` → `padding-*` → `margin-*` → `min-height` → other |
+| **Layout containers** (`wp:group`, `wp:column`) | `border-*` → `background-color` / `background` → `min-height` → `padding-*` → `margin-*` → other |
 | **Text blocks** (`wp:paragraph`, `wp:heading`) | `color` → `margin-*` → `font-family` → `font-size` → `font-weight` → `line-height` |
 | **Buttons** (`wp:button > a`) | `border-color` → `border-width` → `border-radius` → `color` → `background` / `background-color` → `padding-*` → `font-family` → `font-size` → `line-height` → `text-decoration` |
 
@@ -413,6 +414,128 @@ A `wp:cover` block has different attribute requirements depending on whether you
 <!-- /wp:cover -->
 ```
 
+### Custom Blocks (`wp:mesa-gutenberg/*`)
+
+Custom/third-party blocks define their own `save()` function. Their HTML attribute order, recognized JSON attributes, and how values are serialized are **not governed by WP core conventions**. The rules in this document apply to core blocks only unless stated otherwise.
+
+**General rule:** After pasting a custom block into WordPress and getting "Attempt Recovery", copy WP's corrected output back into `src/` as the ground truth. Never guess a custom block's output structure.
+
+**Key differences from core blocks:**
+
+- **`metadata` key position** — for custom blocks, WP may serialize `metadata` last (not first). Use WP's corrected order.
+- **Unrecognized attributes are stripped** — if an attribute is not in the block's registered schema, WP silently removes it from the JSON on save. Check the block's actual save output to know which attributes are valid.
+- **Boolean `data-*` attributes** — React/WP serializes boolean-true props as `attr="true"`, not as bare `attr`. Always use `data-foo="true"` not `data-foo`.
+- **HTML attribute order** — determined by the block's own JSX `save()`, not WP core. Copy from WP's corrected output.
+
+**`wp:mesa-gutenberg/starfield-background` — confirmed `save()` output:**
+
+Recognized JSON attributes (in WP's serialized order): `backgroundColor`, `minHeight` (integer px, e.g. `720`), `glowColor`, `metadata`.
+
+```html
+<!-- wp:mesa-gutenberg/starfield-background {"backgroundColor":"#130419","minHeight":720,"glowColor":"rgba(147,51,234,0.45)","metadata":{"name":"starfield-hero"}} -->
+<div style="position:relative;min-height:720px;background-color:#130419" data-star-count="160" data-bg-color="#130419" data-star-color="#ffffff" class="wp-block-mesa-gutenberg-starfield-background">
+  <canvas data-starfield="true" class="starfield-background__canvas"></canvas>
+  <span class="starfield-background__glow" style="background:radial-gradient(...)" aria-hidden="true"></span>
+  <div class="starfield-background__content"><!-- inner blocks --></div>
+</div>
+<!-- /wp:mesa-gutenberg/starfield-background -->
+```
+
+- `starCount` and `starColor` are **not** registered JSON attributes — do not include them.
+- `minHeight` integer maps to `min-height:${minHeight}px` (never `100vh` or other values).
+- Wrapper attribute order: `style` → `data-*` → `class`.
+
+**`wp:mesa-gutenberg/cobe-globe` — confirmed `save()` output:**
+
+```html
+<!-- wp:mesa-gutenberg/cobe-globe {"size":500,"overlays":[...]} -->
+<div data-globe-size="500" style="width:500px;height:500px" class="wp-block-mesa-gutenberg-cobe-globe">
+  <canvas data-cobe-globe="true" style="width:100%;height:100%;display:block"></canvas>
+  <!-- card divs -->
+</div>
+<!-- /wp:mesa-gutenberg/cobe-globe -->
+```
+
+- Wrapper attribute order: `data-globe-size` → `style` → `class`.
+- `data-cobe-globe="true"` (not a bare boolean attribute).
+- **JSON attribute order (confirmed from WP's re-serialization):** `size` → `topOffset` → `overlays` → `className` → `metadata`. `className` is serialized **after** `overlays`, not before. Writing it in any other order causes "Attempt Recovery" on save.
+- **Numeric values are normalized.** WP re-serializes JSON numbers without trailing zeros: `-74.0` becomes `-74`, `1.50` becomes `1.5`. Always write integer-equivalent lat/lng without trailing `.0` (use `[40.7, -74]`, not `[40.7, -74.0]`).
+- **`topOffset` inline style:** When `topOffset` is set, the wrapper inline style becomes `width:${size}px;height:${size}px;top:${topOffset}`. When `topOffset` is empty/omitted, only `width` and `height` appear. The src markup must match — never include `top:...` in style without a matching `topOffset` in JSON, and vice versa.
+
+**Changing the globe size — three values must always be in sync:**
+
+When changing `size`, update all three in `src/*.html` at the same time or the globe renders incorrectly (cards will be mispositioned and the canvas will be the wrong resolution):
+
+| Location | What to change |
+|---|---|
+| Block JSON comment | `"size":1200` |
+| Div `data-globe-size` | `data-globe-size="1200"` |
+| Div inline style | `style="width:1200px;height:1200px;..."` |
+
+**Overlay mode (`is-overlay`) and anchor modifiers:**
+
+Add `"className":"is-overlay"` to make the globe `position:absolute` so it can be much larger than its parent without affecting the layout. The parent automatically becomes a positioning context (via `:has()`).
+
+Anchor modifiers (add to `className` after `is-overlay`):
+
+| Modifier | Behavior |
+|---|---|
+| _(none)_ | Pinned to top-left of positioning parent. Use `topOffset` to shift vertically. |
+| `is-anchor-right` | Center of the globe sits at the **right edge** of the positioning parent. Half visible, half off-screen. Vertically centered. **Ignore `topOffset` with this modifier.** |
+
+`is-anchor-right` uses the CSS variable `--cobe-globe-size`, which `view.js` sets at runtime from `data-globe-size`. **Never** set `--cobe-globe-size` in serialized inline style — it's a runtime concern only.
+
+```html
+<!-- Anchored to right of parent (the iConnections hero pattern) -->
+<!-- wp:mesa-gutenberg/cobe-globe {"size":1300,"className":"is-overlay is-anchor-right","overlays":[...]} -->
+<div data-globe-size="1300" style="width:1300px;height:1300px"
+  class="wp-block-mesa-gutenberg-cobe-globe is-overlay is-anchor-right">
+```
+
+**`topOffset` (legacy, default anchor only):**
+
+```html
+<!-- wp:mesa-gutenberg/cobe-globe {"size":1200,"topOffset":"-200px","className":"is-overlay","overlays":[...]} -->
+<div data-globe-size="1200" style="width:1200px;height:1200px;top:-200px" class="wp-block-mesa-gutenberg-cobe-globe is-overlay">
+```
+
+- `topOffset:"0"` = globe top edge at the top of the parent.
+- Negative values shift the globe upward. Below ~`-(size * 0.75)` the globe disappears off-screen (clipped by `overflow:hidden` on the starfield background).
+- When `topOffset` is set, the wrapper inline style becomes `width:${size}px;height:${size}px;top:${topOffset}`. When `topOffset` is empty/omitted, only `width` and `height` appear. **Never** include `top:...` in style without a matching `topOffset` in JSON.
+- Without `is-overlay`, the globe flows normally and `topOffset` has no visible effect.
+
+### The iConnections Hero Layout — Canonical Structure
+
+**This is the only correct structure for the hero. Re-establish it whenever it looks broken.** Past iterations placed the globe inside `wp:columns` which kept breaking on every re-edit — never use that pattern.
+
+```
+wp:group (page-dark-bg — purple gradient background)
+└── wp:mesa-gutenberg/starfield-background (full-width, no padding — globe's positioning context)
+    ├── wp:group (hero-shell — layout:flex, vertical-center, padding:80/64, min-height:100vh)
+    │   └── wp:group (hero-content — layout:constrained, contentSize:590px, justifyContent:left)
+    │       ├── support-text paragraph
+    │       ├── h1 title
+    │       ├── description paragraph
+    │       ├── spacer
+    │       └── wp:buttons
+    └── wp:mesa-gutenberg/cobe-globe (className:"is-overlay is-anchor-right")
+```
+
+Why this structure is stable:
+- **No `wp:columns`.** Column percentages were the root cause of every "globo desalinhado / conteúdo espremido" regression — every WP re-serialization could shift `flex-basis`, and the globe's position (anchored at column left edge) shifted with it.
+- **Globe is a sibling of `hero-shell`, NOT a child.** Its positioning parent is `starfield-background__content`, which spans the full viewport width with **no padding**. That puts the `is-anchor-right` anchor at the true viewport right edge, not 64px inside.
+- **Globe positioning lives in `style.scss`** (via the `is-anchor-right` class) — not derived from any inline style, JSON attribute, or sibling width. WP's re-serializer can't break it.
+- **Content group is constrained, not column-width.** `contentSize:590px` is enforced by Gutenberg's layout engine. Re-serialization preserves it as JSON. Content can never be squeezed because it doesn't share width budget with anything.
+- **Spacing between content and globe is automatic, not fixed.** Content sits on the left at 590px (inside hero-shell's 64px padding); globe sits centered on the viewport right edge. The gap auto-adjusts to viewport width.
+
+**Required JSON for the globe in this hero:**
+```json
+{"size":1300,"className":"is-overlay is-anchor-right","overlays":[...]}
+```
+Do NOT add `topOffset` with `is-anchor-right` — vertical centering is handled by the CSS class.
+
+**When the hero looks broken after a WP edit:** re-paste `src/hero.html` (the canonical source of truth). Do NOT try to fix it by tweaking column widths or `topOffset` values — those will revert.
+
 ---
 
 ## Figma Integration
@@ -459,6 +582,7 @@ Before pasting markup into WordPress, check every block against this list:
 - [ ] **Text color** uses `"color":{"text":"..."}` + `has-text-color` class + `color:...` inline. No `-webkit-background-clip` tricks.
 - [ ] **`style.css`** is NOT used — `"style":{"css":"..."}` is not a recognized Gutenberg attribute; WP strips it on save.
 - [ ] **Flex groups** have NO flex inline styles — `wp:group` with `layout.type:"flex"` must NOT have `display:flex`, `flex-wrap`, `align-items`, `justify-content`, or `gap` in the wrapper `style=""`. WP renders flex via CSS classes.
+- [ ] **`wp:column`** inline style contains **only `flex-basis`** (when `width` is set). Never add `display`, `align-items`, `justify-content`, or any other CSS — WP does not serialize them.
 - [ ] **`wp:columns`** has NO `style="gap:..."` on its wrapper div — `blockGap` is rendered via a generated stylesheet, not inline.
 - [ ] **`--wp--style--*` CSS vars** are NOT in inline `style=""` — generated by WP's PHP engine, never serialized.
 - [ ] **`wp:buttons`** has NO `flex-wrap` or `gap` inline styles — same rule as flex groups.
@@ -483,6 +607,8 @@ The following look like valid CSS but are **not output by WordPress's `save()` f
 **`font-feature-settings` and `white-space:nowrap`** — These CSS properties have no Gutenberg JSON attribute counterpart. Because WP reconstructs the inline style from JSON attributes only, including them creates a value WP won't regenerate. Omit them from both JSON and inline styles.
 
 **`margin:0 auto` on `aligncenter` image figures** — The `aligncenter` class handles centering. WordPress does not add `margin:0 auto` to the `<figure>` wrapper.
+
+**Arbitrary CSS on `wp:column`** — The only inline style WP serializes on a `wp:column` wrapper is `flex-basis` (derived from the `width` attribute). Properties like `display:flex`, `align-items`, `justify-content`, and `gap` are never serialized. To center content inside a column, use a nested `wp:group` with `layout.type:"flex"` instead.
 
 **`border-style:solid` on `wp:button` link elements** — WordPress does not serialize `border-style` into the button link's inline style. The border style is applied via the theme stylesheet triggered by `has-border-color`. Including it in the inline style causes a mismatch on re-save.
 

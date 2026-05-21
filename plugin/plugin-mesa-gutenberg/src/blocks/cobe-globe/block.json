@@ -18,6 +18,14 @@
 			"type": "number",
 			"default": 600
 		},
+		"mapSamples": {
+			"type": "number",
+			"default": 6000
+		},
+		"topOffset": {
+			"type": "string",
+			"default": ""
+		},
 		"overlays": {
 			"type": "array",
 			"default": [
@@ -38,6 +46,43 @@
 					"location":    { "type": "array", "items": { "type": "number" } }
 				}
 			}
+		},
+		"arcs": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":    { "type": "number" },
+					"from":  { "type": "array", "items": { "type": "number" } },
+					"to":    { "type": "array", "items": { "type": "number" } },
+					"color": { "type": "string" }
+				}
+			}
+		},
+		"arcColor": {
+			"type": "string",
+			"default": "#f5dcf0"
+		},
+		"arcWidth": {
+			"type": "number",
+			"default": 0.4
+		},
+		"arcHeight": {
+			"type": "number",
+			"default": 0.3
+		},
+		"rotationSpeed": {
+			"type": "number",
+			"default": 3
+		},
+		"baseColor": {
+			"type": "string",
+			"default": "#a640e6"
+		},
+		"glowColor": {
+			"type": "string",
+			"default": "#e659e6"
 		}
 	},
 	"supports": {
