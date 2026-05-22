@@ -1,5 +1,5 @@
 import { useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, TextControl, Button } from '@wordpress/components';
+import { PanelBody, RangeControl, TextControl, Button, ToggleControl } from '@wordpress/components';
 import { useEffect, useRef } from '@wordpress/element';
 import createGlobe from 'cobe';
 
@@ -40,7 +40,7 @@ const MARKERS = [
 ];
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { size, mapSamples, overlays, topOffset, arcs, arcColor, arcWidth, arcHeight, rotationSpeed, baseColor, glowColor } = attributes;
+	const { size, mapSamples, overlays, topOffset, arcsEnabled, arcs, arcColor, arcWidth, arcHeight, rotationSpeed, baseColor, glowColor } = attributes;
 	const canvasRef = useRef( null );
 	const wrapperRef = useRef( null );
 	const rotationSpeedRef = useRef( rotationSpeed );
@@ -66,7 +66,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		let phi = 0.3;
 		let rafId = 0;
 
-		const cobeArcs = ( arcs || [] ).map( ( a ) => {
+		const cobeArcs = ( arcsEnabled === false ? [] : ( arcs || [] ) ).map( ( a ) => {
 			const o = { from: a.from, to: a.to };
 			if ( a.color ) o.color = hexToRgb( a.color );
 			return o;
@@ -125,7 +125,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			cancelAnimationFrame( rafId );
 			globe.destroy();
 		};
-	}, [ size, mapSamples, arcs, arcColor, arcWidth, arcHeight, baseColor, glowColor ] );
+	}, [ size, mapSamples, arcsEnabled, arcs, arcColor, arcWidth, arcHeight, baseColor, glowColor ] );
 
 	const updateCard = ( index, field, value ) =>
 		setAttributes( {
@@ -273,6 +273,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				<PanelBody title="Arcs" initialOpen={ false }>
+					<ToggleControl
+						label="Enable arcs"
+						checked={ arcsEnabled !== false }
+						onChange={ ( v ) => setAttributes( { arcsEnabled: v } ) }
+						help="Desligue para não carregar/desenhar os arcos (poupa processamento)."
+					/>
 					<TextControl
 						label="Default arc color (hex)"
 						value={ arcColor }

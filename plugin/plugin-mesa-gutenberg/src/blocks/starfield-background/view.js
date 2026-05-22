@@ -30,7 +30,7 @@ function initStarfield( wrapper ) {
 		stars = Array.from( { length: starCount }, () => ( {
 			x:           Math.random() * w,
 			y:           Math.random() * h,
-			radius:      0.6 + Math.random() * 1.5,
+			radius:      0.3 + Math.random() * 0.7,
 			baseOpacity: 0.30 + Math.random() * 0.45,
 			amplitude:   0.30 + Math.random() * 0.60,
 			period:      1500 + Math.random() * 5000,

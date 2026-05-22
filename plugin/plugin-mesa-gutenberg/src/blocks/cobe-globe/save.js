@@ -28,11 +28,12 @@ function GlobeCard( { card } ) {
 }
 
 export default function Save( { attributes } ) {
-	const { size, mapSamples, overlays, topOffset, arcs, arcColor, arcWidth, arcHeight, rotationSpeed, baseColor, glowColor } = attributes;
+	const { size, mapSamples, overlays, topOffset, arcsEnabled, arcs, arcColor, arcWidth, arcHeight, rotationSpeed, baseColor, glowColor } = attributes;
 	const wrapperStyle = { width: `${ size }px`, height: `${ size }px` };
 	if ( topOffset ) wrapperStyle.top = topOffset;
 
-	const hasArcs = Array.isArray( arcs ) && arcs.length > 0;
+	const arcsOn = arcsEnabled !== false;
+	const hasArcs = arcsOn && Array.isArray( arcs ) && arcs.length > 0;
 
 	return (
 		<div

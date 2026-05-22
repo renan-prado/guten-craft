@@ -1,0 +1,216 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e3]:
+    - generic [ref=e7]:
+      - generic [ref=e11]:
+        - paragraph [ref=e14]: iConnections Global Allocator Report 2026.
+        - link "Read More" [ref=e18] [cursor=pointer]:
+          - /url: /insights/global-allocator-report-2026/
+          - generic [ref=e19]:
+            - img [ref=e21]
+            - generic [ref=e24]: Read More
+      - generic [ref=e26]:
+        - link [ref=e31] [cursor=pointer]:
+          - /url: https://iconnsdev.wpengine.com/
+        - navigation "Menu" [ref=e36]:
+          - list [ref=e37]:
+            - listitem [ref=e38]:
+              - link "Platform" [ref=e39] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/platform/
+            - listitem [ref=e40]:
+              - generic [ref=e41]: Users
+            - listitem [ref=e42]:
+              - link "Events" [ref=e43] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/events
+            - listitem [ref=e44]:
+              - link "Insights" [ref=e45] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/insights/
+            - listitem [ref=e46]:
+              - generic [ref=e47]: Company
+        - generic [ref=e53]:
+          - link "Book a Demo" [ref=e57] [cursor=pointer]:
+            - /url: https://share.hsforms.com/1PbR9TcBSTeOqm1Uty_YCew4rr50
+            - generic [ref=e59]: Book a Demo
+          - link "Login" [ref=e63] [cursor=pointer]:
+            - /url: https://app.iconnsdev.wpengine.com/
+            - generic [ref=e64]:
+              - img [ref=e66]
+              - generic [ref=e68]: Login
+  - main [ref=e73]:
+    - heading "Teste – Nova estrutura – Gutenberg" [level=1] [ref=e75]
+    - generic [ref=e79]:
+      - generic [ref=e81]:
+        - paragraph [ref=e82]: The Alternative Investment Network
+        - heading "The AI-Powered Platform for LP-GP Capital Introduction" [level=1] [ref=e83]
+        - paragraph [ref=e84]: Powered by the deepest relationship data in alternatives. iConnections matches LPs and GPs on real intent, real behavior, and real capital decisions. Year-round. Across the world’s largest active network in alternatives.
+        - generic [ref=e86]:
+          - link "Request Access" [ref=e88] [cursor=pointer]:
+            - /url: "#"
+          - link "See How It Works" [ref=e90] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e91]:
+        - generic:
+          - generic:
+            - generic:
+              - img "AF"
+          - generic:
+            - generic: Anna Fletcher viewed your profile
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "BR"
+          - generic:
+            - generic: Meeting confirmed
+            - generic: with Bryan Richards
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "LR"
+          - generic:
+            - generic: Laila Rajoelina shared a deal
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "SA"
+          - generic:
+            - generic: Sarah Ahmed connected with you
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "MD"
+          - generic:
+            - generic: Marcus Doe accepted your invite
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "JD"
+          - generic:
+            - generic: You have a new chat message!
+          - text: ×
+        - generic:
+          - generic:
+            - generic:
+              - img "JS"
+          - generic:
+            - generic: John Smith downloaded your document
+          - text: ×
+  - contentinfo [ref=e94]:
+    - generic [ref=e99]:
+      - button "Ask AI" [ref=e100] [cursor=pointer]:
+        - img [ref=e101]
+        - text: Ask AI
+      - generic:
+        - heading "Ask with AI" [level=4]
+        - paragraph: What are iConnections’ strengths versus other capital introduction or networking platforms?
+        - generic:
+          - button "ChatGPT"
+          - button "Grok"
+          - button "Gemini"
+          - button "Claude"
+          - button "Perplexity"
+    - contentinfo [ref=e103]:
+      - generic [ref=e106]:
+        - generic [ref=e108]:
+          - link "Linkedin" [ref=e114] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/iconnections-llc/
+            - img [ref=e117]
+          - link "Twitter" [ref=e124] [cursor=pointer]:
+            - /url: https://twitter.com/iconnections_io
+            - img [ref=e127]
+          - link "Youtube" [ref=e134] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCY6TEokyfC4sw--JMLoojDg/featured
+            - img [ref=e137]
+          - link "Instagram" [ref=e145] [cursor=pointer]:
+            - /url: https://www.instagram.com/iconnections_io/
+            - img [ref=e148]
+          - generic [ref=e157]:
+            - textbox "Email* Email*" [ref=e160]:
+              - /placeholder: Subscribe to our latest news
+            - button "Send" [ref=e163] [cursor=pointer]
+          - link "App Store" [ref=e168] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/iconnections-llc/id1534676334
+          - link "Google Play" [ref=e173] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=io.iconnections.mobile&utm_source=appgrooves&utm_medium=agp_c6fe391874e1f7a624c6c5f01c31b879_io.iconnections.mobile_us_others_16624164658844
+        - generic [ref=e175]:
+          - generic [ref=e182]:
+            - generic [ref=e184]: Go to
+            - list [ref=e187]:
+              - listitem [ref=e188]:
+                - link "Platform" [ref=e189] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/platform/
+                  - generic [ref=e190]: Platform
+              - listitem [ref=e191]:
+                - link "Events" [ref=e192] [cursor=pointer]:
+                  - /url: /events/
+                  - generic [ref=e193]: Events
+              - listitem [ref=e194]:
+                - link "About Us" [ref=e195] [cursor=pointer]:
+                  - /url: /about-us/
+                  - generic [ref=e196]: About Us
+          - generic [ref=e198]:
+            - generic [ref=e200]: Users
+            - list [ref=e203]:
+              - listitem [ref=e204]:
+                - link "Allocators" [ref=e205] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/allocators/
+                  - generic [ref=e206]: Allocators
+              - listitem [ref=e207]:
+                - link "Fund Managers" [ref=e208] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/fund-managers/
+                  - generic [ref=e209]: Fund Managers
+              - listitem [ref=e210]:
+                - link "Service Providers" [ref=e211] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/service-providers/
+                  - generic [ref=e212]: Service Providers
+          - generic [ref=e214]:
+            - generic [ref=e216]: See Our
+            - list [ref=e219]:
+              - listitem [ref=e220]:
+                - link "Insights" [ref=e221] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/insights/
+                  - generic [ref=e222]: Insights
+            - list [ref=e225]:
+              - listitem [ref=e226]:
+                - link "2024 Q2 Release" [ref=e227] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/q2-release-2024
+                  - generic [ref=e228]: 2024 Q2 Release
+          - generic [ref=e230]:
+            - generic [ref=e232]: Get in Touch
+            - link "info@iconnsdev.wpengine.com" [ref=e236] [cursor=pointer]:
+              - /url: mailto:info@iconnsdev.wpengine.com
+            - link "1 888 878 6310" [ref=e240] [cursor=pointer]:
+              - /url: tel:1%20888%20878%206310
+            - list [ref=e243]:
+              - listitem [ref=e244]:
+                - link "Get In Touch" [ref=e245] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/get-in-touch/
+                  - generic [ref=e246]: Get In Touch
+          - link "Back to top" [ref=e252] [cursor=pointer]:
+            - /url: "#top"
+            - img [ref=e254]
+            - generic [ref=e257]: Back to top
+        - generic [ref=e259]:
+          - list [ref=e264]:
+            - listitem [ref=e265]:
+              - generic [ref=e266]: © 2026 iConnections LLC. All Rights Reserved
+            - listitem [ref=e267]:
+              - link "Terms of Use" [ref=e268] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/terms/
+                - generic [ref=e269]: Terms of Use
+            - listitem [ref=e270]:
+              - link "Privacy Policy" [ref=e271] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/privacy-policy/
+                - generic [ref=e272]: Privacy Policy
+          - link "iconnections-logo.png" [ref=e277] [cursor=pointer]:
+            - /url: /
+            - img "iconnections-logo.png" [ref=e278]
+  - generic [ref=e279]: desktop
+  - link "Gerenciar preferências de consentimento" [ref=e281] [cursor=pointer]:
+    - /url: javascript:void(0)
+    - img "Gerenciar preferências de consentimento" [ref=e285]

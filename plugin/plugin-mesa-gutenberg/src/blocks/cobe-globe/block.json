@@ -47,6 +47,10 @@
 				}
 			}
 		},
+		"arcsEnabled": {
+			"type": "boolean",
+			"default": true
+		},
 		"arcs": {
 			"type": "array",
 			"default": [],
