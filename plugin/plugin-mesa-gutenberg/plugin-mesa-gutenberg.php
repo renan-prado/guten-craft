@@ -3,7 +3,7 @@
  * Plugin Name:       Mesa Gutenberg Blocks
  * Plugin URI:        https://iconnections.io
  * Description:       Custom Gutenberg blocks for iConnections.
- * Version:           1.3.3
+ * Version:           1.3.5
  * Requires at least: 6.1
  * Requires PHP:      8.0
  * Author:            iConnections
