@@ -58,7 +58,7 @@ function initGlobe( wrapper ) {
 	} );
 
 	const dpr = window.devicePixelRatio || 1;
-	const theta = 0.15;
+	const theta = 0.35;
 	// Initial phi centers Tokyo at the visible meridian.
 	let phi = -Math.PI / 2 - ( 139.7 * Math.PI ) / 180;
 	let isDragging = false;

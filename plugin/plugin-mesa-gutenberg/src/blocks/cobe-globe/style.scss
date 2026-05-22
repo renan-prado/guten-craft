@@ -29,7 +29,7 @@
 		// the hero container, not the viewport. Isolates the globe
 		// from anything above/below the hero on the page.
 		top: 50%;
-		transform: translate(50%, calc(-50% - 100px));
+		transform: translate(50%, calc(-50% + 80px));
 	}
 }
 
