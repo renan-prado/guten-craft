@@ -1,0 +1,19 @@
+- generic [ref=e3]:
+  - heading "Button Behavior" [level=1] [ref=e4]
+  - paragraph [ref=e5]: Passe o mouse para ver o estado hover, clique para ver o estado active.
+  - heading "Purple Primary" [level=2] [ref=e6]
+  - paragraph [ref=e7]: Preenchido com gradiente roxo escuro. Borda gradient. Ação primária em fundo escuro.
+  - link "Request Access" [ref=e10] [cursor=pointer]:
+    - /url: "#"
+  - heading "Purple Secondary" [level=2] [ref=e12]
+  - paragraph [ref=e13]: Transparente com borda gradient roxa. Ação secundária ao lado do botão primário.
+  - link "See How It Works" [ref=e16] [cursor=pointer]:
+    - /url: "#"
+  - heading "Gray Primary" [level=2] [ref=e18]
+  - paragraph [ref=e19]: Preenchido com gradiente cinza claro. Texto cinza escuro. Contextos neutros ou light mode.
+  - link "Request Access" [ref=e22] [cursor=pointer]:
+    - /url: "#"
+  - heading "Gray Secondary" [level=2] [ref=e24]
+  - paragraph [ref=e25]: Transparente com borda gradient cinza clara. Texto branco. Ação secundária neutra em fundo escuro.
+  - link "Request Access" [ref=e28] [cursor=pointer]:
+    - /url: "#"

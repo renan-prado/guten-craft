@@ -1,3 +1,9 @@
+// Siblings that must stack above the overlay globe.
+.is-above-overlay-globe {
+	position: relative;
+	z-index: 1;
+}
+
 // Any parent containing an overlay globe must become a positioning context.
 // Covers wp:column (legacy) and wp:group / starfield-background content (new
 // pattern where the globe is a sibling of the content group, anchored to the
@@ -30,6 +36,24 @@
 		// from anything above/below the hero on the page.
 		top: 50%;
 		transform: translate(50%, calc(-50% + 80px));
+
+		// Mobile: globe oversized and anchored bottom-right, extrapolating off
+		// the right edge (mirrors the desktop "half-off-screen" feel) while
+		// also pushed down so the visible portion favors the northern
+		// hemisphere (top of the sphere). Inline width/height (e.g. 1300px)
+		// is overridden — !important required.
+		@media (max-width: 1140px) {
+			top: auto;
+			bottom: 0;
+			left: auto;
+			right: 0;
+			width: 140vw !important;
+			height: 140vw !important;
+			// translateX(25%) pushes globe past the right edge by 25% of its
+			// width; translateY(45%) drops it below so only the upper portion
+			// (north) shows above the fold.
+			transform: translate(25%, 45%);
+		}
 	}
 }
 
@@ -41,6 +65,17 @@
 		display: block !important;
 		width: 100% !important;
 		height: 100% !important;
+	}
+
+	// Mobile portrait: soft top-fade so the upper edge of the sphere blends
+	// into the dark hero background instead of showing a hard arc. Applied
+	// as a mask on the wrapper (which holds both the canvas and any cards),
+	// fading from transparent at the wrapper top to fully opaque a quarter
+	// of the way down — that's just past the visible top of the sphere
+	// (sphere starts at ~10% of wrapper height).
+	@media (max-width: 1140px) {
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.25) 16%, #000 33%, #000 100%);
+		mask-image: linear-gradient(to bottom, transparent 0%, transparent 6%, rgba(0, 0, 0, 0.25) 16%, #000 33%, #000 100%);
 	}
 
 	.cobe-globe-arcs {

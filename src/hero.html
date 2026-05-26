@@ -9,9 +9,9 @@
 			style="background:radial-gradient(ellipse 100% 80% at 75% 50%, rgba(85,28,110,0.9) 0%, transparent 70%)"
 			aria-hidden="true"></span>
 		<div class="starfield-background__content">
-			<!-- wp:group {"metadata":{"name":"hero-shell"},"className":"is-layout-flex wp-block-group-is-layout-flex","style":{"dimensions":{"minHeight":"100vh"},"spacing":{"padding":{"top":"80px","bottom":"80px","left":"clamp(24px, 14.44vw, 260px)","right":"64px"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center","justifyContent":"left"}} -->
+			<!-- wp:group {"metadata":{"name":"hero-shell"},"className":"is-layout-flex wp-block-group-is-layout-flex","style":{"dimensions":{"minHeight":"calc(100vh + 200px)"},"spacing":{"padding":{"top":"80px","bottom":"80px","left":"clamp(24px, calc(50vw - 600px), 260px)","right":"64px"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center","justifyContent":"left"}} -->
 			<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex"
-				style="min-height:100vh;padding-top:80px;padding-right:64px;padding-bottom:80px;padding-left:clamp(24px, 14.44vw, 260px)">
+				style="min-height:calc(100vh + 200px);padding-top:80px;padding-right:64px;padding-bottom:80px;padding-left:clamp(24px, calc(50vw - 600px), 260px)">
 				<!-- wp:group {"metadata":{"name":"hero-content"},"className":"is-layout-constrained wp-block-group-is-layout-constrained","layout":{"type":"constrained","contentSize":"590px","justifyContent":"left"}} -->
 				<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
 					<!-- wp:paragraph {"metadata":{"name":"support-text"},"style":{"typography":{"fontWeight":"700","fontSize":"16px","lineHeight":"1.5"},"color":{"text":"#ba9dc4"}}} -->
@@ -19,9 +19,9 @@
 						The Alternative Investment Network</p>
 					<!-- /wp:paragraph -->
 
-					<!-- wp:heading {"level":1,"metadata":{"name":"title"},"className":"has-gradient-heading","style":{"typography":{"fontSize":"48px","lineHeight":"1.167","fontWeight":"700"}}} -->
+					<!-- wp:heading {"level":1,"metadata":{"name":"title"},"className":"has-gradient-heading","style":{"typography":{"fontSize":"clamp(28px, calc(3.72vw - 1px), 48px)","lineHeight":"1.167","fontWeight":"700"}}} -->
 					<h1 class="wp-block-heading has-gradient-heading"
-						style="font-size:48px;font-weight:700;line-height:1.167">
+						style="font-size:clamp(28px, calc(3.72vw - 1px), 48px);font-weight:700;line-height:1.167">
 						The AI-Powered Platform for LP-GP Capital Introduction</h1>
 					<!-- /wp:heading -->
 
@@ -37,33 +37,29 @@
 					<div style="height:16px" aria-hidden="true" class="wp-block-spacer"></div>
 					<!-- /wp:spacer -->
 
-					<!-- wp:buttons {"metadata":{"name":"hero-buttons"},"style":{"spacing":{"blockGap":"24px"}}} -->
-					<div class="wp-block-buttons">
-						<!-- wp:button {"metadata":{"name":"filled-button"},"style":{"color":{"gradient":"linear-gradient(to left, #cbd5e1, #ffffff)","text":"#475569"},"border":{"color":"#94a3b8","width":"2px","radius":"4px"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"20px","right":"20px"}},"typography":{"fontSize":"16px","textDecoration":"none"}}} -->
-						<div class="wp-block-button"><a
-								class="wp-block-button__link has-text-color has-background has-border-color has-custom-font-size wp-element-button"
-								href="#"
-								style="border-color:#94a3b8;border-width:2px;border-radius:4px;color:#475569;background:linear-gradient(to left, #cbd5e1, #ffffff);padding-top:8px;padding-right:20px;padding-bottom:8px;padding-left:20px;font-size:16px;text-decoration:none">Request
-								Access</a></div>
-						<!-- /wp:button -->
+					<!-- wp:group {"metadata":{"name":"hero-buttons"},"className":"is-layout-flex wp-block-group-is-layout-flex","style":{"spacing":{"blockGap":"24px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex">
+						<!-- wp:mesa-gutenberg/site-button {"variant":"gray-primary","metadata":{"name":"hero-btn-primary"}} -->
+						<div class="wp-block-mesa-gutenberg-site-button is-variant-gray-primary"><!-- wp:button -->
+							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">Request Access</a></div>
+							<!-- /wp:button --></div>
+						<!-- /wp:mesa-gutenberg/site-button -->
 
-						<!-- wp:button {"metadata":{"name":"outline-button"},"style":{"color":{"text":"#ffffff","background":"transparent"},"border":{"color":"#e2e8f0","width":"2px","radius":"4px"},"spacing":{"padding":{"top":"8px","bottom":"8px","left":"20px","right":"20px"}},"typography":{"fontSize":"16px","textDecoration":"none"}}} -->
-						<div class="wp-block-button"><a
-								class="wp-block-button__link has-text-color has-background has-border-color has-custom-font-size wp-element-button"
-								href="#"
-								style="border-color:#e2e8f0;border-width:2px;border-radius:4px;color:#ffffff;background-color:transparent;padding-top:8px;padding-right:20px;padding-bottom:8px;padding-left:20px;font-size:16px;text-decoration:none">See
-								How It Works</a></div>
-						<!-- /wp:button -->
+						<!-- wp:mesa-gutenberg/site-button {"variant":"gray-secondary","metadata":{"name":"hero-btn-secondary"}} -->
+						<div class="wp-block-mesa-gutenberg-site-button is-variant-gray-secondary"><!-- wp:button -->
+							<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#">See How It Works</a></div>
+							<!-- /wp:button --></div>
+						<!-- /wp:mesa-gutenberg/site-button -->
 					</div>
-					<!-- /wp:buttons -->
+					<!-- /wp:group -->
 				</div>
 				<!-- /wp:group -->
 			</div>
 			<!-- /wp:group -->
 
-			<!-- wp:mesa-gutenberg/cobe-globe {"size":1300,"mapSamples":5000,"overlays":[{"id":1,"message":"Anna Fletcher viewed your profile","subtext":"","initials":"AF","avatarColor":"#7c3aed","location":[35.7,139.7],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-7-1.png"},{"id":2,"message":"Meeting confirmed","subtext":"with Bryan Richards","initials":"BR","avatarColor":"#2563eb","location":[6.93,79.85],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-13.png"},{"id":3,"message":"Laila Rajoelina shared a deal","subtext":"","initials":"LR","avatarColor":"#db2777","location":[-18.88,47.5],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-8.png"},{"id":4,"message":"Sarah Ahmed connected with you","subtext":"","initials":"SA","avatarColor":"#d97706","location":[30.04,31.24],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-9.png"},{"id":5,"message":"Marcus Doe accepted your invite","subtext":"","initials":"MD","avatarColor":"#0891b2","location":[6.3,-10.8],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-10.png"},{"id":6,"message":"You have a new chat message!","subtext":"","initials":"JD","avatarColor":"#059669","location":[40.7,-74],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-11.png"},{"id":7,"message":"John Smith downloaded your document","subtext":"","initials":"JS","avatarColor":"#be123c","location":[-0.18,-78.47],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-12.png"}],"arcs":[{"id":1,"from":[40.7,-74],"to":[35.7,139.7]},{"id":2,"from":[40.7,-74],"to":[30.04,31.24]},{"id":3,"from":[40.7,-74],"to":[-0.18,-78.47]},{"id":4,"from":[35.7,139.7],"to":[6.93,79.85]},{"id":5,"from":[30.04,31.24],"to":[-18.88,47.5]},{"id":6,"from":[30.04,31.24],"to":[6.3,-10.8]}],"arcColor":"#ffffff","arcHeight":0.4,"baseColor":"#e8d8f5","glowColor":"#b366f5","className":"is-overlay is-anchor-right"} -->
+			<!-- wp:mesa-gutenberg/cobe-globe {"size":1300,"mapSamples":5000,"overlays":[{"id":1,"message":"Anna Fletcher viewed your profile","subtext":"","initials":"AF","avatarColor":"#7c3aed","location":[35.7,139.7],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-7-1.png"},{"id":2,"message":"Meeting confirmed","subtext":"with Bryan Richards","initials":"BR","avatarColor":"#2563eb","location":[6.93,79.85],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-13.png"},{"id":3,"message":"Laila Rajoelina shared a deal","subtext":"","initials":"LR","avatarColor":"#db2777","location":[-18.88,47.5],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-8.png"},{"id":4,"message":"Sarah Ahmed connected with you","subtext":"","initials":"SA","avatarColor":"#d97706","location":[30.04,31.24],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-9.png"},{"id":5,"message":"Marcus Doe accepted your invite","subtext":"","initials":"MD","avatarColor":"#0891b2","location":[6.3,-10.8],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-10.png"},{"id":6,"message":"You have a new chat message!","subtext":"","initials":"JD","avatarColor":"#059669","location":[40.7,-74],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-11.png"},{"id":7,"message":"John Smith downloaded your document","subtext":"","initials":"JS","avatarColor":"#be123c","location":[-0.18,-78.47],"avatarUrl":"https://iconnsdev.wpengine.com/wp-content/uploads/2026/05/image-12.png"}],"arcs":[],"arcColor":"#ffffff","arcHeight":0.4,"baseColor":"#e8d8f5","glowColor":"#b366f5","className":"is-overlay is-anchor-right"} -->
 			<div data-globe-size="1300" data-map-samples="5000"
-				data-arcs="[{&quot;id&quot;:1,&quot;from&quot;:[40.7,-74],&quot;to&quot;:[35.7,139.7]},{&quot;id&quot;:2,&quot;from&quot;:[40.7,-74],&quot;to&quot;:[30.04,31.24]},{&quot;id&quot;:3,&quot;from&quot;:[40.7,-74],&quot;to&quot;:[-0.18,-78.47]},{&quot;id&quot;:4,&quot;from&quot;:[35.7,139.7],&quot;to&quot;:[6.93,79.85]},{&quot;id&quot;:5,&quot;from&quot;:[30.04,31.24],&quot;to&quot;:[-18.88,47.5]},{&quot;id&quot;:6,&quot;from&quot;:[30.04,31.24],&quot;to&quot;:[6.3,-10.8]}]"
+				data-arcs="[]"
 				data-arc-color="#ffffff" data-arc-width="0.4" data-arc-height="0.4" data-rotation-speed="3"
 				data-base-color="#e8d8f5" data-glow-color="#b366f5"
 				style="width:1300px;height:1300px"

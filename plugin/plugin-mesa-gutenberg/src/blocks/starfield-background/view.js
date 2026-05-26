@@ -56,9 +56,14 @@ function initStarfield( wrapper ) {
 
 		ctx.clearRect( 0, 0, w, h );
 
-		// Background fill.
-		ctx.fillStyle = bgColor;
-		ctx.fillRect( 0, 0, w, h );
+		// Background fill — only when bgColor is opaque. The wrapper's inline
+		// background-color already shows through transparent canvas, so when
+		// the wrapper is transparent (e.g. inside a parent gradient), we let
+		// that gradient bleed through instead of painting over it.
+		if ( bgColor && bgColor !== 'transparent' ) {
+			ctx.fillStyle = bgColor;
+			ctx.fillRect( 0, 0, w, h );
+		}
 
 		stars.forEach( ( s ) => {
 			const t       = ts / s.period;

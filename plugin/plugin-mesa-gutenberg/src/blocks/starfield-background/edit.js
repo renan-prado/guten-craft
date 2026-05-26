@@ -64,8 +64,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		function draw( ts ) {
 			if ( ! mountedRef.current ) return;
 			ctx.clearRect( 0, 0, w, h );
-			ctx.fillStyle = backgroundColor;
-			ctx.fillRect( 0, 0, w, h );
+			if ( backgroundColor && backgroundColor !== 'transparent' ) {
+				ctx.fillStyle = backgroundColor;
+				ctx.fillRect( 0, 0, w, h );
+			}
 
 			starsRef.current.forEach( ( s ) => {
 				const t     = ts / s.period;

@@ -24,8 +24,10 @@ html, body {
   width: 100%;
 }
 
-/* Default flow layout: vertical gap between sibling blocks */
-.wp-block-group > * + *,
+/* Default flow layout: vertical gap between sibling blocks.
+   Scoped to flow/constrained only — flex/grid groups get spacing via `gap`. */
+.wp-block-group.is-layout-flow > * + *,
+.wp-block-group.is-layout-constrained > * + *,
 .wp-block-column > * + * {
   margin-top: var(--wp--style--block-gap);
 }

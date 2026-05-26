@@ -1,0 +1,9 @@
+/* Editor-only styles */
+
+.wp-block-mesa-gutenberg-site-button {
+	/* In the editor the InnerBlocks wrapper adds extra spacing — collapse it. */
+	.block-editor-inner-blocks,
+	.block-editor-block-list__layout {
+		margin: 0;
+	}
+}

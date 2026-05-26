@@ -1,0 +1,121 @@
+.wp-block-mesa-gutenberg-logos-carousel {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+	overflow: hidden;
+
+	.logos-carousel__title {
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 24px;
+		margin: 0;
+		text-align: center;
+		padding: 0 24px;
+	}
+
+	.logos-carousel__rows {
+		position: relative;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.logos-carousel__row {
+		width: 100%;
+		height: 60px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		opacity: var(--logos-carousel-row-opacity, 0.5);
+	}
+
+	.logos-carousel__track {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		width: max-content;
+		will-change: transform;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	.logos-carousel__logo {
+		flex-shrink: 0;
+		width: auto;
+		height: auto !important;
+		max-height: 60px;
+		object-fit: contain;
+		display: block;
+		user-select: none;
+		-webkit-user-drag: none;
+	}
+
+	.logos-carousel__fade {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: var(--logos-carousel-fade-width, 220px);
+		pointer-events: none;
+		z-index: 2;
+
+		// Match the wrapper's vertical gradient stops so the side fade doesn't
+		// show a hard horizontal edge where the carousel's own vertical fade
+		// has already gone transparent. Falls back to a sensible default if
+		// the block doesn't expose the stop variable.
+		--lc-stop: var(--logos-carousel-gradient-stop, 25%);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 var(--lc-stop),
+			#000 calc(100% - var(--lc-stop)),
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			#000 var(--lc-stop),
+			#000 calc(100% - var(--lc-stop)),
+			transparent 100%
+		);
+
+		&--left {
+			left: 0;
+			background: linear-gradient(
+				to right,
+				var(--logos-carousel-fade-color, #220A2D) 0%,
+				transparent 100%
+			);
+		}
+
+		&--right {
+			right: 0;
+			background: linear-gradient(
+				to left,
+				var(--logos-carousel-fade-color, #220A2D) 0%,
+				transparent 100%
+			);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.logos-carousel__track {
+			animation: none !important;
+		}
+	}
+}
+
+@keyframes logos-scroll-left {
+	from { transform: translate3d(0, 0, 0); }
+	to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes logos-scroll-right {
+	from { transform: translate3d(-50%, 0, 0); }
+	to   { transform: translate3d(0, 0, 0); }
+}

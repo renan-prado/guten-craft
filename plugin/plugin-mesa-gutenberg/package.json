@@ -1,6 +1,6 @@
 {
   "name": "plugin-mesa-gutenberg",
-  "version": "1.3.6",
+  "version": "1.4.3",
   "description": "Custom Gutenberg blocks for iConnections",
   "private": true,
   "scripts": {

@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/site-button",
+	"version": "1.0.0",
+	"title": "Site Button",
+	"category": "mesa-gutenberg",
+	"icon": "button",
+	"description": "iConnections button wrapper with variant styling. Wraps a native core/button and applies gradient borders and interactive hover/active states via CSS.",
+	"keywords": ["button", "cta", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"default": "purple-primary"
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"spacing": {
+			"margin": true
+		}
+	}
+}

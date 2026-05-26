@@ -1,0 +1,82 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/logos-carousel",
+	"version": "1.0.0",
+	"title": "Logos Carousel",
+	"category": "mesa-gutenberg",
+	"icon": "images-alt2",
+	"description": "Infinite two-row logo carousel with edge fades. Top row scrolls left, bottom row scrolls right.",
+	"keywords": ["logos", "carousel", "marquee", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Trusted by Leaders Across Alternatives"
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#ba9dc4"
+		},
+		"logoHeight": {
+			"type": "number",
+			"default": 32
+		},
+		"gap": {
+			"type": "number",
+			"default": 100
+		},
+		"speed": {
+			"type": "number",
+			"default": 60
+		},
+		"rowOpacity": {
+			"type": "number",
+			"default": 0.5
+		},
+		"fadeColor": {
+			"type": "string",
+			"default": "#220A2D"
+		},
+		"fadeWidth": {
+			"type": "number",
+			"default": 220
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "transparent"
+		},
+		"gradientColor": {
+			"type": "string",
+			"default": "#220A2D"
+		},
+		"gradientFadeStop": {
+			"type": "number",
+			"default": 25
+		},
+		"verticalPadding": {
+			"type": "number",
+			"default": 80
+		},
+		"row1Logos": {
+			"type": "array",
+			"default": []
+		},
+		"row2Logos": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": false,
+		"spacing": {
+			"margin": true,
+			"padding": false
+		}
+	}
+}

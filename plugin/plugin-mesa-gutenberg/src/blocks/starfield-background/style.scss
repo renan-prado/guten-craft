@@ -12,25 +12,33 @@
 	display: block;
 	overflow: hidden;
 
-	&::before,
-	&::after {
+	// Mobile portrait: when the starfield is rendered with an OPAQUE wrapper
+	// (the default standalone-hero case), force a near-black background and
+	// hide the noisy canvas. Skip this override when the wrapper is rendered
+	// transparent (e.g. inside home.html where a parent gradient owns the bg)
+	// — otherwise we'd repaint over the parent and break the visual flow.
+	@media (max-width: 1140px) {
+		&:not([style*="background-color:transparent"]):not([style*="background-color: transparent"]) {
+			background-color: #0a020e !important;
+
+			.starfield-background__canvas {
+				display: none !important;
+			}
+		}
+	}
+
+	// Top dark fade only — the bottom transition is now owned by whatever
+	// block follows the hero (e.g. logos-carousel paints its own top fade).
+	&::before {
 		content: '';
 		position: absolute;
 		left: 0;
 		right: 0;
+		top: 0;
 		height: 160px;
 		z-index: 2;
 		pointer-events: none;
-	}
-
-	&::before {
-		top: 0;
 		background: linear-gradient(to bottom, #000000, transparent);
-	}
-
-	&::after {
-		bottom: 0;
-		background: linear-gradient(to top, #000000, transparent);
 	}
 
 	.starfield-background__canvas {
@@ -57,4 +65,38 @@
 		min-height: 100vh;
 	}
 
+	// Mobile: shrink the hero-shell side padding (right is fixed 64px inline,
+	// left uses clamp so it already shrinks). Also pin content to the top so
+	// the bottom half is reserved for the globe overlay.
+	@media (max-width: 1140px) {
+		.starfield-background__content > .wp-block-group {
+			padding-right: 24px !important;
+			padding-left: 24px !important;
+			padding-bottom: 80vw !important;
+			justify-content: flex-start !important;
+			align-items: flex-start !important;
+		}
+
+		// Hero buttons: stack vertically on mobile. Inline flex-direction:row
+		// is set by the layout shim / WP, so !important is required.
+		.wp-block-group.is-layout-flex:has(> .wp-block-mesa-gutenberg-site-button) {
+			flex-direction: column !important;
+			align-items: flex-start !important;
+		}
+
+		// Desktop glow sits at 75% 50% which on mobile lands behind the text.
+		// Replace with a wide, low horizontal band of light that sits below
+		// the text and reads as light bleed behind the globe — without
+		// touching the dark gradient at the top of the hero.
+		.starfield-background__glow {
+			background: radial-gradient(ellipse 95vw 33vw at 30% 92%, rgba(155, 60, 210, 1) 0%, rgba(110, 35, 160, 0.8) 30%, rgba(70, 25, 100, 0.45) 60%, transparent 90%) !important;
+		}
+
+		// Shrink the hero H1 from desktop's 48px to a phone-friendly size.
+		// Inline font-size is set on the heading element, so !important.
+		.starfield-background__content .wp-block-heading.has-gradient-heading {
+			font-size: 28px !important;
+			line-height: 1.2 !important;
+		}
+	}
 }

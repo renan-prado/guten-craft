@@ -1,295 +1,135 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Table of Contents
-
-1. [Project Context](#project-context)
-2. [Dev Workflow](#dev-workflow)
-3. [Output Format](#output-format)
-4. [Critical Rules](#critical-rules)
-5. [Fundamentals](#fundamentals)
-   - [Gutenberg Markup Syntax](#gutenberg-markup-syntax)
-   - [The Master Rule: JSON ⇄ Inline Style Must Stay in Sync](#the-master-rule-json--inline-style-must-stay-in-sync)
-   - [Common Block Patterns](#common-block-patterns)
-   - [Inline Style Property Order](#inline-style-property-order)
-6. [Block Identification](#block-identification)
-   - [`metadata.name` on Every Block](#metadataname-on-every-block)
-   - [Stable Block Identity with `anchor`](#stable-block-identity-with-anchor)
-7. [Layout & Sizing](#layout--sizing)
-   - [Layout Classes in `className`](#layout-classes-in-classname)
-   - [Max-Width on Containers (Never Use `dimensions.maxWidth`)](#max-width-on-containers-never-use-dimensionsmaxwidth)
-   - [Handling Figma Paddings](#handling-figma-paddings)
-   - [Always Be Explicit About Partial Styles](#always-be-explicit-about-partial-styles)
-8. [Typography](#typography)
-   - [Text Color on Headings and Paragraphs](#text-color-on-headings-and-paragraphs)
-   - [Text Alignment on Headings and Paragraphs](#text-alignment-on-headings-and-paragraphs)
-   - [Capturing All Typography Attributes from Figma MCP](#capturing-all-typography-attributes-from-figma-mcp)
-9. [Block-Specific Rules](#block-specific-rules)
-   - [Images: Use CSS Inline Styles, Never HTML Attributes](#images-use-css-inline-styles-never-html-attributes)
-   - [Buttons: No `border-style` in Inline Style](#buttons-no-border-style-in-inline-style)
-   - [Separators: Include `has-text-color` When Colored](#separators-include-has-text-color-when-colored)
-   - [Bordered Groups: `has-border-color` Class](#bordered-groups-has-border-color-class)
-   - [Cover Blocks: Required Attributes](#cover-blocks-required-attributes)
-10. [Figma Integration](#figma-integration)
-11. [Avoiding "Attempt Recovery"](#avoiding-attempt-recovery)
-    - [Why Validation Fails](#why-validation-fails)
-    - [Anti-Recovery Checklist](#anti-recovery-checklist)
-    - [Styles WordPress Does Not Serialize](#styles-wordpress-does-not-serialize)
-    - [Never Use `wp:html`](#never-use-wphtml)
-    - [Local Preview vs. WordPress Rendering](#local-preview-vs-wordpress-rendering)
-12. [Reference](#reference)
-    - [Tailwind → Gutenberg Map](#tailwind--gutenberg-map)
-    - [`metadata.name` Naming Conventions](#metadataname-naming-conventions)
-
----
+Guidance for Claude Code when working in this repo.
 
 ## Project Context
 
-This project generates WordPress Gutenberg block markup (HTML) to be pasted into the **Code Editor** of the iConnections WordPress site. There is no PHP access — all output is pure Gutenberg HTML comment syntax used directly at:
+Generates WordPress Gutenberg block markup (HTML) to be pasted into the **Code Editor** of the iConnections WordPress site. No PHP access — pure Gutenberg HTML comment syntax used at `https://iconnections.io/wp-admin/post-new.php?post_type=page`.
 
-```
-https://iconnections.io/wp-admin/post-new.php?post_type=page
-```
-
-**What we build:** Static Gutenberg block structures using only native/core WordPress blocks. The output is serialized Gutenberg markup — a mix of HTML and structured `<!-- wp:block-name {...attrs} -->` comments that WordPress parses.
-
----
+Output is serialized Gutenberg markup: HTML + `<!-- wp:block-name {...attrs} -->` comments. Use only native/core WP blocks unless a custom `wp:mesa-gutenberg/*` block is needed.
 
 ## Dev Workflow
 
 ```
-C:\www\iconnections\
-├── src/             # Gutenberg markup files (*.html) — one per page
-├── styles/          # Preview-only CSS (base.css). Not pasted into WP.
-├── images/          # Local image assets served at /images/*
-├── server.js        # Local preview server with hot-reload + layout shim
-├── package.json
-└── CLAUDE.md
+src/       Gutenberg markup files (*.html) — one per page
+styles/    Preview-only CSS (base.css). Not pasted into WP.
+images/    Local assets served at /images/*
+server.js  Local preview server with hot-reload + layout shim
 ```
 
-**Run the preview:**
+`npm run dev` serves on `http://localhost:3000`. Watches `src/` and `styles/` via chokidar; reloads via SSE. Each page opens at `/pages/<filename-without-ext>`.
 
-```bash
-npm run dev
-```
+**Layout shim (`server.js`):** Walks `<!-- wp:... -->` comments and applies the same layout WP's PHP `save()` produces. Handles `layout.type` of `flex`, `grid`, `constrained`, self-closing `wp:spacer`, and the `wp:cover` constrained-layout case (targets `.wp-block-cover__inner-container`).
 
-- Serves on `http://localhost:3000`.
-- Index page lists every file in `src/` as a clickable link.
-- Each page is opened at `/pages/<filename-without-ext>`.
-- Watches `src/` and `styles/` via `chokidar`; reloads the browser through Server-Sent Events.
-- Image references use `/images/filename.png` (paths the live WP site will need to match after upload).
-
-**Layout shim (`server.js`):** Wraps each page's body and runs a small client-side script that walks `<!-- wp:... -->` comments and applies the same layout that WordPress's PHP `save()` produces at render time. Currently handles `layout.type` of `flex`, `grid`, and `constrained`, plus self-closing `wp:spacer` and the `wp:cover` constrained-layout special case (which targets `.wp-block-cover__inner-container`).
-
-**Editing markup:** The markup in `src/` is the same markup you paste into the WP Code Editor. It must remain pasteable as-is — never let preview-only hacks leak into the file.
-
----
+Markup in `src/` must remain pasteable into WP Code Editor as-is — never leak preview-only hacks.
 
 ## Output Format
 
-Always deliver the final block markup as a single fenced code block so it can be copy-pasted directly into the WordPress Code Editor without modification.
-
----
+Deliver final markup as a single fenced code block for direct copy-paste into the WP Code Editor.
 
 ## Critical Rules
 
-- **Never output plain HTML files** with `<html>`, `<head>`, `<body>`, `<style>` tags. All output must be serialized Gutenberg block markup.
-- **Never use plain CSS files or inline `<style>` blocks.** Styles are declared inside the block's JSON attributes (`"style":{...}`) and rendered as inline `style=""` on the wrapper element.
-- **Never reference external asset URLs** (e.g. Figma MCP asset URLs). Visual effects like gradients, glows, and overlays must be reproduced with CSS values inside block attributes — `linear-gradient`, `radial-gradient`, `rgba()`, etc.
-- **Never use `<!-- wp:html -->`** — it does not work well in this project. Always use native blocks.
-- **Every file created in this project is Gutenberg markup** ready to paste into the WordPress Code Editor, regardless of file extension.
-- **Plugin CSS changes must go in `style.scss`, never in `styles/base.css`.** `styles/base.css` is local preview-only and is never shipped to WordPress. Any visual change to a custom block (gradients, overlays, positioning, etc.) must be implemented in the block's `src/blocks/*/style.scss` and deployed via `/plugin-zip`. This ensures the change works universally across all WordPress installs that use the plugin, not just the local preview.
-
----
+- **Never output plain HTML files** (`<html>`, `<head>`, `<body>`, `<style>`). Only serialized Gutenberg block markup.
+- **Never use plain CSS or `<style>` blocks.** Styles live in block JSON (`"style":{...}`) and mirrored as inline `style=""`.
+- **Never reference external asset URLs** (e.g. Figma MCP). Reproduce gradients/glows with CSS values inside block attributes.
+- **Never use `<!-- wp:html -->`.** Always native blocks.
+- **Plugin CSS changes go in `style.scss`, never `styles/base.css`.** `base.css` is local-preview only. Custom block visuals belong in `src/blocks/*/style.scss` and ship via `/plugin-zip`.
 
 ## Fundamentals
 
-### Gutenberg Markup Syntax
+### Gutenberg Syntax
 
-- Blocks are wrapped in HTML comments: `<!-- wp:block-name -->` … `<!-- /wp:block-name -->`
-- Block attributes are JSON inside the opening comment: `<!-- wp:columns {"verticalAlignment":"top"} -->`
-- Self-closing blocks (no inner content): `<!-- wp:spacer {"height":"40px"} /-->`
-- All class names follow Gutenberg conventions: `wp-block-*`, `has-*-color`, `has-*-background-color`, etc.
-- Inner blocks are nested inside the outer block's wrapper `<div>`.
+- Blocks wrap in HTML comments: `<!-- wp:name -->` … `<!-- /wp:name -->`
+- Attributes are JSON inside the opening comment: `<!-- wp:columns {"verticalAlignment":"top"} -->`
+- Self-closing: `<!-- wp:spacer {"height":"40px"} /-->`
+- Class names follow Gutenberg conventions: `wp-block-*`, `has-*-color`, `has-*-background-color`.
 
-### The Master Rule: JSON ⇄ Inline Style Must Stay in Sync
+### Master Rule: JSON ⇄ Inline Style Sync
 
-**Every visual property declared in a block's JSON attribute object must be mirrored as an inline `style=""` value on the wrapper element — and vice versa.** WordPress validates blocks by re-serializing the JSON and comparing it to the saved HTML; any divergence triggers "Attempt Recovery".
-
-This is the single rule behind most of this document. Specific sections below clarify how it applies to colors, alignment, borders, image dimensions, and buttons. When you change one side, change the other.
-
-### Common Block Patterns
-
-```html
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-  <!-- wp:heading {"level":2} -->
-  <h2 class="wp-block-heading">Title</h2>
-  <!-- /wp:heading -->
-</div>
-<!-- /wp:group -->
-```
-
-```html
-<!-- wp:columns -->
-<div class="wp-block-columns">
-  <!-- wp:column -->
-  <div class="wp-block-column"><!-- inner blocks --></div>
-  <!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-```
+**Every visual property in a block's JSON must be mirrored as inline `style=""` on the wrapper — and vice versa.** WP validates by re-serializing JSON and comparing to saved HTML; any divergence triggers "Attempt Recovery". When you change one side, change the other.
 
 ### Inline Style Property Order
 
-WordPress re-serializes inline styles in a specific order during block validation. Follow this order to avoid mismatches:
+WP re-serializes inline styles in a specific order:
 
 | Block type | Style order |
 |---|---|
-| **Layout containers** (`wp:group`, `wp:column`) | `border-*` → `background-color` / `background` → `min-height` → `padding-*` → `margin-*` → other |
-| **Text blocks** (`wp:paragraph`, `wp:heading`) | `color` → `margin-*` → `font-family` → `font-size` → `font-weight` → `line-height` |
-| **Buttons** (`wp:button > a`) | `border-color` → `border-width` → `border-radius` → `color` → `background` / `background-color` → `padding-*` → `font-family` → `font-size` → `line-height` → `text-decoration` |
+| Layout (`wp:group`, `wp:column`) | `border-*` → `background-color`/`background` → `min-height` → `padding-*` → `margin-*` → other |
+| Text (`wp:paragraph`, `wp:heading`) | `color` → `margin-*` → `font-family` → `font-size` → `font-weight` → `line-height` |
+| Buttons (`wp:button > a`) | `border-color` → `border-width` → `border-radius` → `color` → `background`/`background-color` → `padding-*` → `font-family` → `font-size` → `line-height` → `text-decoration` |
 
-When in doubt, follow the order WordPress outputs when you manually create the same block in the visual editor.
-
----
+When unsure, manually create the block in the visual editor and copy WP's output.
 
 ## Block Identification
 
 ### `metadata.name` on Every Block
 
-**Every `wp:*` block — without exception — must have `metadata.name`.**
-
-This includes `wp:paragraph`, `wp:heading`, `wp:image`, `wp:column`, `wp:columns`, `wp:buttons`, `wp:button`, `wp:separator`, `wp:spacer`, and all `wp:group` blocks. The name appears in the WordPress editor's List View, making it possible to locate and update any block by name — essential when updating markup via the Code Editor.
-
-`metadata` is always the **first key** in the block's JSON attribute object:
+**Every `wp:*` block must have `metadata.name` as the first JSON key.** Includes paragraphs, headings, images, columns, buttons, separators, spacers, groups — no exceptions. Name appears in WP's List View. Derive from block type + purpose; never random hashes.
 
 ```html
 <!-- wp:paragraph {"metadata":{"name":"paragraph-hero-desc"},"style":{...}} -->
 <p class="has-text-color" style="...">Text</p>
 <!-- /wp:paragraph -->
-
-<!-- wp:spacer {"metadata":{"name":"spacer-section-gap"},"height":"80px"} /-->
 ```
 
-Never use random hashes. Always derive the name from the block's type and content/purpose so a reader can identify the block in the List View without opening it. See the [naming conventions reference](#metadataname-naming-conventions) for prefix examples.
+### Stable Identity with `anchor`
 
-### Stable Block Identity with `anchor`
-
-`metadata.name` is a display label — it helps humans navigate in the editor but does not persist as a technical ID across Code Editor pastes (WordPress assigns a new internal `clientId` on every paste).
-
-**`clientId` is runtime-only and is never serialized to post content.** Do not try to embed it in markup.
-
-The `anchor` attribute is the only serialized identifier. It renders as an HTML `id` on the wrapper element and survives round-trips through the Code Editor:
-
-```html
-<!-- wp:group {"metadata":{"name":"stats-card"},"anchor":"stats-card",...} -->
-<div id="stats-card" class="wp-block-group ...">...</div>
-<!-- /wp:group -->
-```
-
-Use `anchor` only when a block needs a stable HTML id — for in-page navigation (`#stats-card`), CSS targeting, or JavaScript hooks. It is not required on every block. When used, keep the value a short kebab-case slug that matches the `metadata.name`.
-
----
+`metadata.name` is a display label; it doesn't persist as a technical ID. `clientId` is runtime-only — never serialize it. The `anchor` attribute is the only serialized identifier — renders as HTML `id` on the wrapper. Use only when a stable HTML id is needed (in-page nav, CSS, JS hooks). Keep value short kebab-case matching `metadata.name`.
 
 ## Layout & Sizing
 
 ### Layout Classes in `className`
 
-WordPress automatically adds layout-related classes to the `className` attribute in the block's JSON comment. Without them, re-serialization produces a mismatch and triggers Attempt Recovery.
+WP auto-adds layout classes; without them, re-serialization triggers Attempt Recovery.
 
-| Block + layout | Required `className` (and matching wrapper `class`) |
+| Block + layout | Required `className` (mirrored on wrapper `class`) |
 |---|---|
-| `wp:group` with `layout.type:"default"` or no layout | `is-layout-flow wp-block-group-is-layout-flow` |
-| `wp:group` with `layout.type:"constrained"` | `is-layout-constrained wp-block-group-is-layout-constrained` |
-| `wp:group` with `layout.type:"flex"` | `is-layout-flex wp-block-group-is-layout-flex` |
+| `wp:group` default/no layout | `is-layout-flow wp-block-group-is-layout-flow` |
+| `wp:group` constrained | `is-layout-constrained wp-block-group-is-layout-constrained` |
+| `wp:group` flex | `is-layout-flex wp-block-group-is-layout-flex` |
 | `wp:columns` | `is-layout-flex wp-block-columns-is-layout-flex` |
 | `wp:column` | `is-layout-flow wp-block-column-is-layout-flow` |
 
-**Examples:**
+**Wrapper class order:** `wp-block-[type]` → `is-layout-*` → `wp-block-[type]-is-layout-*` → `has-border-color` → `has-background` → `has-text-color`. Layout classes always before functional classes.
 
-```html
-<!-- wp:group {"metadata":{"name":"stats-card"},"className":"is-layout-flow wp-block-group-is-layout-flow","style":{...},"layout":{"type":"default"}} -->
-<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow has-background" style="...">
-</div>
-<!-- /wp:group -->
-```
+### Max-Width: Never `dimensions.maxWidth`
 
-```html
-<!-- wp:columns {"metadata":{"name":"stats-columns"},"className":"is-layout-flex wp-block-columns-is-layout-flex","style":{...}} -->
-<div class="wp-block-columns is-layout-flex wp-block-columns-is-layout-flex">
-  <!-- wp:column {"metadata":{"name":"col-1"},"className":"is-layout-flow wp-block-column-is-layout-flow"} -->
-  <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow">
-  </div>
-  <!-- /wp:column -->
-</div>
-<!-- /wp:columns -->
-```
-
-**Wrapper class order:** Layout classes always come before functional classes. WordPress serializes in this order: `wp-block-[type]` → `is-layout-*` → `wp-block-[type]-is-layout-*` → `has-border-color` → `has-background` → `has-text-color`.
-
-```html
-<!-- correct -->
-<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex has-border-color has-background" style="...">
-
-<!-- wrong — functional classes before layout classes -->
-<div class="wp-block-group has-background is-layout-flex wp-block-group-is-layout-flex" style="...">
-```
-
-### Max-Width on Containers (Never Use `dimensions.maxWidth`)
-
-Gutenberg's `style.dimensions` block support **only recognizes** `height`, `minHeight`, `minWidth`, `width`, and `aspectRatio`. There is **no `maxWidth`**. If you write `"style":{"dimensions":{"maxWidth":"1280px"}}`, WordPress strips it on save — the inline `max-width` in the wrapper `<div>` is regenerated from recognized attributes only, so the constraint silently disappears after the first save (or triggers "Attempt Recovery").
-
-**Always use `layout.type: "constrained"` with `contentSize` instead.** This is the native Gutenberg mechanism for limiting content width:
+`style.dimensions` only recognizes `height`, `minHeight`, `minWidth`, `width`, `aspectRatio`. There is **no `maxWidth`** — WP strips it silently. Always use `layout.type:"constrained"` with `contentSize`:
 
 ```html
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"1280px"}} -->
-<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
-  <!-- children get max-width:1280px; margin:auto applied by WP PHP -->
-</div>
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">...</div>
 <!-- /wp:group -->
 ```
 
 - `contentSize` constrains **direct children**, not the block itself.
-- The wrapper `<div>` must include `is-layout-constrained wp-block-group-is-layout-constrained` classes (for `wp:group`) — these are what WP's `save()` would generate.
-- By default, constrained children are centered (`margin: auto`). To left-align them at the max width, add `"justifyContent":"left"`: `{"layout":{"type":"constrained","contentSize":"590px","justifyContent":"left"}}`.
-- For the common "full-width background + constrained inner content" pattern, put the background and padding on the outer group with constrained layout — no inner wrapper group is needed.
+- Add `"justifyContent":"left"` to left-align instead of center.
+- For "full-width bg + constrained inner" pattern: put background and padding on the outer constrained group — no inner wrapper needed.
 
 ### Handling Figma Paddings
 
-Figma designs export large fixed padding values (e.g. 260px left/right, 80px top/bottom) that simulate a centered frame — these are **frame-level constraints, not real spacing**. Never copy them blindly.
+Figma exports large frame paddings (e.g. 260px L/R, 80px T/B) that simulate centered frames — **frame-level constraints, not real spacing**. Never copy blindly.
 
-- **Left/right padding:** Do not use large pixel values to manually center content. Use `"layout":{"type":"constrained"}` instead — Gutenberg centers content to the theme's content width automatically. No left/right padding needed.
-- **Top/bottom padding:** Evaluate whether the breathing room is genuinely intentional. Large values from Figma (e.g. 80px) often exist only to give the frame visual margin in the design tool, not as design intent. Use only what the layout actually requires.
-- **When padding is needed:** Only add padding that serves a real visual purpose — inner spacing between a background edge and its content, not to replicate what Gutenberg's layout engine already handles.
+- **L/R padding:** use `layout.type:"constrained"` — never large pixel values for manual centering.
+- **T/B padding:** evaluate intent. Often just canvas margin in Figma, not design.
+- Only add padding that serves a real visual purpose.
 
-### Always Be Explicit About Partial Styles
+### Partial Styles — Be Explicit
 
-When applying a style to only one side (or one axis), always explicitly cancel the other sides. Gutenberg can inherit theme defaults or the `has-border-color` class can activate CSS rules that affect all sides.
-
-**Borders — only left side wanted:**
+When applying a style to one side only, explicitly cancel other sides. `has-border-color` activates a CSS rule on all 4 sides — never use it for partial borders.
 
 ```html
 <!-- wp:paragraph {"style":{"border":{"top":{"width":"0px","style":"none"},"right":{"width":"0px","style":"none"},"bottom":{"width":"0px","style":"none"},"left":{"color":"#ffffff","width":"1px","style":"solid"}}}} -->
 <p style="border-top:none;border-right:none;border-bottom:none;border-left-color:#ffffff;border-left-style:solid;border-left-width:1px">…</p>
 ```
 
-- Never use the `has-border-color` class for partial borders — it triggers a CSS rule that applies borders on all four sides.
-- Explicitly declare `"width":"0px","style":"none"` on every side you do NOT want.
-- Mirror every JSON `border.*` entry as a corresponding `border-*` inline style property.
-
-The same principle applies to other shorthand properties (padding, margin, radius): if you only want top padding, also set `padding-right:0`, `padding-bottom:0`, `padding-left:0` — do not rely on defaults.
-
----
+Same principle for padding/margin/radius shorthands.
 
 ## Typography
 
-### Text Color on Headings and Paragraphs
+### Text Color
 
-Never use CSS gradient-clip tricks (`-webkit-background-clip: text; -webkit-text-fill-color: transparent`) to color text. Gutenberg does not recognize this as a text color — the block's color panel shows "no color selected" and the text renders black in the editor.
-
-Always declare text color through the block's native color attribute:
+Never use `-webkit-background-clip:text` tricks — Gutenberg doesn't recognize them. Always use the native color attribute:
 
 ```html
 <!-- wp:heading {"level":1,"style":{"color":{"text":"#ffffff"}}} -->
@@ -297,15 +137,13 @@ Always declare text color through the block's native color attribute:
 <!-- /wp:heading -->
 ```
 
-The `"color":{"text":"..."}` JSON attribute and the `style="color:..."` inline style must both be present and in sync.
+### Text Alignment
 
-### Text Alignment on Headings and Paragraphs
+When Figma applies alignment (on the element OR a parent it inherits from):
 
-When Figma applies `text-center` (or any alignment) to a text element — or to a **parent container** that the element inherits from — the following must be present on every affected block:
-
-1. `"align":"center"` as a top-level attribute in the JSON comment
-2. `has-text-align-center` class on the wrapper element — placed **before** `has-text-color` in the class list
-3. **Do NOT** add `text-align:center` to the inline `style=""` — WordPress generates alignment via the class only, not as an inline style property
+1. `"align":"center"` top-level JSON attribute
+2. `has-text-align-center` class on wrapper — **before** `has-text-color`
+3. **Do NOT** add `text-align:...` to inline `style=""` — WP uses the class only
 
 ```html
 <!-- wp:paragraph {"align":"center","style":{"typography":{...},"color":{"text":"#ffffff"}}} -->
@@ -313,64 +151,41 @@ When Figma applies `text-center` (or any alignment) to a text element — or to 
 <!-- /wp:paragraph -->
 ```
 
-**Class order matters:** WordPress serializes alignment classes before color/background classes. Always `has-text-align-*` then `has-text-color`.
+**Figma inheritance trap:** Figma's `text-center` is often on a parent flex row. Gutenberg blocks do NOT inherit — set alignment explicitly on every text block.
 
-**Figma inheritance trap:** The Figma MCP output often places `text-center` on a parent flex row, not on individual text nodes. When translating to Gutenberg — where each block is independent — you must explicitly set alignment on every text block, not assume it will be inherited.
+### Capturing Typography from Figma MCP
 
-Alignment mapping is in the [Tailwind → Gutenberg reference](#tailwind--gutenberg-map).
-
-### Capturing All Typography Attributes from Figma MCP
-
-The Figma MCP returns React/Tailwind code. Before writing any text block, scan the element AND its ancestors for every typography-related class. Map each to its Gutenberg equivalent in both the JSON attribute and the inline style — see the [reference table](#tailwind--gutenberg-map).
-
-Never omit an attribute just because it is inherited in Figma — **Gutenberg blocks do not inherit styles from siblings or parents.**
-
----
+Figma MCP returns React/Tailwind. Before writing any text block, scan the element AND ancestors for every typography class. Map each via the [Tailwind → Gutenberg reference](#tailwind--gutenberg-map). Gutenberg blocks don't inherit — materialize every property.
 
 ## Block-Specific Rules
 
-### Images: Use CSS Inline Styles, Never HTML Attributes
+### Images: CSS Inline Styles, Not HTML Attributes
 
-WordPress re-serializes `wp:image` blocks with `is-resized` using CSS `style=""` for dimensions, not HTML `width`/`height` attributes. Using HTML attributes causes block validation failure.
-
-**Wrong (causes Attempt Recovery):**
-
-```html
-<!-- wp:image {"metadata":{"name":"icon-example"},"width":40,"height":40,"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full is-resized"><img src="/images/icon.png" alt="" width="40" height="40" /></figure>
-<!-- /wp:image -->
-```
+WP re-serializes `wp:image` with `is-resized` using CSS `style=""`, not HTML `width`/`height`.
 
 **Correct:**
-
 ```html
 <!-- wp:image {"metadata":{"name":"icon-example"},"width":"40px","height":"40px","sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full is-resized"><img src="/images/icon.png" alt="" style="width:40px;height:40px"/></figure>
 <!-- /wp:image -->
 ```
 
-Key differences:
-
-- JSON attributes use **string** values with units: `"width":"40px"` not `"width":40`.
-- The `<img>` tag uses `style="width:40px;height:40px"` instead of `width="40" height="40"` HTML attributes.
-- Both must be present and in sync.
+JSON uses **string** values with units (`"40px"`, not `40`). Both must sync.
 
 ### Buttons: No `border-style` in Inline Style
 
-WordPress does **not** include `border-style:solid` in the button link's inline `style=""`. Do not add it — it will cause a mismatch on re-save.
+WP does NOT include `border-style:solid` in the button link's inline style — applied via `has-border-color` theme rule. Including it causes mismatch.
 
 ```html
-<!-- wp:button {"style":{"border":{"color":"#e2e8f0","width":"2px","radius":"4px"},...}} -->
+<!-- wp:button {"style":{"border":{"color":"#e2e8f0","width":"2px","radius":"4px"}}} -->
 <div class="wp-block-button"><a class="... has-border-color ..." href="#"
   style="border-color:#e2e8f0;border-width:2px;border-radius:4px;...">Label</a></div>
 <!-- /wp:button -->
 ```
 
-The `border-style` is applied via the theme stylesheet triggered by `has-border-color` — not serialized into the inline style.
+### Separators: `has-text-color` When Colored
 
-### Separators: Include `has-text-color` When Colored
-
-WordPress adds `has-text-color` to `wp:separator` blocks that have a background color, and mirrors the background as both `background-color` and `color` in the inline style:
+WP adds `has-text-color` to colored separators and mirrors background as both `background-color` and `color`:
 
 ```html
 <!-- wp:separator {"metadata":{"name":"separator-stats"},"className":"is-style-wide","style":{"color":{"background":"rgba(255,255,255,0.15)"}}} -->
@@ -380,7 +195,7 @@ WordPress adds `has-text-color` to `wp:separator` blocks that have a background 
 
 ### Bordered Groups: `has-border-color` Class
 
-When a `wp:group` has a `border.color` in its JSON attributes, WordPress automatically adds the `has-border-color` class to the wrapper element. Always include it:
+Any `wp:group` with `border.color` gets `has-border-color` on the wrapper:
 
 ```html
 <!-- wp:group {"style":{"border":{"color":"rgba(75,31,89,0.4)","width":"2px","style":"solid"}}} -->
@@ -389,20 +204,13 @@ When a `wp:group` has a `border.color` in its JSON attributes, WordPress automat
 <!-- /wp:group -->
 ```
 
-### Cover Blocks: Required Attributes and HTML Structure
+### Cover Blocks
 
-A `wp:cover` block has different attribute requirements depending on whether you're previewing locally or pasting into WordPress.
+**Local dev (`src/*.html`):** `id` and `sizeSlug` can be omitted.
 
-**For local dev (`src/*.html`):** `id` and `sizeSlug` can be omitted — there is no media library and the layout shim doesn't need them.
+**Before pasting into WP:** include `id` (placeholder int OK), `sizeSlug` (`"large"`/`"full"`), `isUserOverlayColor`, and `customOverlayColor` if used.
 
-**Before pasting into WordPress:** Always include the full attribute set so WP's validator can re-serialize the block cleanly:
-
-- `"id"` — the attachment ID (use a placeholder integer if unknown; WordPress assigns the real one on image upload).
-- `"sizeSlug"` — typically `"large"` or `"full"`.
-- `"isUserOverlayColor"` — `true` or `false`.
-- `"customOverlayColor"` — if a custom overlay is used.
-
-**Canonical cover HTML structure:** Padding goes on the outer `<div class="wp-block-cover">`. The overlay/gradient `<span>` carries `has-background-dim-0 has-background-dim has-background-gradient` classes (for gradient overlays) and `style="background:..."`. The inner container has NO layout classes added — just `class="wp-block-cover__inner-container"`.
+**Canonical structure:** padding on outer `<div class="wp-block-cover">`. Overlay `<span>` carries `has-background-dim-0 has-background-dim has-background-gradient`. Inner container has no layout classes — just `class="wp-block-cover__inner-container"`.
 
 ```html
 <!-- wp:cover {"url":"...","id":1,"dimRatio":0,"isUserOverlayColor":false,"customGradient":"linear-gradient(...)","sizeSlug":"large","metadata":{"name":"hero"},"style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}},"layout":{"type":"constrained","contentSize":"1280px"}} -->
@@ -416,20 +224,15 @@ A `wp:cover` block has different attribute requirements depending on whether you
 
 ### Custom Blocks (`wp:mesa-gutenberg/*`)
 
-Custom/third-party blocks define their own `save()` function. Their HTML attribute order, recognized JSON attributes, and how values are serialized are **not governed by WP core conventions**. The rules in this document apply to core blocks only unless stated otherwise.
+Custom blocks define their own `save()`. WP core rules don't apply unless stated. After "Attempt Recovery", copy WP's corrected output as the ground truth — never guess.
 
-**General rule:** After pasting a custom block into WordPress and getting "Attempt Recovery", copy WP's corrected output back into `src/` as the ground truth. Never guess a custom block's output structure.
+Key differences:
+- `metadata` may serialize **last**, not first.
+- Unrecognized attributes are silently stripped.
+- Boolean `data-*` serialize as `attr="true"`, not bare.
+- HTML attribute order is per the block's JSX.
 
-**Key differences from core blocks:**
-
-- **`metadata` key position** — for custom blocks, WP may serialize `metadata` last (not first). Use WP's corrected order.
-- **Unrecognized attributes are stripped** — if an attribute is not in the block's registered schema, WP silently removes it from the JSON on save. Check the block's actual save output to know which attributes are valid.
-- **Boolean `data-*` attributes** — React/WP serializes boolean-true props as `attr="true"`, not as bare `attr`. Always use `data-foo="true"` not `data-foo`.
-- **HTML attribute order** — determined by the block's own JSX `save()`, not WP core. Copy from WP's corrected output.
-
-**`wp:mesa-gutenberg/starfield-background` — confirmed `save()` output:**
-
-Recognized JSON attributes (in WP's serialized order): `backgroundColor`, `minHeight` (integer px, e.g. `720`), `glowColor`, `metadata`.
+**`wp:mesa-gutenberg/starfield-background`** — recognized attrs in WP's order: `backgroundColor`, `minHeight` (integer px), `glowColor`, `metadata`.
 
 ```html
 <!-- wp:mesa-gutenberg/starfield-background {"backgroundColor":"#130419","minHeight":720,"glowColor":"rgba(147,51,234,0.45)","metadata":{"name":"starfield-hero"}} -->
@@ -441,78 +244,53 @@ Recognized JSON attributes (in WP's serialized order): `backgroundColor`, `minHe
 <!-- /wp:mesa-gutenberg/starfield-background -->
 ```
 
-- `starCount` and `starColor` are **not** registered JSON attributes — do not include them.
-- `minHeight` integer maps to `min-height:${minHeight}px` (never `100vh` or other values).
+- `starCount`/`starColor` are NOT registered JSON attrs — don't include.
+- `minHeight` int maps to `min-height:${minHeight}px` (never `100vh`).
 - Wrapper attribute order: `style` → `data-*` → `class`.
 
-**`wp:mesa-gutenberg/cobe-globe` — confirmed `save()` output:**
+**`wp:mesa-gutenberg/cobe-globe`** — JSON attr order: `size` → `topOffset` → `overlays` → `className` → `metadata`. Writing any other order causes Attempt Recovery.
 
 ```html
 <!-- wp:mesa-gutenberg/cobe-globe {"size":500,"overlays":[...]} -->
 <div data-globe-size="500" style="width:500px;height:500px" class="wp-block-mesa-gutenberg-cobe-globe">
   <canvas data-cobe-globe="true" style="width:100%;height:100%;display:block"></canvas>
-  <!-- card divs -->
 </div>
 <!-- /wp:mesa-gutenberg/cobe-globe -->
 ```
 
 - Wrapper attribute order: `data-globe-size` → `style` → `class`.
-- `data-cobe-globe="true"` (not a bare boolean attribute).
-- **JSON attribute order (confirmed from WP's re-serialization):** `size` → `topOffset` → `overlays` → `className` → `metadata`. `className` is serialized **after** `overlays`, not before. Writing it in any other order causes "Attempt Recovery" on save.
-- **Numeric values are normalized.** WP re-serializes JSON numbers without trailing zeros: `-74.0` becomes `-74`, `1.50` becomes `1.5`. Always write integer-equivalent lat/lng without trailing `.0` (use `[40.7, -74]`, not `[40.7, -74.0]`).
-- **`topOffset` inline style:** When `topOffset` is set, the wrapper inline style becomes `width:${size}px;height:${size}px;top:${topOffset}`. When `topOffset` is empty/omitted, only `width` and `height` appear. The src markup must match — never include `top:...` in style without a matching `topOffset` in JSON, and vice versa.
+- `data-cobe-globe="true"` (not bare).
+- WP normalizes numbers: `-74.0` → `-74`, `1.50` → `1.5`. Use `[40.7, -74]` not `[40.7, -74.0]`.
+- `topOffset` set → wrapper style is `width:${size}px;height:${size}px;top:${topOffset}`. Omitted → only width+height. Never include `top:...` without matching `topOffset`, and vice versa.
 
-**Changing the globe size — three values must always be in sync:**
+**Changing globe size — sync 3 places:** JSON `"size"`, `data-globe-size`, inline `style="width:Xpx;height:Xpx"`.
 
-When changing `size`, update all three in `src/*.html` at the same time or the globe renders incorrectly (cards will be mispositioned and the canvas will be the wrong resolution):
-
-| Location | What to change |
-|---|---|
-| Block JSON comment | `"size":1200` |
-| Div `data-globe-size` | `data-globe-size="1200"` |
-| Div inline style | `style="width:1200px;height:1200px;..."` |
-
-**Overlay mode (`is-overlay`) and anchor modifiers:**
-
-Add `"className":"is-overlay"` to make the globe `position:absolute` so it can be much larger than its parent without affecting the layout. The parent automatically becomes a positioning context (via `:has()`).
-
-Anchor modifiers (add to `className` after `is-overlay`):
+**Overlay mode:** `"className":"is-overlay"` makes the globe `position:absolute`. Parent becomes positioning context via `:has()`.
 
 | Modifier | Behavior |
 |---|---|
-| _(none)_ | Pinned to top-left of positioning parent. Use `topOffset` to shift vertically. |
-| `is-anchor-right` | Center of the globe sits at the **right edge** of the positioning parent. Half visible, half off-screen. Vertically centered. **Ignore `topOffset` with this modifier.** |
+| (none) | Top-left of parent; use `topOffset` to shift vertically |
+| `is-anchor-right` | Globe center at parent's **right edge**, vertically centered. **Ignore `topOffset`.** |
 
-`is-anchor-right` uses the CSS variable `--cobe-globe-size`, which `view.js` sets at runtime from `data-globe-size`. **Never** set `--cobe-globe-size` in serialized inline style — it's a runtime concern only.
+`is-anchor-right` uses `--cobe-globe-size` CSS var set at runtime from `data-globe-size`. **Never** set `--cobe-globe-size` in serialized inline style.
 
 ```html
-<!-- Anchored to right of parent (the iConnections hero pattern) -->
 <!-- wp:mesa-gutenberg/cobe-globe {"size":1300,"className":"is-overlay is-anchor-right","overlays":[...]} -->
 <div data-globe-size="1300" style="width:1300px;height:1300px"
   class="wp-block-mesa-gutenberg-cobe-globe is-overlay is-anchor-right">
 ```
 
-**`topOffset` (legacy, default anchor only):**
+`topOffset` (legacy, default anchor only): `"0"` = globe top at parent top; negative shifts up. Without `is-overlay`, `topOffset` has no visible effect.
 
-```html
-<!-- wp:mesa-gutenberg/cobe-globe {"size":1200,"topOffset":"-200px","className":"is-overlay","overlays":[...]} -->
-<div data-globe-size="1200" style="width:1200px;height:1200px;top:-200px" class="wp-block-mesa-gutenberg-cobe-globe is-overlay">
-```
+### The iConnections Hero — Canonical Structure
 
-- `topOffset:"0"` = globe top edge at the top of the parent.
-- Negative values shift the globe upward. Below ~`-(size * 0.75)` the globe disappears off-screen (clipped by `overflow:hidden` on the starfield background).
-- When `topOffset` is set, the wrapper inline style becomes `width:${size}px;height:${size}px;top:${topOffset}`. When `topOffset` is empty/omitted, only `width` and `height` appear. **Never** include `top:...` in style without a matching `topOffset` in JSON.
-- Without `is-overlay`, the globe flows normally and `topOffset` has no visible effect.
-
-### The iConnections Hero Layout — Canonical Structure
-
-**This is the only correct structure for the hero. Re-establish it whenever it looks broken.** Past iterations placed the globe inside `wp:columns` which kept breaking on every re-edit — never use that pattern.
+**Only correct structure for the hero. Re-establish whenever it looks broken.** Past iterations placed the globe in `wp:columns` and kept breaking — never use that pattern.
 
 ```
-wp:group (page-dark-bg — purple gradient background)
+wp:group (page-dark-bg — purple gradient bg)
 └── wp:mesa-gutenberg/starfield-background (full-width, no padding — globe's positioning context)
-    ├── wp:group (hero-shell — layout:flex, vertical-center, padding:80/64, min-height:100vh)
-    │   └── wp:group (hero-content — layout:constrained, contentSize:590px, justifyContent:left)
+    ├── wp:group (hero-shell — flex, vertical-center, padding:80/64, min-height:100vh)
+    │   └── wp:group (hero-content — constrained, contentSize:590px, justifyContent:left)
     │       ├── support-text paragraph
     │       ├── h1 title
     │       ├── description paragraph
@@ -521,116 +299,87 @@ wp:group (page-dark-bg — purple gradient background)
     └── wp:mesa-gutenberg/cobe-globe (className:"is-overlay is-anchor-right")
 ```
 
-Why this structure is stable:
-- **No `wp:columns`.** Column percentages were the root cause of every "globo desalinhado / conteúdo espremido" regression — every WP re-serialization could shift `flex-basis`, and the globe's position (anchored at column left edge) shifted with it.
-- **Globe is a sibling of `hero-shell`, NOT a child.** Its positioning parent is `starfield-background__content`, which spans the full viewport width with **no padding**. That puts the `is-anchor-right` anchor at the true viewport right edge, not 64px inside.
-- **Globe positioning lives in `style.scss`** (via the `is-anchor-right` class) — not derived from any inline style, JSON attribute, or sibling width. WP's re-serializer can't break it.
-- **Content group is constrained, not column-width.** `contentSize:590px` is enforced by Gutenberg's layout engine. Re-serialization preserves it as JSON. Content can never be squeezed because it doesn't share width budget with anything.
-- **Spacing between content and globe is automatic, not fixed.** Content sits on the left at 590px (inside hero-shell's 64px padding); globe sits centered on the viewport right edge. The gap auto-adjusts to viewport width.
+Why stable:
+- **No `wp:columns`.** Column percentages caused every "globo desalinhado" regression.
+- **Globe is sibling of `hero-shell`, NOT child.** Its positioning parent is `starfield-background__content` — full viewport width, no padding. `is-anchor-right` anchors at true viewport right edge.
+- **Globe positioning lives in `style.scss`** via `is-anchor-right` — not derivable from inline style or sibling width.
+- **Content group constrained, not column-width.** `contentSize:590px` preserved as JSON; never squeezed.
+- **Spacing auto-adjusts to viewport.** Content at 590px left; globe at viewport right.
 
-**Required JSON for the globe in this hero:**
-```json
-{"size":1300,"className":"is-overlay is-anchor-right","overlays":[...]}
-```
-Do NOT add `topOffset` with `is-anchor-right` — vertical centering is handled by the CSS class.
+Globe JSON in this hero: `{"size":1300,"className":"is-overlay is-anchor-right","overlays":[...]}`. Do NOT add `topOffset` with `is-anchor-right`.
 
-**When the hero looks broken after a WP edit:** re-paste `src/hero.html` (the canonical source of truth). Do NOT try to fix it by tweaking column widths or `topOffset` values — those will revert.
-
----
+**When hero breaks after WP edit:** re-paste `src/hero.html` (canonical source). Do NOT tweak column widths or `topOffset` — they revert.
 
 ## Figma Integration
 
-The project has a Figma MCP server configured (see `.claude/settings.json`). Use it to read designs from Figma URLs and translate them into Gutenberg block markup — **not** React/Tailwind output.
+Figma MCP server is configured (see `.claude/settings.json`). Use it to translate designs into Gutenberg markup — **not** React/Tailwind.
 
-When given a Figma URL:
+Flow:
+1. Fetch design with `get_design_context` or `get_screenshot`.
+2. Map visual sections to closest native blocks (group, columns, cover, image, heading, paragraph, buttons, separator, spacer).
+3. Output valid serialized Gutenberg markup.
 
-1. Fetch the design with `get_design_context` or `get_screenshot`.
-2. Map visual sections to the closest native Gutenberg block (group, columns, cover, image, heading, paragraph, buttons, separator, spacer, etc.).
-3. Output valid serialized Gutenberg markup ready to paste into the Code Editor.
-
-The Figma MCP output is React/Tailwind by default. When translating:
-
-- Walk **every ancestor** of a text node to gather inherited typography and alignment — Gutenberg blocks don't inherit, so you must materialize every property on each block.
-- Strip frame-level paddings used only for canvas centering (see [Handling Figma Paddings](#handling-figma-paddings)).
-- Replace any external Figma asset URLs with local `/images/*` references — see [Critical Rules](#critical-rules).
-
----
+When translating:
+- Walk **every ancestor** of text nodes to gather inherited typography/alignment — Gutenberg doesn't inherit.
+- Strip frame-level paddings used only for canvas centering.
+- Replace external Figma asset URLs with local `/images/*` references.
 
 ## Avoiding "Attempt Recovery"
 
-### Why Validation Fails
-
-WordPress validates native blocks by re-serializing their JSON attributes and comparing to the saved HTML. **Any mismatch** triggers the "Attempt Recovery" prompt. The fix is always the same: make the JSON, the wrapper classes, and the inline style produce identical output to what WordPress's own `save()` would generate.
+WP validates by re-serializing JSON and comparing to saved HTML. Any mismatch triggers Attempt Recovery. Fix: make JSON, wrapper classes, and inline style produce identical output to WP's `save()`.
 
 ### Anti-Recovery Checklist
 
-Before pasting markup into WordPress, check every block against this list:
-
-- [ ] **`metadata.name`** is present on every block, as the first JSON key.
-- [ ] **JSON attributes and inline `style=""` are in sync** — every property in one is mirrored in the other.
-- [ ] **Inline style property order** matches WP's expected order for the block type ([see table](#inline-style-property-order)).
-- [ ] **Layout `className`** is set in both the JSON and the wrapper `class` attribute for any `wp:group`, `wp:columns`, or `wp:column` ([see table](#layout-classes-in-classname)).
-- [ ] **Wrapper class order** is correct: layout classes (`is-layout-*`, `wp-block-*-is-layout-*`) come before functional classes (`has-border-color`, `has-background`, `has-text-color`).
-- [ ] **`wp:image`** with custom dimensions uses `style="width:Xpx;height:Xpx"` on `<img>`, not HTML `width`/`height` attributes. JSON uses string units (`"40px"`, not `40`).
-- [ ] **`wp:button`** with a visible border does NOT have `border-style:solid` in the inline style — WP omits it, including it causes mismatch.
-- [ ] **`wp:separator`** with a background color has `has-text-color` class and mirrors `background-color` to `color`.
-- [ ] **`wp:group`** with `border.color` has the `has-border-color` class on the wrapper.
-- [ ] **`wp:cover`** pasted into WP includes `id`, `sizeSlug`, `isUserOverlayColor` (and `customOverlayColor` if used).
-- [ ] **`dimensions.maxWidth`** is NOT used anywhere — use `layout.type:"constrained"` with `contentSize` instead.
-- [ ] **Partial borders/paddings** explicitly cancel the unwanted sides; `has-border-color` is not used for partial borders.
-- [ ] **Text alignment** uses `"align":"..."` in JSON and `has-text-align-...` class (before `has-text-color`). Do NOT add `text-align:...` to inline style — WP does not serialize it.
-- [ ] **Text color** uses `"color":{"text":"..."}` + `has-text-color` class + `color:...` inline. No `-webkit-background-clip` tricks.
-- [ ] **`style.css`** is NOT used — `"style":{"css":"..."}` is not a recognized Gutenberg attribute; WP strips it on save.
-- [ ] **Flex groups** have NO flex inline styles — `wp:group` with `layout.type:"flex"` must NOT have `display:flex`, `flex-wrap`, `align-items`, `justify-content`, or `gap` in the wrapper `style=""`. WP renders flex via CSS classes.
-- [ ] **`wp:column`** inline style contains **only `flex-basis`** (when `width` is set). Never add `display`, `align-items`, `justify-content`, or any other CSS — WP does not serialize them.
-- [ ] **`wp:columns`** has NO `style="gap:..."` on its wrapper div — `blockGap` is rendered via a generated stylesheet, not inline.
-- [ ] **`--wp--style--*` CSS vars** are NOT in inline `style=""` — generated by WP's PHP engine, never serialized.
-- [ ] **`wp:buttons`** has NO `flex-wrap` or `gap` inline styles — same rule as flex groups.
-- [ ] **Heading `id` attributes** are NOT present unless backed by `"anchor":"..."` in the JSON — orphaned auto-generated `id="h-..."` attributes cause mismatch.
-- [ ] **`font-feature-settings` and `white-space:nowrap`** are NOT in inline styles — no JSON counterpart means WP won't regenerate them.
-- [ ] **`aligncenter` image figures** have NO `style="margin:0 auto"` — centering is provided by the `aligncenter` class.
+- [ ] `metadata.name` present on every block, first JSON key.
+- [ ] JSON and inline `style=""` in sync — every property mirrored.
+- [ ] Inline style property order matches WP's order.
+- [ ] Layout `className` set in both JSON and wrapper `class`.
+- [ ] Wrapper class order: layout classes before functional classes.
+- [ ] `wp:image` custom dimensions use `style="width:Xpx;height:Xpx"`, not HTML attrs. JSON uses string units.
+- [ ] `wp:button` with border has NO `border-style:solid` inline.
+- [ ] `wp:separator` with bg has `has-text-color` and mirrors bg to color.
+- [ ] `wp:group` with `border.color` has `has-border-color`.
+- [ ] `wp:cover` for WP includes `id`, `sizeSlug`, `isUserOverlayColor`.
+- [ ] No `dimensions.maxWidth` — use `layout.type:"constrained"`.
+- [ ] Partial borders/paddings explicitly cancel unwanted sides; no `has-border-color` for partials.
+- [ ] Text alignment uses `align` + `has-text-align-*` class (before `has-text-color`). NO `text-align:...` inline.
+- [ ] Text color uses `"color":{"text":...}` + `has-text-color` + `color:...` inline.
+- [ ] No `"style":{"css":"..."}` — silently stripped.
+- [ ] Flex groups have NO `display:flex`/`flex-wrap`/`align-items`/`justify-content`/`gap` inline.
+- [ ] `wp:column` inline contains only `flex-basis` (when `width` set).
+- [ ] `wp:columns` has NO `style="gap:..."`.
+- [ ] No `--wp--style--*` CSS vars in inline `style=""`.
+- [ ] `wp:buttons` has NO `flex-wrap`/`gap` inline.
+- [ ] Heading `id` only when matching `"anchor":"..."` exists in JSON.
+- [ ] No `font-feature-settings` or `white-space:nowrap` inline (no JSON counterpart).
+- [ ] `aligncenter` figures have NO `style="margin:0 auto"`.
 
 ### Styles WordPress Does Not Serialize
 
-The following look like valid CSS but are **not output by WordPress's `save()` function**. Including them in inline `style=""` causes a mismatch because WP won't regenerate them on re-save.
+These look like valid CSS but WP's `save()` won't output them — including them causes mismatch:
 
-**`style.css` JSON key** — There is no `css` key inside a Gutenberg `style` object. `"style":{"css":"..."}` is silently stripped on save, leaving inline styles that have no JSON backing. Use native block attributes or accepted `style.*` sub-keys instead.
-
-**Flex layout styles on `wp:group` or `wp:buttons`** — When a group or buttons block uses `layout.type:"flex"`, WordPress generates flex behavior via the `is-layout-flex` class and a site-wide stylesheet. It does NOT put `display:flex;flex-wrap:...;align-items:...;justify-content:...;gap:...` in the inline `style=""`. Omit all of those from the wrapper element.
-
-**`gap:` on `wp:columns`** — The `spacing.blockGap` JSON attribute renders as a generated class or CSS custom property, never as an inline `style="gap:..."`. Omit the `style` attribute from the columns wrapper div entirely.
-
-**CSS custom properties (`--wp--style--*`)** — Properties like `--wp--style--block-gap` and `--wp--style--layout--content-size` are injected by WP's PHP rendering engine. They must never appear in serialized markup inline styles.
-
-**Auto-generated heading `id` attributes** — The WordPress editor auto-generates `id="h-slug"` on headings in the UI, but these are NOT serialized to post content. Only include an `id` on a heading element when a matching `"anchor":"slug"` exists in the block's JSON attributes.
-
-**`font-feature-settings` and `white-space:nowrap`** — These CSS properties have no Gutenberg JSON attribute counterpart. Because WP reconstructs the inline style from JSON attributes only, including them creates a value WP won't regenerate. Omit them from both JSON and inline styles.
-
-**`margin:0 auto` on `aligncenter` image figures** — The `aligncenter` class handles centering. WordPress does not add `margin:0 auto` to the `<figure>` wrapper.
-
-**Arbitrary CSS on `wp:column`** — The only inline style WP serializes on a `wp:column` wrapper is `flex-basis` (derived from the `width` attribute). Properties like `display:flex`, `align-items`, `justify-content`, and `gap` are never serialized. To center content inside a column, use a nested `wp:group` with `layout.type:"flex"` instead.
-
-**`border-style:solid` on `wp:button` link elements** — WordPress does not serialize `border-style` into the button link's inline style. The border style is applied via the theme stylesheet triggered by `has-border-color`. Including it in the inline style causes a mismatch on re-save.
-
-**`text-align:*` in paragraph/heading inline styles** — The `align` block attribute generates a `has-text-align-*` class only. WordPress does not put `text-align:...` in the element's inline `style=""`. Inline style for text blocks contains only `color`, `margin`, `font-family`, `font-size`, `font-weight`, and `line-height`.
+- **`style.css` JSON key** — no such key exists; silently stripped.
+- **Flex layout styles on `wp:group`/`wp:buttons`** — generated via `is-layout-flex` class + site stylesheet, not inline.
+- **`gap:` on `wp:columns`** — `spacing.blockGap` renders as class/custom prop, not inline.
+- **`--wp--style--*` CSS vars** — injected by PHP, never serialized.
+- **Auto-generated heading `id`** — editor UI only; not in saved content. Only include `id` when JSON has matching `anchor`.
+- **`font-feature-settings`, `white-space:nowrap`** — no Gutenberg JSON counterpart.
+- **`margin:0 auto` on `aligncenter` figures** — class handles centering.
+- **Arbitrary CSS on `wp:column`** — only `flex-basis` (from `width`) is serialized. For inner centering use a nested `wp:group` with `layout.type:"flex"`.
+- **`border-style:solid` on `wp:button` link** — applied via `has-border-color` theme rule.
+- **`text-align:*` in paragraph/heading inline** — uses `has-text-align-*` class only.
 
 ### Never Use `wp:html`
 
-`<!-- wp:html -->` does not work well in this project. The correct approach is to always use native blocks (`wp:group`, `wp:paragraph`, `wp:heading`, etc.) with styles declared in both the JSON attributes and the inline `style=""` of the wrapper element, keeping them in sync.
+`<!-- wp:html -->` doesn't work well here. Always use native blocks with JSON ⇄ inline style sync.
 
-### Local Preview vs. WordPress Rendering
+### Local Preview vs WP Rendering
 
-The local dev server (`server.js`, run with `npm run dev`) serves files from `src/` and applies a **Gutenberg layout shim** that walks `<!-- wp:... -->` comments and replicates what WP's PHP does at render time. Currently it handles `layout.type` of `flex`, `grid`, and `constrained`.
-
-If a block attribute relies on WP PHP processing (anything beyond inline `style=""` from recognized attributes), it will work in WordPress but appear broken in localhost unless the shim handles it. When you encounter that divergence, **extend the shim in `server.js`** rather than working around it in the markup — the markup must stay pasteable into WP's Code Editor without modification.
-
----
+Local dev (`server.js`) replicates WP's PHP at render time for `layout.type` of `flex`, `grid`, `constrained`. If a block attribute relies on WP PHP beyond inline `style=""`, **extend the shim in `server.js`** — never work around it in the markup (markup must stay pasteable into WP unchanged).
 
 ## Reference
 
 ### Tailwind → Gutenberg Map
-
-For text blocks (`wp:paragraph`, `wp:heading`):
 
 | Tailwind / Figma class | JSON attribute | Inline style |
 |---|---|---|
@@ -638,31 +387,24 @@ For text blocks (`wp:paragraph`, `wp:heading`):
 | `leading-[72px]` | `"lineHeight":"72px"` (or ratio) | `line-height:72px` |
 | `font-bold` / `font-weight:700` | `"fontWeight":"700"` | `font-weight:700` |
 | `font-['Inter_Tight',…]` | `"fontFamily":"'Inter Tight', sans-serif"` | `font-family:'Inter Tight', sans-serif` |
-| `text-center` (self or parent) | `"align":"center"` | *(omit — WP uses `has-text-align-center` class, not inline style)* |
-| `text-left` | `"align":"left"` | *(omit — WP uses `has-text-align-left` class)* |
-| `text-right` | `"align":"right"` | *(omit — WP uses `has-text-align-right` class)* |
+| `text-center`/`-left`/`-right` (self or parent) | `"align":"center"`/`"left"`/`"right"` | *(omit — WP uses `has-text-align-*` class)* |
 | `text-white` / `text-[#fff]` | `"color":{"text":"#ffffff"}` | `color:#ffffff` |
-| `whitespace-nowrap` | *(no Gutenberg attr — omit)* | *(omit — no JSON counterpart, WP won't regenerate)* |
-| `fontFeatureSettings:'case' 1` | *(no Gutenberg attr — omit)* | *(omit — no JSON counterpart, WP won't regenerate)* |
+| `whitespace-nowrap` | *(omit — no Gutenberg attr)* | *(omit)* |
+| `fontFeatureSettings:'case' 1` | *(omit)* | *(omit)* |
 
-For each alignment value, also add the matching wrapper class: `has-text-align-center`, `has-text-align-left`, `has-text-align-right`.
+Add matching wrapper class for alignment: `has-text-align-center`/`-left`/`-right`.
 
-### `metadata.name` Naming Conventions
+### `metadata.name` Naming
 
 Format: `[short-role]-[descriptive-slug]`.
 
-| Block type / role | Prefix examples |
+| Block / role | Prefix examples |
 |---|---|
 | `wp:heading` | `heading-hero`, `heading-section-title` |
 | `wp:paragraph` | `paragraph-hero-desc`, `paragraph-stats-footer` |
-| `wp:image` (feature icon) | `icon-ai-matching`, `icon-personalized` |
-| `wp:image` (chevron/UI) | `chevron-ai-matching`, `chevron-personalized` |
+| `wp:image` (icon) | `icon-ai-matching`, `chevron-personalized` |
 | `wp:image` (content) | `image-anne-johnson` |
-| `wp:column` | `column-feature-list`, `column-stat-searches` |
-| `wp:columns` | `data-advantage-columns`, `stats-columns` |
+| `wp:column` / `wp:columns` | `column-feature-list`, `stats-columns` |
 | `wp:buttons` / `wp:button` | `hero-buttons`, `filled-button`, `outline-button` |
-| `wp:group` (section) | `hero-text`, `ai-features`, `stats-card` |
-| `wp:group` (divider/rule) | `divider-after-ai-matching` |
-| `wp:group` (wrapper) | `quote-wrapper`, `matching-visual-wrapper` |
-| `wp:separator` | `separator-stats` |
-| `wp:spacer` | `spacer-allocators-stats` |
+| `wp:group` (section/wrapper/divider) | `hero-text`, `quote-wrapper`, `divider-after-ai-matching` |
+| `wp:separator` / `wp:spacer` | `separator-stats`, `spacer-allocators-stats` |

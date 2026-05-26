@@ -1,0 +1,121 @@
+/* Frontend + Editor shared styles */
+
+.wp-block-mesa-gutenberg-site-button {
+	display: inline-block;
+
+	/* Reset core button wrapper margins */
+	.wp-block-button {
+		margin: 0;
+	}
+
+	/* Base link styles — shared by every variant.
+	   The 2px gradient border is painted by a masked ::before pseudo-element so the
+	   button's own background (transparent OR filled) is unaffected. */
+	.wp-block-button__link {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 174px;
+		padding: 10px 22px; /* 8+2 / 20+2 — replaces what a real 2px border would occupy */
+		border: none;
+		border-radius: 4px;
+		background: transparent;
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		line-height: 24px;
+		font-weight: 400;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		box-shadow: none;
+		transition: background 0.18s ease, box-shadow 0.18s ease;
+
+		/* Masked gradient ring — fills only the 2px border area, never the interior. */
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			padding: 2px;
+			border-radius: inherit;
+			background: var(--site-btn-border, linear-gradient(180deg, #b48cc0, #5b2569));
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+					mask-composite: exclude;
+			pointer-events: none;
+			transition: background 0.18s ease;
+		}
+	}
+
+	/* ============ PURPLE PRIMARY (filled) ============ */
+	&.is-variant-purple-primary .wp-block-button__link {
+		--site-btn-border: linear-gradient(180deg, #b48cc0 0%, #5b2569 100%);
+		color: #ffffff;
+		background: linear-gradient(-46.44deg, #875598 0%, #3a1845 100%);
+		box-shadow: inset 0 -10px 20px 0 rgba(178, 85, 222, 0.2);
+
+		/* Hover/active backgrounds keep the SAME gradient structure (angle + stop count)
+		   so the browser can interpolate smoothly. Solid color = both stops equal. */
+		&:hover {
+			background: linear-gradient(-46.44deg, #4b1f59 0%, #4b1f59 100%);
+		}
+
+		&:active {
+			--site-btn-border: linear-gradient(180deg, #8b4d9e 0%, #4a1d56 100%);
+			background: linear-gradient(-46.44deg, #4b1f59 0%, #4b1f59 100%);
+		}
+	}
+
+	/* ============ PURPLE SECONDARY (outline) ============ */
+	&.is-variant-purple-secondary .wp-block-button__link {
+		--site-btn-border: linear-gradient(180deg, #b48cc0 0%, #5b2569 100%);
+		color: #ffffff;
+		background: transparent;
+		box-shadow: none;
+
+		&:hover {
+			background: #4b1f59;
+			box-shadow: inset 0 -10px 20px 0 rgba(178, 85, 222, 0.2);
+		}
+
+		&:active {
+			--site-btn-border: linear-gradient(180deg, #8b4d9e 0%, #4a1d56 100%);
+			background: #4b1f59;
+			box-shadow: inset 0 -10px 20px 0 rgba(178, 85, 222, 0.2);
+		}
+	}
+
+	/* ============ GRAY PRIMARY (filled light) ============ */
+	&.is-variant-gray-primary .wp-block-button__link {
+		--site-btn-border: linear-gradient(180deg, #e2e8f0 0%, #64748b 100%);
+		color: #475569;
+		background: linear-gradient(270deg, #cbd5e1 0%, #ffffff 100%);
+
+		&:hover {
+			background: linear-gradient(270deg, #cbd5e1 0%, #cbd5e1 100%);
+		}
+
+		&:active {
+			--site-btn-border: linear-gradient(180deg, #94a3b8 0%, #334155 100%);
+			background: linear-gradient(270deg, #cbd5e1 0%, #cbd5e1 100%);
+		}
+	}
+
+	/* ============ GRAY SECONDARY (outline) ============ */
+	&.is-variant-gray-secondary .wp-block-button__link {
+		--site-btn-border: linear-gradient(180deg, #f1f5f9 0%, #94a3b8 100%);
+		color: #ffffff;
+		background: transparent;
+
+		&:hover {
+			background: #64748b;
+		}
+
+		&:active {
+			--site-btn-border: linear-gradient(180deg, #cbd5e1 0%, #64748b 100%);
+			background: #64748b;
+		}
+	}
+}

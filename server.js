@@ -73,8 +73,10 @@ const STARFIELD_INIT_SCRIPT = `
       var w = wrapper.offsetWidth  || 800;
       var h = wrapper.offsetHeight || 600;
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, w, h);
+      if (bgColor && bgColor !== 'transparent') {
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, w, h);
+      }
       stars.forEach(function(s) {
         var t     = ts / s.period;
         var alpha = Math.max(0, Math.min(1, s.baseOpacity + s.amplitude * Math.sin(t * Math.PI * 2 + s.phase)));
@@ -223,8 +225,10 @@ const COBE_INIT_SCRIPT = `
 <\/script>`;
 
 function shell(title, bodyContent) {
-  const hasGlobe      = bodyContent.includes('data-cobe-globe');
-  const hasStarfield  = bodyContent.includes('data-starfield');
+  const hasGlobe         = bodyContent.includes('data-cobe-globe');
+  const hasStarfield     = bodyContent.includes('data-starfield');
+  const hasSiteButton    = bodyContent.includes('wp-block-mesa-gutenberg-site-button');
+  const hasLogosCarousel = bodyContent.includes('wp-block-mesa-gutenberg-logos-carousel');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,8 +238,10 @@ function shell(title, bodyContent) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="/styles/base.css">
-  ${ hasGlobe     ? '<link rel="stylesheet" href="/plugin-build/blocks/cobe-globe/style-index.css">' : '' }
-  ${ hasStarfield ? '<link rel="stylesheet" href="/plugin-build/blocks/starfield-background/style-index.css">' : '' }
+  ${ hasGlobe      ? '<link rel="stylesheet" href="/plugin-build/blocks/cobe-globe/style-index.css">' : '' }
+  ${ hasStarfield  ? '<link rel="stylesheet" href="/plugin-build/blocks/starfield-background/style-index.css">' : '' }
+  ${ hasSiteButton ? '<link rel="stylesheet" href="/plugin-build/blocks/site-button/style-index.css">' : '' }
+  ${ hasLogosCarousel ? '<link rel="stylesheet" href="/plugin-build/blocks/logos-carousel/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
@@ -399,7 +405,7 @@ const server = http.createServer((req, res) => {
 
   // Image assets
   if (pathname.startsWith('/images/')) {
-    const file = path.join(IMAGES_DIR, pathname.replace('/images/', ''));
+    const file = path.join(IMAGES_DIR, decodeURIComponent(pathname.replace('/images/', '')));
     if (!file.startsWith(IMAGES_DIR)) { res.writeHead(403); res.end(); return; }
     if (!fs.existsSync(file)) { res.writeHead(404); res.end('Not found'); return; }
     const ext = path.extname(file);
