@@ -1,0 +1,165 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: The iConnections Network
+    - heading "LP-GP Events, Roadshows, and Year-Round Programming" [level=2] [ref=e5]
+    - paragraph [ref=e6]:
+      - strong [ref=e7]: Over 100 in-person and digital touchpoints
+      - text: each year for allocators and managers across hedge funds, private equity, private credit, venture capital, and beyond. Flagship gatherings, regional roadshows, and a year-round platform working on your behalf.
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "IN-PERSON Flagship Experiences Global Alts Miami, Europe, New York, Asia & Funds4Charity 3,000–6,000+ Attendees · Owned & Operated" [expanded] [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: IN-PERSON
+            - heading "Flagship Experiences" [level=3] [ref=e14]
+          - img [ref=e16]
+        - generic [ref=e18]:
+          - paragraph [ref=e19]: Global Alts Miami, Europe, New York, Asia & Funds4Charity
+          - paragraph [ref=e20]: 3,000–6,000+ Attendees · Owned & Operated
+      - region [ref=e21]:
+        - generic [ref=e23]:
+          - generic [ref=e25]:
+            - figure [ref=e26]:
+              - img "Global Alts New York" [ref=e27]
+            - heading "Global Alts New York" [level=4] [ref=e28]
+            - paragraph [ref=e29]: June 09–10, 2026
+            - paragraph [ref=e30]: The Glasshouse, New York City
+            - paragraph [ref=e31]:
+              - link "View Event →" [ref=e32] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e34]:
+            - figure [ref=e35]:
+              - img "Global Alts Asia" [ref=e36]
+            - heading "Global Alts Asia" [level=4] [ref=e37]
+            - paragraph [ref=e38]: November 16–18, 2026
+            - paragraph [ref=e39]: Marina Bay Sands, Singapore
+            - paragraph [ref=e40]:
+              - link "View Event →" [ref=e41] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e43]:
+            - figure [ref=e44]:
+              - img "Global Alts Miami" [ref=e45]
+            - heading "Global Alts Miami" [level=4] [ref=e46]
+            - paragraph [ref=e47]: February 22–25, 2027
+            - paragraph [ref=e48]: Miami Beach Convention Center
+            - paragraph [ref=e49]:
+              - link "View Event →" [ref=e50] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e52]:
+            - figure [ref=e53]:
+              - img "Global Alts Europe" [ref=e54]
+            - heading "Global Alts Europe" [level=4] [ref=e55]
+            - paragraph [ref=e56]: April 28–29, 2027
+            - paragraph [ref=e57]: Les Salles du Carrousel, Carrousel du Louvre, Paris
+            - paragraph [ref=e58]:
+              - link "View Event →" [ref=e59] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e61]:
+            - figure [ref=e62]:
+              - img "Funds4Charity" [ref=e63]
+            - heading "Funds4Charity" [level=4] [ref=e64]
+            - paragraph [ref=e65]: February 22–23, 2027
+            - paragraph [ref=e66]: Miami Beach Convention Center
+            - paragraph [ref=e67]:
+              - link "Learn More →" [ref=e68] [cursor=pointer]:
+                - /url: "#"
+    - generic [ref=e69]:
+      - button "IN-PERSON Regional Community Roadshows, roundtables & intimate gatherings in key markets" [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: IN-PERSON
+            - heading "Regional Community" [level=3] [ref=e74]
+          - img [ref=e76]
+        - paragraph [ref=e79]: Roadshows, roundtables & intimate gatherings in key markets
+      - region [ref=e80]:
+        - generic [ref=e82]:
+          - generic [ref=e84]:
+            - figure [ref=e85]:
+              - img "Roadshows" [ref=e86]
+            - heading "Roadshows" [level=4] [ref=e87]
+            - paragraph [ref=e88]: Managers travel to allocators in regional markets. iConnections facilitates curated multi-city roadshows that put fund managers in front of allocators on their home turf.
+          - generic [ref=e90]:
+            - figure [ref=e91]:
+              - img "Coffee & Connections" [ref=e92]
+            - heading "Coffee & Connections" [level=4] [ref=e93]
+            - paragraph [ref=e94]: Morning networking sessions in major financial centers. Informal, high-signal conversations over coffee.
+          - generic [ref=e96]:
+            - figure [ref=e97]:
+              - img "Roundtables & Breakfasts" [ref=e98]
+            - heading "Roundtables & Breakfasts" [level=4] [ref=e99]
+            - paragraph [ref=e100]: Curated small-group discussions on specific strategies, markets, or themes, designed for candid peer exchange.
+    - generic [ref=e101]:
+      - button "DIGITAL Digital Gatherings Webinars, manager showcases & Meet the Allocator (live Q&A)" [ref=e102]:
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: DIGITAL
+            - heading "Digital Gatherings" [level=3] [ref=e106]
+          - img [ref=e108]
+        - paragraph [ref=e111]: Webinars, manager showcases & Meet the Allocator (live Q&A)
+      - region [ref=e112]:
+        - generic [ref=e114]:
+          - generic [ref=e116]:
+            - figure [ref=e117]:
+              - img "Webinars" [ref=e118]
+            - heading "Webinars & Thought Leadership" [level=4] [ref=e119]
+            - paragraph [ref=e120]: Regular virtual programming featuring allocators, managers, and industry leaders on the topics shaping alternatives.
+          - generic [ref=e122]:
+            - figure [ref=e123]:
+              - img "Manager Showcases" [ref=e124]
+            - heading "Manager Showcases" [level=4] [ref=e125]
+            - paragraph [ref=e126]: Virtual spotlights where emerging and established managers present directly to an engaged allocator audience.
+          - generic [ref=e128]:
+            - figure [ref=e129]:
+              - img "Ask the Allocator" [ref=e130]
+            - heading "Ask the Allocator" [level=4] [ref=e131]
+            - paragraph [ref=e132]: Live Q&A sessions with CIOs, portfolio managers, and allocator panels. Real questions, real-time answers from the people writing checks.
+    - generic [ref=e133]:
+      - button "DIGITAL Year-Round Platform 26,000+ Users" [ref=e134]:
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - generic [ref=e137]: DIGITAL
+            - heading "Year-Round Platform" [level=3] [ref=e138]
+          - img [ref=e140]
+        - paragraph [ref=e143]: 26,000+ Users
+      - region [ref=e144]:
+        - generic [ref=e147]:
+          - figure [ref=e148]:
+            - img "iConnections Platform" [ref=e149]
+          - heading "The iConnections Platform" [level=4] [ref=e150]
+          - paragraph [ref=e151]: 26,000+ allocators, managers, and service providers active year-round. Discover, message, meet — without waiting for the next event.
+          - paragraph [ref=e152]:
+            - link "Explore the Platform →" [ref=e153] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e154]:
+      - button "DIGITAL + IN-PERSON Partner Network Powered by iConnections · Members get preferred access" [ref=e155]:
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - generic [ref=e158]: DIGITAL + IN-PERSON
+            - heading "Partner Network" [level=3] [ref=e159]
+          - img [ref=e161]
+        - paragraph [ref=e164]: Powered by iConnections · Members get preferred access
+      - region [ref=e165]:
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - generic [ref=e169]:
+              - 'heading "MFA Ops: Treasury & Finance" [level=4] [ref=e170]'
+              - paragraph [ref=e171]: New York
+              - paragraph [ref=e172]:
+                - link "View Event →" [ref=e173] [cursor=pointer]:
+                  - /url: "#"
+            - generic [ref=e175]:
+              - heading "MFA Legal & Compliance" [level=4] [ref=e176]
+              - paragraph [ref=e177]: New York
+              - paragraph [ref=e178]:
+                - link "View Event →" [ref=e179] [cursor=pointer]:
+                  - /url: "#"
+            - generic [ref=e181]:
+              - heading "Capitalize For Kids" [level=4] [ref=e182]
+              - paragraph [ref=e183]: Investors Conference · Toronto
+              - paragraph [ref=e184]:
+                - link "View Event →" [ref=e185] [cursor=pointer]:
+                  - /url: "#"
+          - paragraph [ref=e186]:
+            - text: Our technology powers a growing network of partner events across the alternatives ecosystem. iConnections members get preferred access at reduced rates.
+            - link "See all partner events →" [ref=e187] [cursor=pointer]:
+              - /url: "#"

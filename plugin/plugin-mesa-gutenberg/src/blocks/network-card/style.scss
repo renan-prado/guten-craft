@@ -1,0 +1,233 @@
+.wp-block-mesa-gutenberg-network-card {
+	--nc-bg: rgba(255, 255, 255, 0.04);
+	--nc-border: rgba(255, 255, 255, 0.1);
+	--nc-radius: 16px;
+	--nc-padding: 16px;
+	--nc-media-width: 240px;
+	--nc-media-height: 200px;
+	--nc-gap: 32px;
+
+	display: block;
+	border-radius: var(--nc-radius);
+	background: var(--nc-bg);
+	border: 1px solid var(--nc-border);
+	color: #f1f5f9;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	&.is-full-width {
+		grid-column: 1 / -1;
+	}
+
+	.network-card__inner {
+		display: flex;
+		padding: var(--nc-padding);
+		gap: var(--nc-gap);
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+	/* ---------- Layouts ---------- */
+
+	&.is-layout-media-side .network-card__inner {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	&.is-layout-media-side.is-media-right .network-card__inner {
+		flex-direction: row-reverse;
+	}
+
+	&.is-layout-media-top .network-card__inner,
+	&.is-layout-text-only .network-card__inner {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	&.is-layout-showcase {
+		.network-card__inner {
+			flex-direction: row;
+			align-items: stretch;
+			gap: max(48px, var(--nc-gap));
+		}
+		&.is-media-right .network-card__inner {
+			flex-direction: row-reverse;
+		}
+		--nc-media-width: 572px;
+		--nc-media-height: 240px;
+	}
+
+	/* ---------- Media sizing (image / video children) ---------- */
+
+	&.is-layout-media-side,
+	&.is-layout-showcase {
+		.network-card__inner > .wp-block-image,
+		.network-card__inner > figure.wp-block-image,
+		.network-card__inner > .wp-block-video {
+			position: absolute;
+			top: var(--nc-padding);
+			bottom: var(--nc-padding);
+			left: var(--nc-padding);
+			width: var(--nc-media-width);
+			margin: 0;
+		}
+		.network-card__inner > .wp-block-image img,
+		.network-card__inner > .wp-block-video video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: calc(var(--nc-radius) - 4px);
+			display: block;
+		}
+		&.is-media-right {
+			.network-card__inner > .wp-block-image,
+			.network-card__inner > figure.wp-block-image,
+			.network-card__inner > .wp-block-video {
+				left: auto;
+				right: var(--nc-padding);
+			}
+		}
+	}
+
+	&.is-layout-media-top {
+		.network-card__inner > .wp-block-image img,
+		.network-card__inner > .wp-block-video video {
+			width: 100%;
+			height: var(--nc-media-height);
+			object-fit: cover;
+			border-radius: calc(var(--nc-radius) - 4px);
+			display: block;
+		}
+		.network-card__inner > .wp-block-image,
+		.network-card__inner > .wp-block-video {
+			margin: 0;
+		}
+	}
+
+	/* ---------- Text children defaults ---------- */
+
+	.network-card__inner > * {
+		margin: 0;
+	}
+
+	.network-card__inner > .wp-block-heading {
+		font-family: 'Inter Tight', sans-serif;
+		font-size: 20px;
+		line-height: 1.2;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.network-card__inner > p {
+		font-family: 'Inter', sans-serif;
+		font-size: 14px;
+		line-height: 1.5;
+		color: rgba(241, 245, 249, 0.78);
+	}
+
+	.network-card__inner > p a {
+		color: #ffffff;
+		font-weight: 700;
+		text-decoration: none;
+		transition: opacity 0.2s ease;
+	}
+
+	.network-card__inner > p a:hover {
+		opacity: 0.8;
+	}
+
+	.network-card__inner > .wp-block-buttons {
+		margin-top: 8px;
+	}
+
+	&.is-layout-media-side .network-card__inner,
+	&.is-layout-showcase .network-card__inner {
+		/* Group all text children into a column block */
+		flex-wrap: wrap;
+	}
+
+	/* When the card has a media child + text children, wrap text in flex column */
+	&.is-layout-media-side .network-card__inner,
+	&.is-layout-showcase .network-card__inner {
+		display: grid;
+		grid-template-columns: var(--nc-media-width) 1fr;
+		align-items: center;
+		align-content: center;
+		gap: var(--nc-gap);
+		position: relative;
+		min-height: calc(var(--nc-media-height) + var(--nc-padding) * 2);
+	}
+	&.is-layout-media-side.is-media-right .network-card__inner,
+	&.is-layout-showcase.is-media-right .network-card__inner {
+		grid-template-columns: 1fr var(--nc-media-width);
+	}
+	&.is-layout-media-side.is-media-right .network-card__inner > .wp-block-image,
+	&.is-layout-media-side.is-media-right .network-card__inner > .wp-block-video,
+	&.is-layout-showcase.is-media-right .network-card__inner > .wp-block-image,
+	&.is-layout-showcase.is-media-right .network-card__inner > .wp-block-video {
+		order: 2;
+	}
+
+	&.is-layout-media-side .network-card__inner > :not(.wp-block-image):not(.wp-block-video),
+	&.is-layout-showcase .network-card__inner > :not(.wp-block-image):not(.wp-block-video) {
+		grid-column: 2;
+	}
+	&.is-layout-media-side.is-media-right .network-card__inner > :not(.wp-block-image):not(.wp-block-video),
+	&.is-layout-showcase.is-media-right .network-card__inner > :not(.wp-block-image):not(.wp-block-video) {
+		grid-column: 1;
+	}
+
+	/* Stack title/desc/etc vertically by giving them rows */
+	&.is-layout-media-side .network-card__inner > :not(.wp-block-image):not(.wp-block-video) {
+		align-self: start;
+	}
+	&.is-layout-media-side .network-card__inner > :not(.wp-block-image):not(.wp-block-video):first-of-type {
+		margin-top: 0;
+	}
+
+	/* Vertical text stack inside grid: use display contents trick — fallback to manual gap */
+	&.is-layout-media-side .network-card__inner,
+	&.is-layout-showcase .network-card__inner {
+		row-gap: 6px;
+	}
+
+	/* ---------- Alignment ---------- */
+
+	&.is-align-center .network-card__inner > .wp-block-heading,
+	&.is-align-center .network-card__inner > p {
+		text-align: center;
+	}
+	&.is-align-right .network-card__inner > .wp-block-heading,
+	&.is-align-right .network-card__inner > p {
+		text-align: right;
+	}
+
+	/* ---------- Responsive ---------- */
+
+	@media (max-width: 768px) {
+		&.is-layout-media-side .network-card__inner,
+		&.is-layout-showcase .network-card__inner {
+			display: flex;
+			flex-direction: column !important;
+			grid-template-columns: 1fr !important;
+		}
+		&.is-layout-media-side .network-card__inner > .wp-block-image,
+		&.is-layout-media-side .network-card__inner > .wp-block-video,
+		&.is-layout-showcase .network-card__inner > .wp-block-image,
+		&.is-layout-showcase .network-card__inner > .wp-block-video {
+			width: 100%;
+			max-width: 100%;
+			flex-basis: auto;
+		}
+		&.is-layout-media-side .network-card__inner > .wp-block-image img,
+		&.is-layout-media-side .network-card__inner > .wp-block-video video,
+		&.is-layout-showcase .network-card__inner > .wp-block-image img,
+		&.is-layout-showcase .network-card__inner > .wp-block-video video {
+			height: 180px;
+		}
+		&.is-layout-media-side .network-card__inner > :not(.wp-block-image):not(.wp-block-video),
+		&.is-layout-showcase .network-card__inner > :not(.wp-block-image):not(.wp-block-video) {
+			grid-column: auto;
+		}
+	}
+}

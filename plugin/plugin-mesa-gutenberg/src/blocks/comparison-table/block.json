@@ -1,0 +1,88 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/comparison-table",
+	"version": "1.0.0",
+	"title": "Comparison Table",
+	"category": "mesa-gutenberg",
+	"icon": "editor-table",
+	"description": "Tabela comparativa de duas (ou mais) colunas com headers gradiente/sólido e itens com ícone. Em mobile colapsa para cards separados empilhados.",
+	"keywords": ["table", "comparison", "compare", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"columns": {
+			"type": "array",
+			"default": [
+				{
+					"id": "everywhere-else",
+					"title": "Everywhere Else",
+					"titleColor": "#475569",
+					"titleBackground": "#e2e8f0",
+					"iconType": "xmark",
+					"iconColor": "#94a3b8",
+					"items": [
+						"Fund manager sends outreach to a static allocator list",
+						"Follow-up emails sit in inbox limbo",
+						"Cold introduction, no shared context",
+						"Relationships stall between events"
+					]
+				},
+				{
+					"id": "iconnections-platform",
+					"title": "iConnections Platform",
+					"titleColor": "#ffffff",
+					"titleBackground": "linear-gradient(90deg, #3a1845 0%, #692b7e 100%)",
+					"iconType": "check",
+					"iconColor": "#692b7e",
+					"items": [
+						"LPs search. AI refines matches in real time on live mandate signals",
+						"AI alerts you when an allocator views your profile and surfaces the right moment to connect",
+						"Both sides know why the match is relevant before the first message is sent",
+						"Agentic AI keeps momentum, surfacing intent and flagging opportunities on your behalf"
+					]
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":              { "type": "string" },
+					"title":           { "type": "string" },
+					"titleColor":      { "type": "string" },
+					"titleBackground": { "type": "string" },
+					"iconType":        { "type": "string" },
+					"iconColor":       { "type": "string" },
+					"items":           { "type": "array" }
+				}
+			}
+		},
+		"radius":              { "type": "number", "default": 16 },
+		"borderColor":         { "type": "string", "default": "#f1f5f9" },
+		"borderWidth":         { "type": "number", "default": 2 },
+		"shadow":              { "type": "string", "default": "0 0 40px rgba(71,85,105,0.1)" },
+		"titlePaddingY":       { "type": "number", "default": 24 },
+		"titlePaddingX":       { "type": "number", "default": 80 },
+		"itemsPaddingY":       { "type": "number", "default": 24 },
+		"itemsPaddingX":       { "type": "number", "default": 80 },
+		"itemsGap":            { "type": "number", "default": 24 },
+		"itemTextColor":       { "type": "string", "default": "#475569" },
+		"dividerColor":        { "type": "string", "default": "#cbd5e1" },
+		"titleAlignDesktop":   { "type": "string", "default": "left" },
+		"mobileTitleAlign":    { "type": "string", "default": "center" },
+		"mobileTitlePaddingX": { "type": "number", "default": 24 },
+		"mobileItemsPaddingX": { "type": "number", "default": 16 },
+		"mobileGap":           { "type": "number", "default": 40 },
+		"iconSize":            { "type": "number", "default": 24 },
+		"itemMinHeightDesktop": { "type": "number", "default": 48 }
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

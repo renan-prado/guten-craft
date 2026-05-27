@@ -1,0 +1,40 @@
+.wp-block-mesa-gutenberg-halo-card {
+	position: relative;
+	isolation: isolate;
+	border: 0;
+	outline: 0;
+	background: transparent;
+
+	.halo-card__halo {
+		position: absolute;
+		left: 50%;
+		pointer-events: none;
+		z-index: 0;
+		display: block;
+		filter: blur(36px);
+	}
+
+	.halo-card__halo--top {
+		top: 0;
+		transform: translate(-50%, -50%);
+	}
+
+	.halo-card__halo--bottom {
+		bottom: 0;
+		transform: translate(-50%, 50%);
+	}
+
+	.halo-card__inner {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+	}
+
+	.has-gradient-purple-text {
+		background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: transparent;
+	}
+}

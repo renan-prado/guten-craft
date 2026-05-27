@@ -1,0 +1,258 @@
+.wp-block-mesa-gutenberg-expandable-cards {
+	--ec-gap: 24px;
+	--ec-radius: 16px;
+	--ec-card-bg: #ffffff;
+	--ec-border-color: #f1f5f9;
+	--ec-border-width: 2px;
+	--ec-shadow: 0 0 40px rgba(71, 85, 105, 0.1);
+	--ec-active-w: 780px;
+	--ec-collapsed-w: 190px;
+	--ec-active-min-h: 460px;
+	--ec-eyebrow-color: #9b71a9;
+	--ec-desc-color: #475569;
+	--ec-collapsed-title-color: #94a3b8;
+	--ec-tag-border-color: #cbd5e1;
+	--ec-tag-text-color: #64748b;
+	--ec-arrow-color: #692b7e;
+
+	width: 100%;
+	font-family: 'Inter', sans-serif;
+	border: 0;
+	outline: 0;
+	box-shadow: none;
+	background: transparent;
+
+	.expandable-cards__grid {
+		display: flex;
+		gap: var(--ec-gap);
+		align-items: stretch;
+		filter: drop-shadow(var(--ec-shadow));
+	}
+
+	.expandable-cards__card {
+		background: var(--ec-card-bg);
+		border: var(--ec-border-width) solid var(--ec-border-color);
+		border-radius: var(--ec-radius);
+		overflow: hidden;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		flex: 0 0 var(--ec-collapsed-w);
+		min-height: var(--ec-active-min-h);
+		transition: flex-basis 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+	}
+
+	.expandable-cards__card.is-open {
+		flex: 1 0 var(--ec-active-w);
+		cursor: default;
+	}
+
+	// Collapsed face (always rendered; visibility toggles by open state)
+	.expandable-cards__collapsed {
+		all: unset;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 24px;
+		width: 100%;
+		height: 100%;
+		min-height: var(--ec-active-min-h);
+		padding: 40px 24px;
+		cursor: pointer;
+		text-align: left;
+		color: var(--ec-collapsed-title-color);
+		transition: opacity 0.3s ease;
+	}
+
+	.expandable-cards__collapsed:focus-visible {
+		outline: 2px solid var(--ec-arrow-color);
+		outline-offset: -4px;
+		border-radius: var(--ec-radius);
+	}
+
+	.expandable-cards__collapsed-title {
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 24px;
+		color: var(--ec-collapsed-title-color);
+		word-break: break-word;
+		width: 100%;
+	}
+
+	.expandable-cards__arrow {
+		color: var(--ec-arrow-color);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.expandable-cards__arrow--down { display: none; }
+	.expandable-cards__arrow--right { display: inline-flex; }
+
+	// Expanded face — absolutely positioned over the card so width-change
+	// doesn't reflow content; we fade it in / out.
+	.expandable-cards__expanded {
+		position: absolute;
+		inset: 0;
+		padding: 40px 64px;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		align-items: flex-start;
+		justify-content: flex-start;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.35s ease 0.05s;
+		pointer-events: none;
+		overflow: hidden;
+	}
+
+	.expandable-cards__card.is-open .expandable-cards__expanded {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	.expandable-cards__card.is-open .expandable-cards__collapsed {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.expandable-cards__eyebrow {
+		margin: 0;
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 24px;
+		color: var(--ec-eyebrow-color);
+	}
+
+	.expandable-cards__title {
+		margin: 0;
+		font-family: 'Inter Tight', sans-serif;
+		font-size: clamp(28px, calc(1.5vw + 20px), 48px);
+		line-height: clamp(36px, calc(1.5vw + 28px), 56px);
+		font-weight: 700;
+		word-break: break-word;
+	}
+
+	// Gradient text (same gradient used in halo-card)
+	.expandable-cards__title.has-gradient-purple-text {
+		background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: transparent;
+	}
+
+	.expandable-cards__description {
+		margin: 0;
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 24px;
+		color: var(--ec-desc-color);
+	}
+
+	.expandable-cards__tags {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.expandable-cards__tag {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px 24px;
+		border: 2px solid var(--ec-tag-border-color);
+		border-radius: 1000px;
+		font-family: 'Inter', sans-serif;
+		font-size: 14px;
+		line-height: 20px;
+		color: var(--ec-tag-text-color);
+		white-space: nowrap;
+		background: transparent;
+	}
+
+	// Mobile: stack vertically, accordion behavior, full width, down arrow
+	@media (max-width: 900px) {
+		.expandable-cards__grid {
+			flex-direction: column;
+			gap: var(--ec-gap);
+		}
+
+		.expandable-cards__card {
+			flex: 0 0 auto;
+			min-height: 0;
+			width: 100%;
+		}
+
+		.expandable-cards__card.is-open {
+			flex: 0 0 auto;
+		}
+
+		.expandable-cards__collapsed {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			min-height: 0;
+			padding: 24px;
+		}
+
+		.expandable-cards__arrow--right { display: none; }
+		.expandable-cards__arrow--down  { display: inline-flex; }
+
+		.expandable-cards__arrow--down {
+			transition: transform 0.3s ease;
+		}
+		.expandable-cards__card.is-open .expandable-cards__arrow--down {
+			transform: rotate(180deg);
+		}
+
+		// On mobile, the expanded panel sits BELOW the collapsed header (not absolute).
+		// We render both: collapsed stays visible as the header, expanded appears below.
+		.expandable-cards__expanded {
+			position: static;
+			padding: 0 24px 24px;
+			opacity: 0;
+			visibility: hidden;
+			max-height: 0;
+			overflow: hidden;
+			transition:
+				max-height 0.4s ease,
+				opacity 0.3s ease 0.05s,
+				padding 0.3s ease;
+		}
+
+		.expandable-cards__card.is-open .expandable-cards__expanded {
+			opacity: 1;
+			visibility: visible;
+			max-height: 2000px;
+		}
+
+		.expandable-cards__card.is-open .expandable-cards__collapsed {
+			opacity: 1;
+			pointer-events: auto;
+			color: #475569;
+		}
+
+		.expandable-cards__card.is-open .expandable-cards__collapsed-title {
+			color: #475569;
+		}
+
+		.expandable-cards__title {
+			font-size: 32px;
+			line-height: 40px;
+		}
+	}
+}

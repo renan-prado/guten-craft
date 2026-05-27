@@ -1,0 +1,98 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/feature-accordion",
+	"version": "1.0.0",
+	"title": "Feature Accordion",
+	"category": "mesa-gutenberg",
+	"icon": "list-view",
+	"description": "Lista colapsável de features. Cada linha tem ícone, título, descrição e imagem ilustrativa. Apenas um item aberto por vez. Desktop mostra a imagem do item ativo ao lado; mobile mostra inline.",
+	"keywords": ["accordion", "collapse", "features", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "ai-matching",
+					"title": "AI Recommendations & Matching",
+					"description": "Surfaces the right allocators and managers to each other on live behavioral signals and active mandate data.",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"image": { "id": 0, "url": "", "alt": "" }
+				},
+				{
+					"id": "personalized",
+					"title": "Personalized Experiences",
+					"description": "Tailored content and connections that adapt to each user's role, focus and history.",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"image": { "id": 0, "url": "", "alt": "" }
+				},
+				{
+					"id": "agentic-search",
+					"title": "Agentic Search",
+					"description": "Natural-language queries that find the right people, funds and content across the network.",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"image": { "id": 0, "url": "", "alt": "" }
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":          { "type": "string" },
+					"title":       { "type": "string" },
+					"description": { "type": "string" },
+					"icon":        { "type": "object" },
+					"image":       { "type": "object" }
+				}
+			}
+		},
+		"defaultOpenIndex": {
+			"type": "number",
+			"default": 0
+		},
+		"columnGap": {
+			"type": "number",
+			"default": 80
+		},
+		"itemGap": {
+			"type": "number",
+			"default": 24
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#f8fafc"
+		},
+		"descriptionColor": {
+			"type": "string",
+			"default": "#e2e8f0"
+		},
+		"dividerColor": {
+			"type": "string",
+			"default": "rgba(255,255,255,0.1)"
+		},
+		"chevronColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"imageRadius": {
+			"type": "number",
+			"default": 16
+		},
+		"imageMinHeight": {
+			"type": "number",
+			"default": 540
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

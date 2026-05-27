@@ -1,0 +1,125 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/feature-cards",
+	"version": "1.0.0",
+	"title": "Feature Cards",
+	"category": "mesa-gutenberg",
+	"icon": "screenoptions",
+	"description": "Grid de cards com ícone roxo, título e descrição. Responsivo: 4 colunas desktop, 2 tablet, 1 mobile. Cada card é editável individualmente.",
+	"keywords": ["cards", "features", "grid", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "allocators-search",
+					"iconKey": "magnifying-glass-bar-chart",
+					"iconUrl": "",
+					"iconAlt": "",
+					"title": "Allocators Search",
+					"description": "Allocators search for managers matching their mandate: strategy, geography, fund size, track record"
+				},
+				{
+					"id": "ai-matches",
+					"iconKey": "user-target",
+					"iconUrl": "",
+					"iconAlt": "",
+					"title": "AI Surfaces Matches",
+					"description": "Relevant funds surface based on behavioral data and live intent, not just static filters"
+				},
+				{
+					"id": "both-sides-engage",
+					"iconKey": "users-arrows",
+					"iconUrl": "",
+					"iconAlt": "",
+					"title": "Both Sides Engage",
+					"description": "Through a trusted, verified network. No gatekeepers, no stale data"
+				},
+				{
+					"id": "relationships-compound",
+					"iconKey": "arrow-up-graph-increase",
+					"iconUrl": "",
+					"iconAlt": "",
+					"title": "Relationships Compound",
+					"description": "Every interaction enriches future matching and discovery"
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":          { "type": "string" },
+					"iconKey":     { "type": "string" },
+					"iconUrl":     { "type": "string" },
+					"iconAlt":     { "type": "string" },
+					"title":       { "type": "string" },
+					"description": { "type": "string" }
+				}
+			}
+		},
+		"columnsDesktop": {
+			"type": "number",
+			"default": 4
+		},
+		"columnsTablet": {
+			"type": "number",
+			"default": 2
+		},
+		"gap": {
+			"type": "number",
+			"default": 16
+		},
+		"cardRadius": {
+			"type": "number",
+			"default": 16
+		},
+		"cardPadding": {
+			"type": "number",
+			"default": 24
+		},
+		"cardBackground": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"cardBorderColor": {
+			"type": "string",
+			"default": "#f1f5f9"
+		},
+		"cardBorderWidth": {
+			"type": "number",
+			"default": 2
+		},
+		"cardShadow": {
+			"type": "string",
+			"default": "0 0 40px rgba(71,85,105,0.1)"
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#64748b"
+		},
+		"descriptionColor": {
+			"type": "string",
+			"default": "#475569"
+		},
+		"iconSize": {
+			"type": "number",
+			"default": 40
+		},
+		"textAlign": {
+			"type": "string",
+			"default": "center"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

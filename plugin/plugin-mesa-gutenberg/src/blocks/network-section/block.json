@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/network-section",
+	"version": "1.0.0",
+	"title": "Network Section",
+	"category": "mesa-gutenberg",
+	"icon": "list-view",
+	"description": "Seção dropdown com chip/tag, título e subtítulo. Abre automaticamente conforme o usuário rola. Aceita network-card e quaisquer blocos nativos como conteúdo.",
+	"keywords": ["network", "section", "accordion", "dropdown", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"tagText": {
+			"type": "string",
+			"default": "IN-PERSON"
+		},
+		"tagVariant": {
+			"type": "string",
+			"default": "in-person"
+		},
+		"title": {
+			"type": "string",
+			"default": "Section title"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitleSecondary": {
+			"type": "string",
+			"default": ""
+		},
+		"defaultOpen": {
+			"type": "boolean",
+			"default": false
+		},
+		"openOnScroll": {
+			"type": "boolean",
+			"default": true
+		},
+		"dividerColor": {
+			"type": "string",
+			"default": "rgba(255,255,255,0.15)"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

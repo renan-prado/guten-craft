@@ -1,0 +1,26 @@
+.expandable-cards-item-editor {
+	border: 1px solid #e2e4e7;
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #fafafa;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 2px;
+	}
+}
+
+.wp-block-mesa-gutenberg-expandable-cards {
+	.expandable-cards__collapsed {
+		cursor: pointer;
+	}
+}

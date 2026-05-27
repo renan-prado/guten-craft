@@ -1,0 +1,180 @@
+.wp-block-mesa-gutenberg-comparison-table {
+	--ct-radius: 16px;
+	--ct-border-color: #f1f5f9;
+	--ct-border-width: 2px;
+	--ct-shadow: 0 0 40px rgba(71, 85, 105, 0.1);
+	--ct-title-padding-y: 24px;
+	--ct-title-padding-x: 80px;
+	--ct-items-padding-y: 24px;
+	--ct-items-padding-x: 80px;
+	--ct-items-gap: 24px;
+	--ct-item-text-color: #475569;
+	--ct-divider-color: #cbd5e1;
+	--ct-title-align: left;
+	--ct-mobile-title-align: center;
+	--ct-mobile-title-padding-x: 24px;
+	--ct-mobile-items-padding-x: 16px;
+	--ct-mobile-gap: 40px;
+	--ct-icon-size: 24px;
+	--ct-item-min-height-desktop: 48px;
+
+	width: 100%;
+	font-family: 'Inter', sans-serif;
+	border: 0;
+	outline: 0;
+	background: transparent;
+
+	.comparison-table__grid {
+		display: flex;
+		align-items: stretch;
+		border: var(--ct-border-width) solid var(--ct-border-color);
+		border-radius: var(--ct-radius);
+		box-shadow: var(--ct-shadow);
+		overflow: clip;
+		background: #ffffff;
+	}
+
+	.comparison-table__column {
+		flex: 1 1 0;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		background: #ffffff;
+		overflow: clip;
+
+		& + & {
+			border-left: 1px solid var(--ct-divider-color);
+		}
+	}
+
+	.comparison-table__title {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: var(--ct-title-padding-y) var(--ct-title-padding-x);
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.comparison-table__title-text {
+		margin: 0;
+		font-family: 'Inter', sans-serif;
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 28px;
+		word-break: break-word;
+	}
+
+	.comparison-table__items {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: var(--ct-items-gap);
+		padding: var(--ct-items-padding-y) var(--ct-items-padding-x);
+		width: 100%;
+		box-sizing: border-box;
+		flex: 1 1 auto;
+	}
+
+	.comparison-table__item {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		width: 100%;
+		min-height: var(--ct-item-min-height-desktop, 48px);
+	}
+
+	.comparison-table__icon {
+		display: inline-flex;
+		flex-shrink: 0;
+		width: var(--ct-icon-size);
+		height: var(--ct-icon-size);
+
+		svg {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.comparison-table__item-text {
+		margin: 0;
+		flex: 1 1 0;
+		min-width: 0;
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		line-height: 24px;
+		color: var(--ct-item-text-color);
+		word-break: break-word;
+	}
+
+	.comparison-table__divider {
+		display: block;
+		height: 1px;
+		width: 100%;
+		background: var(--ct-divider-color);
+	}
+
+	/* Desktop title alignment */
+	.comparison-table__title {
+		justify-content: var(--ct-title-justify, flex-start);
+	}
+	&[style*="--ct-title-align: center"] .comparison-table__title,
+	&[style*="--ct-title-align:center"] .comparison-table__title {
+		justify-content: center;
+	}
+	&[style*="--ct-title-align: right"] .comparison-table__title,
+	&[style*="--ct-title-align:right"] .comparison-table__title {
+		justify-content: flex-end;
+	}
+
+	/* Mobile: columns become independent stacked cards */
+	@media (max-width: 1024px) {
+		.comparison-table__grid {
+			flex-direction: column;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			background: transparent;
+			overflow: visible;
+			gap: var(--ct-mobile-gap);
+		}
+
+		.comparison-table__column {
+			border: var(--ct-border-width) solid var(--ct-border-color);
+			border-radius: var(--ct-radius);
+			box-shadow: var(--ct-shadow);
+			overflow: clip;
+			background: #ffffff;
+
+			& + & {
+				border-left: var(--ct-border-width) solid var(--ct-border-color);
+			}
+		}
+
+		.comparison-table__title {
+			padding-left: var(--ct-mobile-title-padding-x);
+			padding-right: var(--ct-mobile-title-padding-x);
+			justify-content: center;
+		}
+
+		&[style*="--ct-mobile-title-align: left"] .comparison-table__title,
+		&[style*="--ct-mobile-title-align:left"] .comparison-table__title {
+			justify-content: flex-start;
+		}
+		&[style*="--ct-mobile-title-align: right"] .comparison-table__title,
+		&[style*="--ct-mobile-title-align:right"] .comparison-table__title {
+			justify-content: flex-end;
+		}
+
+		.comparison-table__items {
+			padding-left: var(--ct-mobile-items-padding-x);
+			padding-right: var(--ct-mobile-items-padding-x);
+		}
+
+		.comparison-table__item {
+			min-height: 0;
+		}
+	}
+}

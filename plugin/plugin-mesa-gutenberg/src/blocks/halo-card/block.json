@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/halo-card",
+	"version": "1.0.0",
+	"title": "Halo Card",
+	"category": "mesa-gutenberg",
+	"icon": "art",
+	"description": "Cartão branco com cantos arredondados e halos de luz radiais purple acima e abaixo. Usado em seções escuras para destacar conteúdo.",
+	"keywords": ["halo", "card", "glow", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"radius": {
+			"type": "number",
+			"default": 32
+		},
+		"cardColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"haloColor": {
+			"type": "string",
+			"default": "rgba(200,100,230,0.95)"
+		},
+		"haloWidth": {
+			"type": "string",
+			"default": "100%"
+		},
+		"haloHeight": {
+			"type": "number",
+			"default": 360
+		},
+		"marginTop": {
+			"type": "number",
+			"default": 0
+		},
+		"marginBottom": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"padding": true
+		}
+	}
+}

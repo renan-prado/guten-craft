@@ -1,0 +1,55 @@
+.feature-accordion-item-editor {
+	border: 1px solid #e2e4e7;
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #fafafa;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 2px;
+	}
+}
+
+.feature-accordion-media-field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.feature-accordion-media-thumb {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	background: #fff;
+	border: 1px solid #e2e4e7;
+	border-radius: 4px;
+}
+
+.wp-block-mesa-gutenberg-feature-accordion {
+	.feature-accordion__header {
+		cursor: pointer;
+	}
+
+	.feature-accordion__stage-placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 24px;
+		color: rgba(255, 255, 255, 0.6);
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px dashed rgba(255, 255, 255, 0.2);
+		border-radius: var(--fa-image-radius, 16px);
+		min-height: var(--fa-image-min-height, 540px);
+	}
+}

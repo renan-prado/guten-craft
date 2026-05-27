@@ -229,6 +229,13 @@ function shell(title, bodyContent) {
   const hasStarfield     = bodyContent.includes('data-starfield');
   const hasSiteButton    = bodyContent.includes('wp-block-mesa-gutenberg-site-button');
   const hasLogosCarousel = bodyContent.includes('wp-block-mesa-gutenberg-logos-carousel');
+  const hasFeatureAccordion = bodyContent.includes('wp-block-mesa-gutenberg-feature-accordion');
+  const hasHaloCard      = bodyContent.includes('wp-block-mesa-gutenberg-halo-card');
+  const hasFeatureCards  = bodyContent.includes('wp-block-mesa-gutenberg-feature-cards');
+  const hasComparisonTable = bodyContent.includes('wp-block-mesa-gutenberg-comparison-table');
+  const hasExpandableCards = bodyContent.includes('wp-block-mesa-gutenberg-expandable-cards');
+  const hasNetworkSection = bodyContent.includes('wp-block-mesa-gutenberg-network-section');
+  const hasNetworkCard    = bodyContent.includes('wp-block-mesa-gutenberg-network-card');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -242,6 +249,13 @@ function shell(title, bodyContent) {
   ${ hasStarfield  ? '<link rel="stylesheet" href="/plugin-build/blocks/starfield-background/style-index.css">' : '' }
   ${ hasSiteButton ? '<link rel="stylesheet" href="/plugin-build/blocks/site-button/style-index.css">' : '' }
   ${ hasLogosCarousel ? '<link rel="stylesheet" href="/plugin-build/blocks/logos-carousel/style-index.css">' : '' }
+  ${ hasFeatureAccordion ? '<link rel="stylesheet" href="/plugin-build/blocks/feature-accordion/style-index.css">' : '' }
+  ${ hasHaloCard      ? '<link rel="stylesheet" href="/plugin-build/blocks/halo-card/style-index.css">' : '' }
+  ${ hasFeatureCards  ? '<link rel="stylesheet" href="/plugin-build/blocks/feature-cards/style-index.css">' : '' }
+  ${ hasComparisonTable ? '<link rel="stylesheet" href="/plugin-build/blocks/comparison-table/style-index.css">' : '' }
+  ${ hasExpandableCards ? '<link rel="stylesheet" href="/plugin-build/blocks/expandable-cards/style-index.css">' : '' }
+  ${ hasNetworkSection ? '<link rel="stylesheet" href="/plugin-build/blocks/network-section/style-index.css">' : '' }
+  ${ hasNetworkCard    ? '<link rel="stylesheet" href="/plugin-build/blocks/network-card/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
@@ -340,6 +354,9 @@ ${bodyContent}
 </script>
 ${hasGlobe     ? COBE_INIT_SCRIPT     : ''}
 ${hasStarfield ? STARFIELD_INIT_SCRIPT : ''}
+${hasFeatureAccordion ? '<script src="/plugin-build/blocks/feature-accordion/view.js"></script>' : ''}
+${hasExpandableCards ? '<script src="/plugin-build/blocks/expandable-cards/view.js"></script>' : ''}
+${hasNetworkSection ? '<script src="/plugin-build/blocks/network-section/view.js"></script>' : ''}
 </body>
 </html>`;
 }

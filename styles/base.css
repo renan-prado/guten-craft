@@ -114,6 +114,27 @@ html, body {
   border-top: 1px solid currentColor;
 }
 
+.has-text-align-center { text-align: center; }
+.has-text-align-left { text-align: left; }
+.has-text-align-right { text-align: right; }
+
+@media (max-width: 781px) {
+  .wp-block-columns:not(.is-not-stacked-on-mobile) {
+    flex-wrap: wrap;
+  }
+  .wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+    flex-basis: 100% !important;
+  }
+}
+
+/* Gradient text utility (mirrors plugin rule in starfield/style.scss) */
+.has-gradient-heading {
+  background: linear-gradient(to left, #cbd5e1, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .wp-block-mesa-gutenberg-starfield-background::before,
 .wp-block-mesa-gutenberg-starfield-background::after {
   content: '';

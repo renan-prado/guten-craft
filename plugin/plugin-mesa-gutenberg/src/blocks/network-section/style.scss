@@ -1,0 +1,162 @@
+.wp-block-mesa-gutenberg-network-section {
+	--ns-divider-color: rgba(255, 255, 255, 0.15);
+	--ns-text-color: #e2e8f0;
+	--ns-muted-color: #cbd5e1;
+	--ns-title-color: #f8fafc;
+	--ns-panel-pad-top: 32px;
+	--ns-panel-pad-bottom: 8px;
+
+	position: relative;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	color: var(--ns-text-color);
+	margin: 0;
+
+	.network-section__header {
+		all: unset;
+		display: block;
+		width: 100%;
+		cursor: pointer;
+		padding: 32px 0 24px;
+		box-sizing: border-box;
+		border-bottom: 1px solid var(--ns-divider-color);
+	}
+
+	.network-section__top-row {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: flex-start;
+	}
+
+	.network-section__title-group {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	.network-section__title-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+	}
+
+	/* Light lavender gradient chip — matches Figma component for all variants */
+	.network-section__chip {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+		padding: 8px 12px;
+		border-radius: 40px;
+		border: 1px solid #ba9dc4;
+		background-image: linear-gradient(-55deg, #f0eaf2 0%, #d1bdd7 100%);
+		box-shadow:
+			inset 0 -9.474px 18.949px 0 rgba(240, 234, 242, 0.2),
+			inset 0 9.474px 18.949px 0 rgba(105, 43, 126, 0.1);
+		color: #692b7e;
+		font-family: 'Inter', sans-serif;
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 12px;
+		letter-spacing: 0;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.network-section__chip > span {
+		display: block;
+		font-feature-settings: 'case' 1;
+	}
+
+	.network-section__title {
+		margin: 0;
+		flex: 1;
+		min-width: 0;
+		font-family: 'Inter Tight', 'Inter', sans-serif;
+		font-size: clamp(24px, calc(1vw + 18px), 32px);
+		line-height: 1.25;
+		font-weight: 700;
+		color: var(--ns-title-color);
+	}
+
+	.network-section__chevron {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #ffffff;
+		flex: 0 0 24px;
+		width: 24px;
+		height: 24px;
+		transition: transform 0.3s ease;
+	}
+
+	&.is-open .network-section__chevron {
+		transform: rotate(180deg);
+	}
+
+	.network-section__bottom-row {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		width: 100%;
+	}
+
+	.network-section__subtitle {
+		margin: 0;
+		font-family: 'Inter', sans-serif;
+		font-size: 16px;
+		line-height: 24px;
+		color: var(--ns-text-color);
+		font-weight: 400;
+	}
+
+	.network-section__subtitle--secondary {
+		color: var(--ns-muted-color);
+	}
+
+	.network-section__panel {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.45s ease;
+		overflow: hidden;
+	}
+
+	&.is-open .network-section__panel {
+		grid-template-rows: 1fr;
+	}
+
+	.network-section__panel-inner {
+		min-height: 0;
+		padding-top: var(--ns-panel-pad-top);
+		padding-bottom: var(--ns-panel-pad-bottom);
+	}
+
+	.network-section__panel-inner p a {
+		color: #ffffff;
+		font-weight: 700;
+		text-decoration: none;
+		transition: opacity 0.2s ease;
+	}
+
+	.network-section__panel-inner p a:hover {
+		opacity: 0.8;
+	}
+
+	@media (max-width: 768px) {
+		.network-section__header {
+			padding: 24px 0 16px;
+		}
+		.network-section__title {
+			font-size: 22px;
+		}
+		.network-section__subtitle {
+			font-size: 14px;
+			line-height: 20px;
+		}
+	}
+}

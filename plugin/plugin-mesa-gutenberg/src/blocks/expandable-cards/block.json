@@ -1,0 +1,151 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/expandable-cards",
+	"version": "1.0.0",
+	"title": "Expandable Cards",
+	"category": "mesa-gutenberg",
+	"icon": "grid-view",
+	"description": "Linha de cards expansíveis. Apenas um aberto por vez. Desktop expande no hover, mobile expande no clique. O card aberto mostra eyebrow, título com gradiente roxo, descrição e tags; os fechados mostram apenas o título compacto com seta.",
+	"keywords": ["cards", "expandable", "hover", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "every-type-of-manager",
+					"collapsedTitle": "Every Type of Manager",
+					"eyebrow": "Every Type of Manager",
+					"title": "From Emerging Funds to Industry Giants",
+					"description": "iConnections supports managers across every category in alternatives, from first-time fund launches to multi-billion-dollar platforms",
+					"tags": [
+						"Hedge Fund Managers",
+						"Private Equity Firms",
+						"Venture Capital Firms",
+						"Private Credit Managers",
+						"Real Asset Managers",
+						"Fund of Funds Managers",
+						"Emerging Managers"
+					]
+				},
+				{
+					"id": "trusted-by-allocators",
+					"collapsedTitle": "Trusted by Allocators of Every Type",
+					"eyebrow": "Trusted by Allocators",
+					"title": "From Family Offices to Sovereign Wealth Funds",
+					"description": "iConnections is trusted by allocators across the spectrum, from boutique family offices to large institutional investors.",
+					"tags": [
+						"Family Offices",
+						"Endowments",
+						"Foundations",
+						"Pension Funds",
+						"Sovereign Wealth Funds",
+						"Insurance Companies"
+					]
+				},
+				{
+					"id": "service-providers",
+					"collapsedTitle": "Plus the Service Providers Powering Alternatives",
+					"eyebrow": "Service Providers",
+					"title": "The Ecosystem Powering Alternatives",
+					"description": "The full network of service providers that support fund managers and allocators across the alternatives industry.",
+					"tags": [
+						"Prime Brokers",
+						"Administrators",
+						"Auditors",
+						"Legal Counsel",
+						"Technology Providers"
+					]
+				}
+			],
+			"items": {
+				"type": "object",
+				"properties": {
+					"id":             { "type": "string" },
+					"collapsedTitle": { "type": "string" },
+					"eyebrow":        { "type": "string" },
+					"title":          { "type": "string" },
+					"description":    { "type": "string" },
+					"tags":           { "type": "array", "items": { "type": "string" } }
+				}
+			}
+		},
+		"defaultOpenIndex": {
+			"type": "number",
+			"default": 0
+		},
+		"gap": {
+			"type": "number",
+			"default": 24
+		},
+		"cardRadius": {
+			"type": "number",
+			"default": 16
+		},
+		"cardBg": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"cardBorderColor": {
+			"type": "string",
+			"default": "#f1f5f9"
+		},
+		"cardBorderWidth": {
+			"type": "number",
+			"default": 2
+		},
+		"cardShadow": {
+			"type": "string",
+			"default": "0 0 40px rgba(71,85,105,0.1)"
+		},
+		"activeWidthDesktop": {
+			"type": "number",
+			"default": 780
+		},
+		"collapsedWidthDesktop": {
+			"type": "number",
+			"default": 190
+		},
+		"activeMinHeight": {
+			"type": "number",
+			"default": 460
+		},
+		"eyebrowColor": {
+			"type": "string",
+			"default": "#9b71a9"
+		},
+		"descriptionColor": {
+			"type": "string",
+			"default": "#475569"
+		},
+		"collapsedTitleColor": {
+			"type": "string",
+			"default": "#94a3b8"
+		},
+		"tagBorderColor": {
+			"type": "string",
+			"default": "#cbd5e1"
+		},
+		"tagTextColor": {
+			"type": "string",
+			"default": "#64748b"
+		},
+		"arrowColor": {
+			"type": "string",
+			"default": "#692b7e"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

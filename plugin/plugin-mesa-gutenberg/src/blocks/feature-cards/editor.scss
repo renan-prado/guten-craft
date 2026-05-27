@@ -1,0 +1,52 @@
+.feature-cards-item-editor {
+	border: 1px solid #e2e4e7;
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: #fafafa;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 4px;
+	}
+
+	&__media-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	&__media-thumb {
+		width: 40px;
+		height: 40px;
+		object-fit: contain;
+		border: 1px solid #e2e4e7;
+		border-radius: 4px;
+		background: #fff;
+	}
+}
+
+.feature-cards-editor__icon-preview {
+	display: inline-block;
+
+	&.is-empty {
+		border: 1px dashed #c3c4c7;
+		border-radius: 4px;
+		background: #fff;
+	}
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
