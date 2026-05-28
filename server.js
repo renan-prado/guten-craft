@@ -363,14 +363,65 @@ ${hasNetworkSection ? '<script src="/plugin-build/blocks/network-section/view.js
 </html>`;
 }
 
-function indexPage(pages) {
-  const links = pages.map(p =>
-    `  <li><a href="/pages/${p}">${p}</a></li>`
-  ).join('\n');
-  const body = `<div style="font-family:sans-serif;padding:40px">
-  <h1 style="margin-bottom:16px">iConnections Preview</h1>
-  <ul style="line-height:2">\n${links}\n  </ul>
-</div>`;
+function readPageGroups() {
+  if (!fs.existsSync(SRC_DIR)) return [];
+  return fs.readdirSync(SRC_DIR, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => {
+      const dir = path.join(SRC_DIR, d.name);
+      const files = fs.readdirSync(dir)
+        .filter(f => f.endsWith('.html'))
+        .map(f => f.replace(/\.html$/, ''))
+        .sort();
+      return { page: d.name, files };
+    })
+    .sort((a, b) => a.page.localeCompare(b.page));
+}
+
+function indexPage(groups) {
+  const totalFiles = groups.reduce((n, g) => n + g.files.length, 0);
+  const sections = groups.map(g => {
+    const cards = g.files.map(f =>
+      `<a class="card" href="/pages/${g.page}/${f}"><span class="card__name">${f}</span><span class="card__arrow" aria-hidden="true">→</span></a>`
+    ).join('');
+    return `
+    <section class="group">
+      <header class="group__header">
+        <h2 class="group__title">${g.page}</h2>
+        <span class="group__count">${g.files.length} ${g.files.length === 1 ? 'file' : 'files'}</span>
+      </header>
+      <div class="group__grid">${cards || '<p class="group__empty">No HTML files yet.</p>'}</div>
+    </section>`;
+  }).join('\n');
+
+  const body = `<style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: radial-gradient(ellipse at top, #1a0a2a 0%, #08000f 60%); color: #f5f3ff; min-height: 100vh; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 64px 32px 96px; }
+    .hero { margin-bottom: 48px; }
+    .hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #a78bfa; margin: 0 0 12px; font-weight: 600; }
+    .hero__title { font-size: 40px; line-height: 1.1; margin: 0 0 12px; font-weight: 700; letter-spacing: -0.02em; background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero__subtitle { font-size: 15px; color: rgba(245, 243, 255, 0.6); margin: 0; }
+    .group { margin-bottom: 48px; }
+    .group__header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(167, 139, 250, 0.15); }
+    .group__title { font-size: 22px; margin: 0; font-weight: 600; text-transform: capitalize; color: #ffffff; }
+    .group__count { font-size: 12px; color: rgba(245, 243, 255, 0.45); font-variant-numeric: tabular-nums; }
+    .group__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .group__empty { color: rgba(245, 243, 255, 0.4); font-size: 14px; margin: 0; padding: 16px 0; }
+    .card { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border: 1px solid rgba(167, 139, 250, 0.18); border-radius: 10px; background: rgba(255, 255, 255, 0.02); color: #f5f3ff; text-decoration: none; transition: transform 120ms ease, border-color 120ms ease, background 120ms ease; }
+    .card:hover { transform: translateY(-1px); border-color: rgba(167, 139, 250, 0.55); background: rgba(167, 139, 250, 0.08); }
+    .card__name { font-size: 14px; font-weight: 500; font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+    .card__arrow { color: #a78bfa; font-size: 16px; opacity: 0.7; transition: transform 120ms ease, opacity 120ms ease; }
+    .card:hover .card__arrow { transform: translateX(3px); opacity: 1; }
+  </style>
+  <div class="wrap">
+    <div class="hero">
+      <p class="hero__eyebrow">Local Preview</p>
+      <h1 class="hero__title">iConnections</h1>
+      <p class="hero__subtitle">${groups.length} ${groups.length === 1 ? 'page' : 'pages'} · ${totalFiles} ${totalFiles === 1 ? 'block file' : 'block files'}</p>
+    </div>
+    ${sections || '<p class="group__empty">No pages yet. Create <code>src/&lt;page-name&gt;/</code> to get started.</p>'}
+  </div>`;
   return shell('Index', body);
 }
 
@@ -433,25 +484,38 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Page preview
+  // Page preview — supports /pages/<page>/<file> (nested) and legacy /pages/<file>
   if (pathname.startsWith('/pages/')) {
-    const name = pathname.replace('/pages/', '').replace(/\.html$/, '');
-    const file = path.join(SRC_DIR, `${name}.html`);
+    const rel = pathname.replace('/pages/', '').replace(/\.html$/, '');
+    const parts = rel.split('/').filter(Boolean);
+    let file;
+    if (parts.length === 2) {
+      file = path.join(SRC_DIR, parts[0], `${parts[1]}.html`);
+    } else if (parts.length === 1) {
+      // Legacy flat path — try to resolve by scanning subfolders
+      const flat = path.join(SRC_DIR, `${parts[0]}.html`);
+      if (fs.existsSync(flat)) {
+        file = flat;
+      } else {
+        const groups = readPageGroups();
+        const hit = groups.find(g => g.files.includes(parts[0]));
+        file = hit ? path.join(SRC_DIR, hit.page, `${parts[0]}.html`) : flat;
+      }
+    } else {
+      res.writeHead(404); res.end('Not found'); return;
+    }
     if (!file.startsWith(SRC_DIR)) { res.writeHead(403); res.end(); return; }
-    if (!fs.existsSync(file)) { res.writeHead(404); res.end(`Page "${name}" not found in src/`); return; }
+    if (!fs.existsSync(file)) { res.writeHead(404); res.end(`Page "${rel}" not found in src/`); return; }
     const content = fs.readFileSync(file, 'utf8');
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(shell(name, content));
+    res.end(shell(rel, content));
     return;
   }
 
   // Index
   if (pathname === '/' || pathname === '/index') {
-    const pages = fs.existsSync(SRC_DIR)
-      ? fs.readdirSync(SRC_DIR).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
-      : [];
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(indexPage(pages));
+    res.end(indexPage(readPageGroups()));
     return;
   }
 
