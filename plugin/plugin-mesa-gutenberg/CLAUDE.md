@@ -122,3 +122,33 @@ Em PHP 8, `foreach (false as ...)` lança `TypeError` fatal. Sempre use `?: []` 
 
 ### `register_block_type` com diretório
 Requer WordPress 5.8+. Lê o `block.json` e resolve automaticamente os `file:` references para registrar scripts e estilos. O arquivo `index.asset.php` gerado pelo webpack é obrigatório e contém as dependências.
+
+### `<button>` em blocos → fundo branco no hover (BUG RECORRENTE)
+
+**Sintoma:** elementos clicáveis renderizados como `<button>` (ex.: header do `network-section`) ficam **brancos no hover** no front-end do WordPress, escondendo todo o conteúdo dentro.
+
+**Causa:** temas do WP (TwentyTwenty-Two, default, etc.) injetam regras de hover/focus em `button` com seletor mais específico que vence `all: unset`. Já aconteceu mais de uma vez no projeto — sempre que um bloco custom usa `<button>` para um header/área clicável, o tema pinta o fundo de branco.
+
+**Regra obrigatória:** todo `<button>` em blocos custom DEVE ter override explícito de background em todos os estados:
+
+```scss
+.meu-bloco__botao {
+    all: unset;
+    /* … resto dos estilos … */
+
+    &,
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+}
+```
+
+`all: unset` sozinho NÃO basta. Sempre adicionar `background: transparent !important` em todos os estados interativos. Atalho: se a área clicável não precisa de semântica de botão, prefira `<div role="button" tabindex="0">` para evitar a herança do tema.
+
+### Bloco com troca responsiva de imagem
+Não use `is-desktop-only` / `is-mobile-only` em dois `wp:image` separados — depende de CSS que vive em `styles/base.css` (local) ou no tema do WP, e quebra quando uma das duas partes não está carregada. Use o bloco `mesa-gutenberg/responsive-image`, que aceita upload de imagens desktop e mobile no painel lateral e faz a troca via CSS interno do próprio bloco (sempre em sync com o frontend WP).

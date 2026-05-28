@@ -32,6 +32,7 @@ archive.pipe( output );
 const includes = [
 	{ src: 'plugin-mesa-gutenberg.php', dest: 'plugin-mesa-gutenberg/plugin-mesa-gutenberg.php' },
 	{ src: 'includes',                  dest: 'plugin-mesa-gutenberg/includes' },
+	{ src: 'assets',                    dest: 'plugin-mesa-gutenberg/assets' },
 	{ src: 'build',                     dest: 'plugin-mesa-gutenberg/build' },
 ];
 

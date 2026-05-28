@@ -1,0 +1,31 @@
+/*
+ * Mesa Gutenberg — global utility classes.
+ *
+ * These mirror the local-preview helpers in /styles/base.css so the markup
+ * `class="is-desktop-only" / class="is-mobile-only"` works identically on
+ * WordPress production. Loaded on every front-end page by the plugin.
+ *
+ * Breakpoint: 768px (project-wide mobile threshold).
+ *
+ * `!important` defeats WP themes that target `figure`/`img` with their own
+ * `display` rules.
+ */
+.is-mobile-only { display: none !important; }
+.is-desktop-only { display: block !important; }
+
+@media (max-width: 768px) {
+	.is-desktop-only { display: none !important; }
+	.is-mobile-only  { display: block !important; }
+}
+
+.has-card-shadow {
+	box-shadow: 0 0 40px rgba(71, 85, 105, 0.1) !important;
+}
+
+.has-gradient-purple-text {
+	background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+}

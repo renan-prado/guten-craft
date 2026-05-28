@@ -1,0 +1,38 @@
+/*
+ * Responsive image — static 768px breakpoint.
+ *
+ * Selectors target the class ONLY (no `> img.foo`) because WP Engine's image
+ * optimizer wraps <img> in <picture class="..."> at runtime to serve WebP —
+ * which moves the responsive class off the <img> and onto the <picture>.
+ * Selecting by class lets the rule still apply whichever wrapper survives.
+ *
+ * !important defeats theme `img { display: block }` rules.
+ */
+.wp-block-mesa-gutenberg-responsive-image {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
+
+.wp-block-mesa-gutenberg-responsive-image > img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Desktop (default state, above 768px) */
+.wp-block-mesa-gutenberg-responsive-image .responsive-image__desktop {
+	display: block !important;
+}
+.wp-block-mesa-gutenberg-responsive-image .responsive-image__mobile {
+	display: none !important;
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+	.wp-block-mesa-gutenberg-responsive-image .responsive-image__desktop {
+		display: none !important;
+	}
+	.wp-block-mesa-gutenberg-responsive-image .responsive-image__mobile {
+		display: block !important;
+	}
+}

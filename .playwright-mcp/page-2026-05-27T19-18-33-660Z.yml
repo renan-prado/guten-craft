@@ -1,0 +1,23 @@
+- generic [ref=e5]:
+  - generic [ref=e6]:
+    - paragraph [ref=e7]: Who It's For
+    - heading "Built for Every Side of the Alternatives Market" [level=2] [ref=e8]
+  - generic [ref=e10]:
+    - generic [ref=e12]:
+      - paragraph [ref=e15]: Allocators
+      - paragraph [ref=e16]: Find Fund Managers That Match Your Mandate
+      - paragraph [ref=e17]: Our AI surfaces relevant fund managers based on your investment preferences and active mandates. You decide who to meet, we do the work between decisions
+      - link "Explore for Allocators" [ref=e21] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=e23]:
+      - paragraph [ref=e26]: Managers
+      - paragraph [ref=e27]: Get Discovered by Institutional LPs Actively Allocating Capital
+      - paragraph [ref=e28]: Get your fund in front of allocators who are actively searching for your strategy, across our platform and at our global events. Real inbound interest, not cold outreach
+      - link "Explore for Managers" [ref=e32] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=e34]:
+      - paragraph [ref=e37]: Service Providers
+      - paragraph [ref=e38]: Reach the Decision-Makers Who Are in the Room
+      - paragraph [ref=e39]: Sponsor Global Alts events and reach 26K+ allocators, managers, and service providers year-round on the platform. Concentrated, repeatable access to the buyers shaping alternatives
+      - link "Explore for Service Providers" [ref=e43] [cursor=pointer]:
+        - /url: "#"

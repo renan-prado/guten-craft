@@ -1,0 +1,47 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - paragraph [ref=e7]: Who It's For
+      - heading "Built for Every Side of the Alternatives Market" [level=2] [ref=e8]
+    - generic [ref=e10]:
+      - generic [ref=e12]:
+        - paragraph [ref=e15]: Allocators
+        - paragraph [ref=e16]: Find Fund Managers That Match Your Mandate
+        - paragraph [ref=e17]: Our AI surfaces relevant fund managers based on your investment preferences and active mandates. You decide who to meet, we do the work between decisions
+        - link "Explore for Allocators" [ref=e21] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e23]:
+        - paragraph [ref=e26]: Managers
+        - paragraph [ref=e27]: Get Discovered by Institutional LPs Actively Allocating Capital
+        - paragraph [ref=e28]: Get your fund in front of allocators who are actively searching for your strategy, across our platform and at our global events. Real inbound interest, not cold outreach
+        - link "Explore for Managers" [ref=e32] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e34]:
+        - paragraph [ref=e37]: Service Providers
+        - paragraph [ref=e38]: Reach the Decision-Makers Who Are in the Room
+        - paragraph [ref=e39]: Sponsor Global Alts events and reach 26K+ allocators, managers, and service providers year-round on the platform. Concentrated, repeatable access to the buyers shaping alternatives
+        - link "Explore for Service Providers" [ref=e43] [cursor=pointer]:
+          - /url: "#"
+  - separator [ref=e44]
+  - generic [ref=e45]:
+    - generic [ref=e46]:
+      - paragraph [ref=e47]: From The Network
+      - heading "Alternative Investment Insights and Research" [level=2] [ref=e48]
+    - generic [ref=e50]:
+      - generic [ref=e55]:
+        - paragraph [ref=e58]: Perspective
+        - paragraph [ref=e59]: iConnections Announces Global Alts Europe 2027 in Paris
+        - paragraph [ref=e60]: iConnections expands to Europe with its first Paris-based flagship at the Louvre, bringing the Global Alts experience to allocators and managers across the EU and UK.
+        - paragraph [ref=e61]: 3 MIN
+      - generic [ref=e66]:
+        - paragraph [ref=e69]: Perspective
+        - paragraph [ref=e70]: "April Investment Newsletter: Where Allocator Attention Is Going"
+        - paragraph [ref=e71]: Inside the strategies, sectors, and managers winning the most LP attention this month, distilled from real platform behavior across our 26K+ active LP and GP community.
+        - paragraph [ref=e72]: 2 MIN
+      - generic [ref=e77]:
+        - paragraph [ref=e80]: Podcast
+        - paragraph [ref=e81]: "The AI Arms Race: Capital Flows & Billion-Dollar Bluffs"
+        - paragraph [ref=e82]: How AI is reshaping fundraising, allocator due diligence, and the power dynamics between GPs and LPs, with insight from leaders building the next era of alternatives.
+        - paragraph [ref=e83]: 2 MIN
+    - link "View All Insights" [ref=e88] [cursor=pointer]:
+      - /url: "#"

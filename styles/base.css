@@ -155,3 +155,34 @@ html, body {
   bottom: 0;
   background: linear-gradient(to top, #000000, transparent);
 }
+
+/* Responsive visibility utilities (local-preview only — mirror in WP theme CSS). */
+.is-mobile-only { display: none; }
+@media (max-width: 768px) {
+  .is-desktop-only { display: none; }
+  .is-mobile-only { display: block; }
+}
+
+.has-card-shadow {
+  box-shadow: 0 0 40px rgba(71, 85, 105, 0.1) !important;
+}
+
+/* Card thumbnails use centered crop, not the +200px hero offset */
+.has-card-shadow .wp-block-cover__image-background {
+  object-position: center center;
+}
+
+.has-gradient-purple-text {
+  background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Pills / chips: inner groups inside a flex parent should shrink to content,
+   not stretch to 100% via the global .wp-block-group width rule. Mirrors WP
+   production behavior, where wp-block-group has no intrinsic width. */
+.wp-block-group.is-layout-flex > .wp-block-group {
+  width: auto;
+}

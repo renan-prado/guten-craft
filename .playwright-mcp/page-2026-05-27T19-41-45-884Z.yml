@@ -1,0 +1,24 @@
+- generic [ref=e2]:
+  - separator [ref=e3]
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - paragraph [ref=e6]: From The Network
+      - heading "Alternative Investment Insights and Research" [level=2] [ref=e7]
+    - generic [ref=e9]:
+      - generic [ref=e14]:
+        - paragraph [ref=e17]: Perspective
+        - paragraph [ref=e18]: iConnections Announces Global Alts Europe 2027 in Paris
+        - paragraph [ref=e19]: iConnections expands to Europe with its first Paris-based flagship at the Louvre, bringing the Global Alts experience to allocators and managers across the EU and UK.
+        - paragraph [ref=e20]: 3 MIN
+      - generic [ref=e25]:
+        - paragraph [ref=e28]: Perspective
+        - paragraph [ref=e29]: "April Investment Newsletter: Where Allocator Attention Is Going"
+        - paragraph [ref=e30]: Inside the strategies, sectors, and managers winning the most LP attention this month, distilled from real platform behavior across our 26K+ active LP and GP community.
+        - paragraph [ref=e31]: 2 MIN
+      - generic [ref=e36]:
+        - paragraph [ref=e39]: Podcast
+        - paragraph [ref=e40]: "The AI Arms Race: Capital Flows & Billion-Dollar Bluffs"
+        - paragraph [ref=e41]: How AI is reshaping fundraising, allocator due diligence, and the power dynamics between GPs and LPs, with insight from leaders building the next era of alternatives.
+        - paragraph [ref=e42]: 2 MIN
+    - link "View All Insights" [ref=e46] [cursor=pointer]:
+      - /url: "#"

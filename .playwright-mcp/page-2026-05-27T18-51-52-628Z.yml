@@ -1,0 +1,538 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e3]:
+    - generic [ref=e7]:
+      - generic [ref=e11]:
+        - paragraph [ref=e14]: iConnections Global Allocator Report 2026.
+        - link "Read More" [ref=e18] [cursor=pointer]:
+          - /url: /insights/global-allocator-report-2026/
+          - generic [ref=e19]:
+            - img [ref=e21]
+            - generic [ref=e24]: Read More
+      - generic [ref=e26]:
+        - link [ref=e31] [cursor=pointer]:
+          - /url: https://iconnsdev.wpengine.com/
+        - button "Menu Toggle" [ref=e36] [cursor=pointer]:
+          - img [ref=e38]
+  - main [ref=e50]:
+    - heading "Teste – Nova estrutura – Gutenberg" [level=1] [ref=e52]
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e56]:
+          - generic [ref=e58]:
+            - paragraph [ref=e59]: The Alternative Investment Network
+            - heading "The AI-Powered Platform for LP-GP Capital Introduction" [level=1] [ref=e60]
+            - paragraph [ref=e61]: Powered by the deepest relationship data in alternatives. iConnections matches LPs and GPs on real intent, real behavior, and real capital decisions. Year-round. Across the world’s largest active network in alternatives.
+            - generic [ref=e63]:
+              - link "Request Access" [ref=e66] [cursor=pointer]:
+                - /url: "#"
+              - link "See How It Works" [ref=e69] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e70]:
+            - generic:
+              - generic:
+                - generic:
+                  - img "AF"
+              - generic:
+                - generic: Anna Fletcher viewed your profile
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "BR"
+              - generic:
+                - generic: Meeting confirmed
+                - generic: with Bryan Richards
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "LR"
+              - generic:
+                - generic: Laila Rajoelina shared a deal
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "SA"
+              - generic:
+                - generic: Sarah Ahmed connected with you
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "MD"
+              - generic:
+                - generic: Marcus Doe accepted your invite
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "JD"
+              - generic:
+                - generic: You have a new chat message!
+              - text: ×
+            - generic:
+              - generic:
+                - generic:
+                  - img "JS"
+              - generic:
+                - generic: John Smith downloaded your document
+              - text: ×
+        - generic [ref=e74]:
+          - paragraph [ref=e75]: Trusted by Leaders Across Alternatives
+          - generic [ref=e76]:
+            - generic [ref=e78]:
+              - img [ref=e96]
+              - img [ref=e98]
+              - img [ref=e100]
+              - img [ref=e102]
+              - img [ref=e104]
+              - img [ref=e106]
+              - img [ref=e108]
+              - img [ref=e110]
+              - img [ref=e112]
+              - img [ref=e114]
+              - img [ref=e116]
+              - img [ref=e118]
+              - img [ref=e120]
+              - img [ref=e122]
+              - img [ref=e124]
+              - img [ref=e126]
+            - generic [ref=e128]:
+              - img [ref=e144]
+              - img [ref=e146]
+              - img [ref=e148]
+              - img [ref=e150]
+              - img [ref=e152]
+              - img [ref=e153]
+              - img [ref=e155]
+              - img [ref=e157]
+              - img [ref=e159]
+              - img [ref=e161]
+              - img [ref=e163]
+              - img [ref=e165]
+              - img [ref=e167]
+              - img [ref=e169]
+              - img [ref=e171]
+      - generic [ref=e174]:
+        - generic [ref=e175]:
+          - paragraph [ref=e176]: The Data Advantage
+          - heading "Fundraising Intelligence for LPs and GPs" [level=2] [ref=e177]
+          - paragraph [ref=e178]: Everyone has data. Nobody has relationships.
+          - paragraph [ref=e180]: Fundraising intelligence powered by millions of messages, meetings, and allocations.
+        - generic [ref=e182]:
+          - list [ref=e183]:
+            - listitem [ref=e184]:
+              - button "AI Recommendations & Matching" [expanded] [ref=e185] [cursor=pointer]:
+                - generic [ref=e188]: AI Recommendations & Matching
+                - img [ref=e190]
+              - region [ref=e192]:
+                - paragraph [ref=e193]: Surfaces the right allocators and managers to each other on live behavioral signals and active mandate data.
+            - listitem [ref=e194]:
+              - button "Personalized Experiences" [ref=e195] [cursor=pointer]:
+                - generic [ref=e198]: Personalized Experiences
+                - img [ref=e200]
+              - region:
+                - paragraph: Tailored content and connections that adapt to each user’s role, focus and history.
+            - listitem [ref=e202]:
+              - button "Agentic Search" [ref=e203] [cursor=pointer]:
+                - generic [ref=e206]: Agentic Search
+                - img [ref=e208]
+              - region:
+                - paragraph: Natural-language queries that find the right people, funds and content across the network.
+          - figure [ref=e211]
+        - link "Request Access" [ref=e221] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e223]:
+        - generic [ref=e224]:
+          - heading "iConnections knows which allocators are actively searching for your strategy right now" [level=2] [ref=e225]
+          - paragraph [ref=e226]: Because they’re doing it on our platform. Every interaction feeds a living data layer that gets smarter over time.
+        - generic [ref=e227]:
+          - generic [ref=e228]:
+            - generic [ref=e229]:
+              - paragraph [ref=e230]: 100K+
+              - paragraph [ref=e231]: AI-powered searches in the last 90 days. 70,000 from allocators actively discovering managers
+            - generic [ref=e232]:
+              - paragraph [ref=e233]: 250K+
+              - paragraph [ref=e234]: Profile clicks annually from LPs to GPs. Real intent, not cold outreach
+            - generic [ref=e235]:
+              - paragraph [ref=e236]: ~Half
+              - paragraph [ref=e237]: of live event meetings are initiated by allocators, not fund managers
+          - separator [ref=e238]
+          - paragraph [ref=e239]:
+            - strong [ref=e240]: First-party relationship intelligence
+            - text: ", built from years of LP-GP interactions, meeting outcomes, and capital decisions."
+            - strong [ref=e241]: The difference between data and relationships is what happens between the meetings. We have both.
+      - generic [ref=e244]:
+        - generic [ref=e245]:
+          - paragraph [ref=e246]: Two-Sided Matching
+          - heading "The Only Platform in Alternatives Where Both Sides Are Searching, Messaging, and Meeting" [level=2] [ref=e247]
+          - paragraph [ref=e248]: Skip the cold outreach and outdated lists. iConnections’ vetted and verified community puts search, messaging, scheduling, and relationship management on one AI-powered platform, surfacing opportunities based on live behavioral signals.
+          - generic [ref=e251]:
+            - generic [ref=e252]:
+              - img [ref=e254]
+              - paragraph [ref=e256]: Allocators Search
+              - paragraph [ref=e257]: "Allocators search for managers matching their mandate: strategy, geography, fund size, track record"
+            - generic [ref=e258]:
+              - img [ref=e260]
+              - paragraph [ref=e262]: AI Surfaces Matches
+              - paragraph [ref=e263]: Relevant funds surface based on behavioral data and live intent, not just static filters
+            - generic [ref=e264]:
+              - img [ref=e266]
+              - paragraph [ref=e268]: Both Sides Engage
+              - paragraph [ref=e269]: Through a trusted, verified network. No gatekeepers, no stale data
+            - generic [ref=e270]:
+              - img [ref=e272]
+              - paragraph [ref=e274]: Relationships Compound
+              - paragraph [ref=e275]: Every interaction enriches future matching and discovery
+          - generic [ref=e278]:
+            - generic [ref=e279]:
+              - paragraph [ref=e281]: Everywhere Else
+              - generic [ref=e282]:
+                - generic [ref=e283]:
+                  - img [ref=e285]
+                  - paragraph [ref=e288]: Fund manager sends outreach to a static allocator list
+                - generic [ref=e290]:
+                  - img [ref=e292]
+                  - paragraph [ref=e295]: Follow-up emails sit in inbox limbo
+                - generic [ref=e297]:
+                  - img [ref=e299]
+                  - paragraph [ref=e302]: Cold introduction, no shared context
+                - generic [ref=e304]:
+                  - img [ref=e306]
+                  - paragraph [ref=e309]: Relationships stall between events
+            - generic [ref=e310]:
+              - paragraph [ref=e312]: iConnections Platform
+              - generic [ref=e313]:
+                - generic [ref=e314]:
+                  - img [ref=e316]
+                  - paragraph [ref=e319]: LPs search. AI refines matches in real time on live mandate signals
+                - generic [ref=e321]:
+                  - img [ref=e323]
+                  - paragraph [ref=e326]: AI alerts you when an allocator views your profile and surfaces the right moment to connect
+                - generic [ref=e328]:
+                  - img [ref=e330]
+                  - paragraph [ref=e333]: Both sides know why the match is relevant before the first message is sent
+                - generic [ref=e335]:
+                  - img [ref=e337]
+                  - paragraph [ref=e340]: Agentic AI keeps momentum, surfacing intent and flagging opportunities on your behalf
+        - generic [ref=e342]:
+          - generic [ref=e343]:
+            - paragraph [ref=e344]: $50T+
+            - paragraph [ref=e345]: In represented capital
+          - generic [ref=e346]:
+            - paragraph [ref=e347]: 26K+
+            - paragraph [ref=e348]: Active LPs and GPs on the platform
+          - generic [ref=e349]:
+            - paragraph [ref=e350]: 15K+
+            - paragraph [ref=e351]: Event attendees per year
+          - generic [ref=e352]:
+            - paragraph [ref=e353]: 250K+
+            - paragraph [ref=e354]: LP-to-GP profile clicks annually
+        - generic [ref=e357]:
+          - generic [ref=e358]:
+            - button "Every Type of Manager" [expanded]:
+              - generic: Every Type of Manager
+              - generic:
+                - img
+            - region [ref=e359]:
+              - paragraph [ref=e360]: Every Type of Manager
+              - heading "From Emerging Funds to Industry Giants" [level=3] [ref=e361]
+              - paragraph [ref=e362]: iConnections supports managers across every category in alternatives, from first-time fund launches to multi-billion-dollar platforms
+              - list [ref=e363]:
+                - listitem [ref=e364]: Hedge Fund Managers
+                - listitem [ref=e365]: Private Equity Firms
+                - listitem [ref=e366]: Venture Capital Firms
+                - listitem [ref=e367]: Private Credit Managers
+                - listitem [ref=e368]: Real Asset Managers
+                - listitem [ref=e369]: Fund of Funds Managers
+                - listitem [ref=e370]: Emerging Managers
+          - button "Trusted by Allocators of Every Type" [ref=e372] [cursor=pointer]:
+            - generic [ref=e373]: Trusted by Allocators of Every Type
+            - img [ref=e375]
+          - button "Plus the Service Providers Powering Alternatives" [ref=e378] [cursor=pointer]:
+            - generic [ref=e379]: Plus the Service Providers Powering Alternatives
+            - img [ref=e381]
+        - link "Request Access" [ref=e386] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e389]:
+        - generic [ref=e390]:
+          - generic [ref=e391]:
+            - paragraph [ref=e392]: The iConnections Network
+            - heading "LP-GP Events, Roadshows, and Year-Round Programming" [level=2] [ref=e393]
+            - paragraph [ref=e394]:
+              - strong [ref=e395]: Over 100 in-person and digital touchpoints
+              - text: each year for allocators and managers across hedge funds, private equity, private credit, venture capital, and beyond. Flagship gatherings, regional roadshows, and a year-round platform working on your behalf.
+          - generic [ref=e396]:
+            - generic [ref=e397]:
+              - button "IN-PERSON Flagship Experiences Global Alts Miami, Europe, New York, Asia & Funds4Charity 3,000–6,000+ Attendees · Owned & Operated" [expanded] [ref=e398] [cursor=pointer]:
+                - generic [ref=e400]:
+                  - generic [ref=e402]: IN-PERSON
+                  - generic [ref=e403]:
+                    - heading "Flagship Experiences" [level=3] [ref=e404]
+                    - img [ref=e406]
+                - generic [ref=e408]:
+                  - paragraph [ref=e409]: Global Alts Miami, Europe, New York, Asia & Funds4Charity
+                  - paragraph [ref=e410]: 3,000–6,000+ Attendees · Owned & Operated
+              - region [ref=e411]:
+                - generic [ref=e413]:
+                  - generic [ref=e415]:
+                    - figure [ref=e416]
+                    - heading "Global Alts New York" [level=4] [ref=e418]
+                    - paragraph [ref=e419]: June 09–10, 2026
+                    - paragraph [ref=e420]: The Glasshouse, New York City
+                    - paragraph [ref=e421]:
+                      - link "View Event →" [ref=e422] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=e424]:
+                    - figure [ref=e425]
+                    - heading "Global Alts Asia" [level=4] [ref=e427]
+                    - paragraph [ref=e428]: November 16–18, 2026
+                    - paragraph [ref=e429]: Marina Bay Sands, Singapore
+                    - paragraph [ref=e430]:
+                      - link "View Event →" [ref=e431] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=e433]:
+                    - figure [ref=e434]
+                    - heading "Global Alts Miami" [level=4] [ref=e436]
+                    - paragraph [ref=e437]: February 22–25, 2027
+                    - paragraph [ref=e438]: Miami Beach Convention Center
+                    - paragraph [ref=e439]:
+                      - link "View Event →" [ref=e440] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=e442]:
+                    - figure [ref=e443]
+                    - heading "Global Alts Europe" [level=4] [ref=e445]
+                    - paragraph [ref=e446]: April 28–29, 2027
+                    - paragraph [ref=e447]: Les Salles du Carrousel, Carrousel du Louvre, Paris
+                    - paragraph [ref=e448]:
+                      - link "View Event →" [ref=e449] [cursor=pointer]:
+                        - /url: "#"
+                  - generic [ref=e451]:
+                    - figure [ref=e452]
+                    - heading "Funds4Charity" [level=4] [ref=e454]
+                    - paragraph [ref=e455]: February 22–23, 2027
+                    - paragraph [ref=e456]: Miami Beach Convention Center
+                    - paragraph [ref=e457]:
+                      - link "Learn More →" [ref=e458] [cursor=pointer]:
+                        - /url: "#"
+            - generic [ref=e459]:
+              - button "IN-PERSON Regional Community Roadshows, roundtables & intimate gatherings in key markets" [ref=e460] [cursor=pointer]:
+                - generic [ref=e462]:
+                  - generic [ref=e464]: IN-PERSON
+                  - generic [ref=e465]:
+                    - heading "Regional Community" [level=3] [ref=e466]
+                    - img [ref=e468]
+                - paragraph [ref=e471]: Roadshows, roundtables & intimate gatherings in key markets
+              - region [ref=e472]:
+                - generic [ref=e474]:
+                  - generic [ref=e476]:
+                    - figure [ref=e477]
+                    - heading "Roadshows" [level=4] [ref=e479]
+                    - paragraph [ref=e480]: Managers travel to allocators in regional markets. iConnections facilitates curated multi-city roadshows that put fund managers in front of allocators on their home turf.
+                  - generic [ref=e482]:
+                    - figure [ref=e483]
+                    - heading "Coffee & Connections" [level=4] [ref=e485]
+                    - paragraph [ref=e486]: Morning networking sessions in major financial centers. Informal, high-signal conversations over coffee.
+                  - generic [ref=e488]:
+                    - figure [ref=e489]
+                    - heading "Roundtables & Breakfasts" [level=4] [ref=e491]
+                    - paragraph [ref=e492]: Curated small-group discussions on specific strategies, markets, or themes, designed for candid peer exchange.
+            - generic [ref=e493]:
+              - button "DIGITAL Digital Gatherings Webinars, manager showcases & Meet the Allocator (live Q&A)" [ref=e494] [cursor=pointer]:
+                - generic [ref=e496]:
+                  - generic [ref=e498]: DIGITAL
+                  - generic [ref=e499]:
+                    - heading "Digital Gatherings" [level=3] [ref=e500]
+                    - img [ref=e502]
+                - paragraph [ref=e505]: Webinars, manager showcases & Meet the Allocator (live Q&A)
+              - region [ref=e506]:
+                - generic [ref=e508]:
+                  - generic [ref=e510]:
+                    - figure [ref=e511]
+                    - heading "Webinars & Thought Leadership" [level=4] [ref=e513]
+                    - paragraph [ref=e514]: Regular virtual programming featuring allocators, managers, and industry leaders on the topics shaping alternatives.
+                  - generic [ref=e516]:
+                    - figure [ref=e517]
+                    - heading "Manager Showcases" [level=4] [ref=e519]
+                    - paragraph [ref=e520]: Virtual spotlights where emerging and established managers present directly to an engaged allocator audience.
+                  - generic [ref=e522]:
+                    - figure [ref=e523]
+                    - heading "Ask the Allocator" [level=4] [ref=e525]
+                    - paragraph [ref=e526]: Live Q&A sessions with CIOs, portfolio managers, and allocator panels. Real questions, real-time answers from the people writing checks.
+            - generic [ref=e527]:
+              - button "DIGITAL Year-Round Platform 26,000+ Users" [ref=e528] [cursor=pointer]:
+                - generic [ref=e530]:
+                  - generic [ref=e532]: DIGITAL
+                  - generic [ref=e533]:
+                    - heading "Year-Round Platform" [level=3] [ref=e534]
+                    - img [ref=e536]
+                - paragraph [ref=e539]: 26,000+ Users
+              - region [ref=e540]:
+                - generic [ref=e543]:
+                  - figure [ref=e544]
+                  - heading "The iConnections Platform" [level=4] [ref=e546]
+                  - paragraph [ref=e547]: 26,000+ allocators, managers, and service providers active year-round. Discover, message, meet — without waiting for the next event.
+                  - paragraph [ref=e548]:
+                    - link "Explore the Platform →" [ref=e549] [cursor=pointer]:
+                      - /url: "#"
+            - generic [ref=e550]:
+              - button "DIGITAL + IN-PERSON Partner Network Powered by iConnections · Members get preferred access" [ref=e551] [cursor=pointer]:
+                - generic [ref=e553]:
+                  - generic [ref=e555]: DIGITAL + IN-PERSON
+                  - generic [ref=e556]:
+                    - heading "Partner Network" [level=3] [ref=e557]
+                    - img [ref=e559]
+                - paragraph [ref=e562]: Powered by iConnections · Members get preferred access
+              - region [ref=e563]:
+                - generic [ref=e564]:
+                  - generic [ref=e565]:
+                    - generic [ref=e567]:
+                      - 'heading "MFA Ops: Treasury & Finance" [level=4] [ref=e568]'
+                      - paragraph [ref=e569]: New York
+                      - paragraph [ref=e570]:
+                        - link "View Event →" [ref=e571] [cursor=pointer]:
+                          - /url: "#"
+                    - generic [ref=e573]:
+                      - heading "MFA Legal & Compliance" [level=4] [ref=e574]
+                      - paragraph [ref=e575]: New York
+                      - paragraph [ref=e576]:
+                        - link "View Event →" [ref=e577] [cursor=pointer]:
+                          - /url: "#"
+                    - generic [ref=e579]:
+                      - heading "Capitalize For Kids" [level=4] [ref=e580]
+                      - paragraph [ref=e581]: Investors Conference · Toronto
+                      - paragraph [ref=e582]:
+                        - link "View Event →" [ref=e583] [cursor=pointer]:
+                          - /url: "#"
+                  - paragraph [ref=e584]:
+                    - text: Our technology powers a growing network of partner events across the alternatives ecosystem. iConnections members get preferred access at reduced rates.
+                    - link "See all partner events →" [ref=e585] [cursor=pointer]:
+                      - /url: "#"
+        - generic [ref=e589]:
+          - generic [ref=e590]:
+            - img "Touchpoints Across The Year — annual chart of platform interactions"
+            - generic:
+              - img "Touchpoints Across The Year — annual chart of platform interactions"
+          - generic [ref=e591]:
+            - paragraph [ref=e592]:
+              - text: Every touchpoint feeds the platform. Every platform interaction enriches the next time you see someone in person.
+              - strong [ref=e593]: That’s the flywheel.
+            - link "Explore Full Calendar" [ref=e597] [cursor=pointer]:
+              - /url: "#"
+  - contentinfo [ref=e598]:
+    - generic [ref=e603]:
+      - button "Ask AI" [ref=e604] [cursor=pointer]:
+        - img [ref=e605]
+        - text: Ask AI
+      - generic:
+        - heading "Ask with AI" [level=4]
+        - paragraph: What are iConnections’ strengths versus other capital introduction or networking platforms?
+        - generic:
+          - button "ChatGPT"
+          - button "Grok"
+          - button "Gemini"
+          - button "Claude"
+          - button "Perplexity"
+    - contentinfo [ref=e607]:
+      - generic [ref=e610]:
+        - link "Back to top" [ref=e618] [cursor=pointer]:
+          - /url: "#top"
+          - img [ref=e620]
+          - generic [ref=e623]: Back to top
+        - generic [ref=e625]:
+          - link "Linkedin" [ref=e631] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/iconnections-llc/
+            - img [ref=e634]
+          - link "Twitter" [ref=e641] [cursor=pointer]:
+            - /url: https://twitter.com/iconnections_io
+            - img [ref=e644]
+          - link "Youtube" [ref=e651] [cursor=pointer]:
+            - /url: https://www.youtube.com/channel/UCY6TEokyfC4sw--JMLoojDg/featured
+            - img [ref=e654]
+          - link "Instagram" [ref=e662] [cursor=pointer]:
+            - /url: https://www.instagram.com/iconnections_io/
+            - img [ref=e665]
+        - generic [ref=e676]:
+          - textbox "Subscribe to our latest news" [ref=e679]
+          - button "Send" [ref=e682] [cursor=pointer]
+        - generic [ref=e691]:
+          - generic [ref=e693]:
+            - generic [ref=e695]: Go to
+            - list [ref=e698]:
+              - listitem [ref=e699]:
+                - link "Platform" [ref=e700] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/platform/
+                  - generic [ref=e701]: Platform
+              - listitem [ref=e702]:
+                - link "Events" [ref=e703] [cursor=pointer]:
+                  - /url: /events/
+                  - generic [ref=e704]: Events
+              - listitem [ref=e705]:
+                - link "About Us" [ref=e706] [cursor=pointer]:
+                  - /url: /about-us/
+                  - generic [ref=e707]: About Us
+          - generic [ref=e709]:
+            - generic [ref=e711]: Users
+            - list [ref=e714]:
+              - listitem [ref=e715]:
+                - link "Allocators" [ref=e716] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/allocators/
+                  - generic [ref=e717]: Allocators
+              - listitem [ref=e718]:
+                - link "Fund Managers" [ref=e719] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/fund-managers/
+                  - generic [ref=e720]: Fund Managers
+              - listitem [ref=e721]:
+                - link "Service Providers" [ref=e722] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/service-providers/
+                  - generic [ref=e723]: Service Providers
+          - generic [ref=e725]:
+            - generic [ref=e727]: See Our
+            - list [ref=e730]:
+              - listitem [ref=e731]:
+                - link "Insights" [ref=e732] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/insights/
+                  - generic [ref=e733]: Insights
+            - list [ref=e736]:
+              - listitem [ref=e737]:
+                - link "2024 Q2 Release" [ref=e738] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/q2-release-2024
+                  - generic [ref=e739]: 2024 Q2 Release
+          - generic [ref=e741]:
+            - generic [ref=e743]: Get in Touch
+            - link "info@iconnsdev.wpengine.com" [ref=e747] [cursor=pointer]:
+              - /url: mailto:info@iconnsdev.wpengine.com
+            - link "1 888 878 6310" [ref=e751] [cursor=pointer]:
+              - /url: tel:1%20888%20878%206310
+            - list [ref=e754]:
+              - listitem [ref=e755]:
+                - link "Get In Touch" [ref=e756] [cursor=pointer]:
+                  - /url: https://iconnsdev.wpengine.com/get-in-touch/
+                  - generic [ref=e757]: Get In Touch
+        - generic [ref=e759]:
+          - list [ref=e764]:
+            - listitem [ref=e765]:
+              - generic [ref=e766]: © 2026 iConnections LLC. All Rights Reserved
+            - listitem [ref=e767]:
+              - link "Terms of Use" [ref=e768] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/terms/
+                - generic [ref=e769]: Terms of Use
+            - listitem [ref=e770]:
+              - link "Privacy Policy" [ref=e771] [cursor=pointer]:
+                - /url: https://iconnsdev.wpengine.com/privacy-policy/
+                - generic [ref=e772]: Privacy Policy
+          - link "iconnections-logo.png" [ref=e777] [cursor=pointer]:
+            - /url: /
+            - img "iconnections-logo.png" [ref=e778]
+        - generic [ref=e780]:
+          - link "App Store" [ref=e785] [cursor=pointer]:
+            - /url: https://apps.apple.com/us/app/iconnections-llc/id1534676334
+          - link "Google Play" [ref=e790] [cursor=pointer]:
+            - /url: https://play.google.com/store/apps/details?id=io.iconnections.mobile&utm_source=appgrooves&utm_medium=agp_c6fe391874e1f7a624c6c5f01c31b879_io.iconnections.mobile_us_others_16624164658844
+  - generic [ref=e791]: tablet
+  - link "Gerenciar preferências de consentimento" [ref=e793] [cursor=pointer]:
+    - /url: javascript:void(0)
+    - img "Gerenciar preferências de consentimento" [ref=e797]

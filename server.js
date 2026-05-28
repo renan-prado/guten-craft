@@ -236,6 +236,7 @@ function shell(title, bodyContent) {
   const hasExpandableCards = bodyContent.includes('wp-block-mesa-gutenberg-expandable-cards');
   const hasNetworkSection = bodyContent.includes('wp-block-mesa-gutenberg-network-section');
   const hasNetworkCard    = bodyContent.includes('wp-block-mesa-gutenberg-network-card');
+  const hasResponsiveImage = bodyContent.includes('wp-block-mesa-gutenberg-responsive-image');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,6 +257,7 @@ function shell(title, bodyContent) {
   ${ hasExpandableCards ? '<link rel="stylesheet" href="/plugin-build/blocks/expandable-cards/style-index.css">' : '' }
   ${ hasNetworkSection ? '<link rel="stylesheet" href="/plugin-build/blocks/network-section/style-index.css">' : '' }
   ${ hasNetworkCard    ? '<link rel="stylesheet" href="/plugin-build/blocks/network-card/style-index.css">' : '' }
+  ${ hasResponsiveImage ? '<link rel="stylesheet" href="/plugin-build/blocks/responsive-image/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}

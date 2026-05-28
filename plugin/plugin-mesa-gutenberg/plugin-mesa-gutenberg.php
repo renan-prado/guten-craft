@@ -3,7 +3,7 @@
  * Plugin Name:       Mesa Gutenberg Blocks
  * Plugin URI:        https://iconnections.io
  * Description:       Custom Gutenberg blocks for iConnections.
- * Version:           1.7.0
+ * Version:           1.8.5
  * Requires at least: 6.1
  * Requires PHP:      8.0
  * Author:            iConnections
@@ -19,3 +19,4 @@ define( 'MESA_GUTENBERG_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MESA_GUTENBERG_URL', plugin_dir_url( __FILE__ ) );
 
 require_once MESA_GUTENBERG_DIR . 'includes/register-blocks.php';
+require_once MESA_GUTENBERG_DIR . 'includes/enqueue-global.php';

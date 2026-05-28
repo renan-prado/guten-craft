@@ -103,6 +103,23 @@
 		}
 	}
 
+	/* ============ PURPLE OUTLINE (outline, for light/white backgrounds) ============ */
+	&.is-variant-purple-outline .wp-block-button__link {
+		--site-btn-border: linear-gradient(180deg, #b48cc0 0%, #5b2569 100%);
+		color: #692b7e;
+		background: transparent;
+		box-shadow: none;
+
+		&:hover {
+			background: rgba(105, 43, 126, 0.06);
+		}
+
+		&:active {
+			--site-btn-border: linear-gradient(180deg, #8b4d9e 0%, #4a1d56 100%);
+			background: rgba(105, 43, 126, 0.1);
+		}
+	}
+
 	/* ============ GRAY SECONDARY (outline) ============ */
 	&.is-variant-gray-secondary .wp-block-button__link {
 		--site-btn-border: linear-gradient(180deg, #f1f5f9 0%, #94a3b8 100%);
