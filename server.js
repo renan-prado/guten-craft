@@ -339,8 +339,15 @@ ${bodyContent}
         if (container) {
           for (const child of container.children) {
             const cl = child.classList;
-            if (cl.contains('alignfull') || cl.contains('alignwide') ||
+            if (cl.contains('alignfull') ||
                 cl.contains('alignleft') || cl.contains('alignright')) continue;
+            // alignwide → use wideSize (fallback to contentSize) and always center
+            if (cl.contains('alignwide')) {
+              child.style.maxWidth = layout.wideSize || layout.contentSize;
+              child.style.marginLeft = 'auto';
+              child.style.marginRight = 'auto';
+              continue;
+            }
             child.style.maxWidth = layout.contentSize;
             child.style.marginLeft = ml;
             child.style.marginRight = mr;

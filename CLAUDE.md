@@ -92,6 +92,27 @@ WP auto-adds layout classes; without them, re-serialization triggers Attempt Rec
 
 **Wrapper class order:** `wp-block-[type]` → `is-layout-*` → `wp-block-[type]-is-layout-*` → `has-border-color` → `has-background` → `has-text-color`. Layout classes always before functional classes.
 
+### Page-Level 1280px Container — Site-Wide Rule
+
+**Every page in `src/` MUST limit its visible content to a 1280px-wide centered container.** When the viewport exceeds 1280px, content stays at 1280px and centers; backgrounds (gradients, solid colors) stay full-bleed behind the capped content.
+
+**Canonical structure for every page file:**
+
+```
+wp:group (page-shell — layout.constrained, contentSize:"1280px", has full-bleed background here)
+├── [section — auto-centered to 1280px, no extra padding tricks needed]
+├── [section with align:"full" — escapes the constraint, goes edge-to-edge (e.g., starfield, cover, carousel)]
+│   └── inner wp:group (layout.constrained, contentSize:"1280px") — restores 1280px for inner content
+└── [section]
+```
+
+**Rules:**
+1. The OUTERMOST `wp:group` of every page file uses `layout.type:"constrained","contentSize":"1280px"`. The page background (gradient/color) lives on this group — backgrounds remain full-bleed because the wrapper itself is full-width, only its children are constrained.
+2. Direct children that must be full-bleed (`starfield-background`, `cover` blocks with viewport-wide gradients, `logos-carousel`, globe overlays anchored to viewport edges) get `"align":"full"` in JSON and `alignfull` class on the wrapper. Inside those full-bleed sections, restore the 1280px cap with an inner `layout.constrained, contentSize:"1280px"` group.
+3. **Exception — full-bleed sections with viewport-anchored sibling overlays (hero with globe, etc.):** when a section has a sibling positioned to the viewport edge (e.g. `cobe-globe` with `is-anchor-right`), the content-bearing sibling can't be wrapped in a constrained 1280 group without breaking the overlay's positioning context. For these sections use `padding-left:max(24px, calc(50vw - 640px))` on the content shell — this anchors the content's left edge to the left edge of a 1280px-centered container while preserving the full-bleed positioning context. **The legacy `clamp(24px, calc(50vw - 600px), 260px)` pattern (which centered at 1200px and capped at very wide viewports) is deprecated.**
+4. Inner content groups with smaller `contentSize` (e.g., `hero-content` at 590px) stay as-is — they nest inside the 1280px cap.
+5. The 1280px figure is the agreement: when the viewport is wider, content is centered with equal left/right whitespace; when narrower, content fills the viewport minus normal section padding.
+
 ### Max-Width: Never `dimensions.maxWidth`
 
 `style.dimensions` only recognizes `height`, `minHeight`, `minWidth`, `width`, `aspectRatio`. There is **no `maxWidth`** — WP strips it silently. Always use `layout.type:"constrained"` with `contentSize`:
