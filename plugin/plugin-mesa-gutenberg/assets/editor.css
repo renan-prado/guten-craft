@@ -1,0 +1,48 @@
+/*
+ * Mesa Gutenberg — editor-only overrides.
+ *
+ * Loaded INSIDE the block editor canvas via enqueue_block_assets +
+ * is_admin() guard. WP runs the editor in iframe-less mode in this site,
+ * so the wrapper is `.editor-styles-wrapper` directly in the admin DOM.
+ *
+ * Selectors target the substring Gutenberg actually serializes into
+ * `style=""`, which differs from the source CSS:
+ *   `calc(50vw - 640px)`          →  `calc(-640px + 50vw)`
+ *   `padding-top:320px`           →  shorthand `padding: 320px ...`
+ *   `clamp(32px, calc(4.3vw - 1px), 48px)` → `clamp(32px, -1px + 4.3vw, 48px)`
+ * Anything that doesn't match the serialized form is dead code.
+ *
+ * !important is required to beat inline `style="..."`.
+ */
+
+/* Horizontal padding pattern `max(24px, calc(50vw - 640px))` used to
+ * anchor content to a 1280px-centered column. Inside the editor canvas
+ * `50vw` resolves against the full admin window (~2100px), so the
+ * computed padding becomes ~450px each side and squeezes content to one
+ * character per line. Cap to 24px so the layout breathes. */
+[style*="-640px + 50vw"],
+[style*="-600px + 50vw"] {
+	padding-left: 24px !important;
+	padding-right: 24px !important;
+}
+
+/* Top padding of 320px (clears the absolute-positioned hero on the
+ * frontend) is serialized as shorthand `padding: 320px ...`. Reduce so
+ * the editor doesn't show a giant dead zone above the section. */
+[style*="padding: 320px"],
+[style*="padding:320px"] {
+	padding-top: 80px !important;
+}
+
+/* Negative top-margin pulls used to overlap sections on the frontend. */
+[style*="margin-top: -200px"],
+[style*="margin-top:-200px"] {
+	margin-top: 0 !important;
+}
+
+/* Heading clamps using viewport-relative middle terms. Gutenberg
+ * collapses `calc(4.3vw - 1px)` to `-1px + 4.3vw` inside the clamp. */
+[style*="clamp(32px, -1px + 4.3vw"] {
+	font-size: 32px !important;
+	line-height: 40px !important;
+}

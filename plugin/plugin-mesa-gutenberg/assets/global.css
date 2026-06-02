@@ -60,3 +60,15 @@
 	-webkit-text-fill-color: transparent;
 	color: transparent;
 }
+
+/* Hello Elementor theme injects `.alignwide { margin-inline: -80px; }` at the
+ * theme level (themes/hello-elementor/assets/css/theme.css), pushing every
+ * `align:"wide"` block 80px past each edge of its parent. The theme also lacks
+ * the theme.json `wideSize` setting, so WP never generates per-instance layout
+ * CSS to cap alignwide width — computed `max-width` stays `none`. We patch both
+ * here: cancel the negative margin and force the 1280px cap project-wide. */
+.wp-block-group-is-layout-constrained > .alignwide,
+.is-layout-constrained > .alignwide {
+	max-width: 1280px;
+	margin-inline: auto;
+}
