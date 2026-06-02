@@ -1,0 +1,8 @@
+/* Editor-only tweaks. The block uses the shared style.scss for visuals. */
+
+.wp-block-mesa-gutenberg-cta-banner {
+	.cta-banner__heading[contenteditable="true"]:empty::before,
+	.cta-banner__description[contenteditable="true"]:empty::before {
+		color: rgba(255,255,255,0.5);
+	}
+}

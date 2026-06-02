@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/cta-banner",
+	"version": "1.0.0",
+	"title": "CTA Banner",
+	"category": "mesa-gutenberg",
+	"icon": "megaphone",
+	"description": "Full-width CTA banner with background image (desktop + mobile variants), gradient heading, description, and one or more aligned buttons. Rounded top corners.",
+	"keywords": ["cta", "call to action", "banner", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"heading":        { "type": "string", "source": "html", "selector": ".cta-banner__heading", "default": "Ready to Connect?" },
+		"description":    { "type": "string", "source": "html", "selector": ".cta-banner__description", "default": "Join 26K LPs and GPs on the only platform where both sides are searching, messaging, and meeting." },
+		"desktopBgUrl":   { "type": "string", "default": "" },
+		"desktopBgId":    { "type": "number" },
+		"desktopBgAlt":   { "type": "string", "default": "" },
+		"mobileBgUrl":    { "type": "string", "default": "" },
+		"mobileBgId":     { "type": "number" },
+		"mobileBgAlt":    { "type": "string", "default": "" },
+		"radius":         { "type": "number", "default": 40 },
+		"roundBottom":    { "type": "boolean", "default": false },
+		"textMaxWidth":   { "type": "string", "default": "480px" },
+		"paddingX":       { "type": "string", "default": "260px" },
+		"paddingY":       { "type": "string", "default": "80px" },
+		"paddingXMobile": { "type": "string", "default": "32px" },
+		"paddingYMobile": { "type": "string", "default": "80px" },
+		"contentGap":     { "type": "number", "default": 80 },
+		"buttonsAlign":   { "type": "string", "default": "row" },
+		"minHeight":      { "type": "number", "default": 648 },
+		"surroundingColor": { "type": "string", "default": "#ffffff" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"anchor": true,
+		"spacing": { "margin": true }
+	}
+}

@@ -265,6 +265,7 @@ function shell(title, bodyContent) {
   const hasResponsiveImage = bodyContent.includes('wp-block-mesa-gutenberg-responsive-image');
   const hasFeatureCarousel = bodyContent.includes('wp-block-mesa-gutenberg-feature-carousel');
   const hasUserTypeAccordion = bodyContent.includes('wp-block-mesa-gutenberg-user-type-accordion');
+  const hasCtaBanner     = bodyContent.includes('wp-block-mesa-gutenberg-cta-banner');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,6 +289,7 @@ function shell(title, bodyContent) {
   ${ hasResponsiveImage ? '<link rel="stylesheet" href="/plugin-build/blocks/responsive-image/style-index.css">' : '' }
   ${ hasFeatureCarousel ? '<link rel="stylesheet" href="/plugin-build/blocks/feature-carousel/style-index.css">' : '' }
   ${ hasUserTypeAccordion ? '<link rel="stylesheet" href="/plugin-build/blocks/user-type-accordion/style-index.css">' : '' }
+  ${ hasCtaBanner     ? '<link rel="stylesheet" href="/plugin-build/blocks/cta-banner/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
