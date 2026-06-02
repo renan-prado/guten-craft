@@ -1,7 +1,16 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
-	const { radius, cardColor, haloColor, haloWidth, haloHeight, marginTop, marginBottom } = attributes;
+	const {
+		radius, cardColor, haloColor, haloWidth, haloHeight, marginTop, marginBottom,
+		roundTopLeft, roundTopRight, roundBottomRight, roundBottomLeft,
+		showHaloTop, showHaloBottom,
+	} = attributes;
+
+	const allCornersRounded = roundTopLeft && roundTopRight && roundBottomRight && roundBottomLeft;
+	const innerRadius = allCornersRounded
+		? `${ radius }px`
+		: `${ roundTopLeft ? radius : 0 }px ${ roundTopRight ? radius : 0 }px ${ roundBottomRight ? radius : 0 }px ${ roundBottomLeft ? radius : 0 }px`;
 
 	const haloTop = {
 		width:  haloWidth,
@@ -25,22 +34,26 @@ export default function Save( { attributes } ) {
 
 	return (
 		<div { ...useBlockProps.save( { style: wrapperStyle } ) }>
-			<span
-				className="halo-card__halo halo-card__halo--top"
-				style={ haloTop }
-				aria-hidden="true"
-			/>
+			{ showHaloTop && (
+				<span
+					className="halo-card__halo halo-card__halo--top"
+					style={ haloTop }
+					aria-hidden="true"
+				/>
+			) }
 			<div
 				className="halo-card__inner"
-				style={ { background: cardColor, borderRadius: `${ radius }px` } }
+				style={ { background: cardColor, borderRadius: innerRadius } }
 			>
 				<InnerBlocks.Content />
 			</div>
-			<span
-				className="halo-card__halo halo-card__halo--bottom"
-				style={ haloBottom }
-				aria-hidden="true"
-			/>
+			{ showHaloBottom && (
+				<span
+					className="halo-card__halo halo-card__halo--bottom"
+					style={ haloBottom }
+					aria-hidden="true"
+				/>
+			) }
 		</div>
 	);
 }

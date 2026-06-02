@@ -1,0 +1,63 @@
+.user-type-accordion-item-editor {
+	border: 1px solid #e2e4e7;
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 16px;
+	background: #fafafa;
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 2px;
+	}
+}
+
+.user-type-accordion-media-field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.user-type-accordion-media-thumb {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	background: #fff;
+	border: 1px solid #e2e4e7;
+	border-radius: 4px;
+}
+
+.user-type-accordion-checks-editor {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 8px;
+
+	&__row {
+		border: 1px dashed #e2e4e7;
+		border-radius: 4px;
+		padding: 8px;
+		background: #fff;
+	}
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 4px;
+	}
+}
+
+.wp-block-mesa-gutenberg-user-type-accordion {
+	.user-type-accordion__header {
+		cursor: pointer;
+	}
+}

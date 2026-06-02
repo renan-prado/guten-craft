@@ -12,7 +12,7 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to bottom, #130419, #25102D);
+  background: #ffffff;
 }
 
 /* Gutenberg block resets for preview */
@@ -97,6 +97,13 @@ html, body {
   z-index: 1;
 }
 
+/* big-numbers overlap: must be positioned to stack above the starfield (position:relative)
+   DOM order alone isn't enough because positioned elements beat static ones */
+.big-numbers-section {
+  position: relative;
+  z-index: 1;
+}
+
 .wp-block-cover__inner-container {
   position: relative;
   z-index: 2;
@@ -135,26 +142,6 @@ html, body {
   background-clip: text;
 }
 
-.wp-block-mesa-gutenberg-starfield-background::before,
-.wp-block-mesa-gutenberg-starfield-background::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 160px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.wp-block-mesa-gutenberg-starfield-background::before {
-  top: 0;
-  background: linear-gradient(to bottom, #000000, transparent);
-}
-
-.wp-block-mesa-gutenberg-starfield-background::after {
-  bottom: 0;
-  background: linear-gradient(to top, #000000, transparent);
-}
 
 /* Responsive visibility utilities (local-preview only — mirror in WP theme CSS). */
 .is-mobile-only { display: none; }
@@ -178,6 +165,28 @@ html, body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+/* Card stretch — make a card a flex column that fills its stretched column,
+   so its inner `.is-card-fill` can push the button to the bottom via margin-top:auto. */
+.wp-block-column.is-vertically-aligned-stretch {
+  display: flex;
+  flex-direction: column;
+}
+.wp-block-column.is-vertically-aligned-stretch > .is-card-stretch {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.is-card-stretch > .is-card-fill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.is-card-fill > .wp-block-buttons {
+  margin-top: auto;
 }
 
 /* Pills / chips: inner groups inside a flex parent should shrink to content,

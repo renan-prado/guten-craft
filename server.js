@@ -237,6 +237,8 @@ function shell(title, bodyContent) {
   const hasNetworkSection = bodyContent.includes('wp-block-mesa-gutenberg-network-section');
   const hasNetworkCard    = bodyContent.includes('wp-block-mesa-gutenberg-network-card');
   const hasResponsiveImage = bodyContent.includes('wp-block-mesa-gutenberg-responsive-image');
+  const hasFeatureCarousel = bodyContent.includes('wp-block-mesa-gutenberg-feature-carousel');
+  const hasUserTypeAccordion = bodyContent.includes('wp-block-mesa-gutenberg-user-type-accordion');
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -258,6 +260,8 @@ function shell(title, bodyContent) {
   ${ hasNetworkSection ? '<link rel="stylesheet" href="/plugin-build/blocks/network-section/style-index.css">' : '' }
   ${ hasNetworkCard    ? '<link rel="stylesheet" href="/plugin-build/blocks/network-card/style-index.css">' : '' }
   ${ hasResponsiveImage ? '<link rel="stylesheet" href="/plugin-build/blocks/responsive-image/style-index.css">' : '' }
+  ${ hasFeatureCarousel ? '<link rel="stylesheet" href="/plugin-build/blocks/feature-carousel/style-index.css">' : '' }
+  ${ hasUserTypeAccordion ? '<link rel="stylesheet" href="/plugin-build/blocks/user-type-accordion/style-index.css">' : '' }
 </head>
 <body>
 ${bodyContent}
@@ -359,6 +363,8 @@ ${hasStarfield ? STARFIELD_INIT_SCRIPT : ''}
 ${hasFeatureAccordion ? '<script src="/plugin-build/blocks/feature-accordion/view.js"></script>' : ''}
 ${hasExpandableCards ? '<script src="/plugin-build/blocks/expandable-cards/view.js"></script>' : ''}
 ${hasNetworkSection ? '<script src="/plugin-build/blocks/network-section/view.js"></script>' : ''}
+${hasFeatureCarousel ? '<script src="/plugin-build/blocks/feature-carousel/view.js"></script>' : ''}
+${hasUserTypeAccordion ? '<script src="/plugin-build/blocks/user-type-accordion/view.js"></script>' : ''}
 </body>
 </html>`;
 }

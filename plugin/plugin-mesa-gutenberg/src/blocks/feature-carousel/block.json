@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/feature-carousel",
+	"version": "1.0.0",
+	"title": "Feature Carousel",
+	"category": "mesa-gutenberg",
+	"icon": "slides",
+	"description": "Card carousel with dot pagination. Shows N cards per slide on desktop, scroll-snaps between pages, dots auto-generated from card count.",
+	"keywords": ["carousel", "slider", "cards", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"cardsPerSlide": {
+			"type": "number",
+			"default": 3
+		},
+		"cardsPerSlideTablet": {
+			"type": "number",
+			"default": 2
+		},
+		"cardsPerSlideMobile": {
+			"type": "number",
+			"default": 1
+		},
+		"gap": {
+			"type": "number",
+			"default": 40
+		},
+		"dotColorActive": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"dotColorInactive": {
+			"type": "string",
+			"default": "rgba(255,255,255,0.3)"
+		},
+		"dotSize": {
+			"type": "number",
+			"default": 10
+		},
+		"dotGap": {
+			"type": "number",
+			"default": 8
+		},
+		"slideGap": {
+			"type": "number",
+			"default": 40
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}

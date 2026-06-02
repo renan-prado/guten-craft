@@ -1,0 +1,333 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - paragraph [ref=e7]: Capital Introduction Platform for Alternative Investments
+        - heading "The Year-Round Platform Where LPs and GPs Build Real Relationships" [level=1] [ref=e8]
+        - paragraph [ref=e9]: From discovery to diligence to capital decisions. Powered by agentic AI and the largest active network in alternatives.
+        - generic [ref=e11]:
+          - link "Request Access" [ref=e14] [cursor=pointer]:
+            - /url: "#"
+          - link "Find Your Experience" [ref=e17] [cursor=pointer]:
+            - /url: "#"
+      - figure [ref=e18]
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - paragraph [ref=e23]: $50T
+        - paragraph [ref=e24]: In allocator capital represented on the network
+      - generic [ref=e25]:
+        - paragraph [ref=e26]: 26K
+        - paragraph [ref=e27]: LPs, GPs & Service Providers
+      - generic [ref=e28]:
+        - paragraph [ref=e29]: ~50%
+        - paragraph [ref=e30]: Of live event meetings initiated by allocators
+      - generic [ref=e31]:
+        - paragraph [ref=e32]: 3M+
+        - paragraph [ref=e33]: Minutes of Face-to-face Meetings
+  - generic [ref=e36]:
+    - generic [ref=e37]:
+      - paragraph [ref=e38]: What You Can Do
+      - heading "Run Your Entire Capital Introduction Workflow on One Platform" [level=2] [ref=e39]
+      - paragraph [ref=e41]: From first search to final allocation, iConnections gives allocators and managers the tools to find each other, evaluate each other, and stay connected year-round.
+    - generic [ref=e43]:
+      - generic [ref=e45]:
+        - generic [ref=e47]:
+          - figure [ref=e48]
+          - heading "AI-Powered Search & Research" [level=3] [ref=e49]
+          - paragraph [ref=e50]: 26,000+ active members and live mandates, filtered across 200+ criteria. AI surfaces what matters in under a second.
+        - generic [ref=e52]:
+          - figure [ref=e53]
+          - heading "Build Your Pipeline" [level=3] [ref=e54]
+          - paragraph [ref=e55]: "Track allocators and managers that match your criteria. Get notified the moment something changes: new mandate, new fundraise, new fit."
+        - generic [ref=e57]:
+          - figure [ref=e58]
+          - heading "Diligence" [level=3] [ref=e59]
+          - paragraph [ref=e60]: Pitch decks, DDQs, track records, and Get Verified fund returns, all in one place. Compare notes with peer allocators running parallel processes.
+        - generic [ref=e62]:
+          - figure [ref=e63]
+          - heading "AI-Powered Search & Research" [level=3] [ref=e64]
+          - paragraph [ref=e65]: 26,000+ active members and live mandates, filtered across 200+ criteria. AI surfaces what matters in under a second.
+        - generic [ref=e67]:
+          - figure [ref=e68]
+          - heading "Build Your Pipeline" [level=3] [ref=e69]
+          - paragraph [ref=e70]: "Track allocators and managers that match your criteria. Get notified the moment something changes: new mandate, new fundraise, new fit."
+        - generic [ref=e72]:
+          - figure [ref=e73]
+          - heading "Diligence" [level=3] [ref=e74]
+          - paragraph [ref=e75]: Pitch decks, DDQs, track records, and Get Verified fund returns, all in one place. Compare notes with peer allocators running parallel processes.
+      - tablist "Carousel pagination" [ref=e76]:
+        - tab "Go to slide 1" [ref=e77] [cursor=pointer]
+        - tab "Go to slide 2" [ref=e78] [cursor=pointer]
+  - generic [ref=e81]:
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - paragraph [ref=e84]: Who It's For
+        - heading "Where the World's Top Allocators, Fund Managers, and Service Providers Engage" [level=2] [ref=e85]
+        - paragraph [ref=e86]: iConnections serves allocators, fund managers, and service providers with distinct experiences designed around how they actually find, evaluate, and connect with each other in alternative investments.
+      - generic [ref=e89]:
+        - list [ref=e90]:
+          - listitem [ref=e91]:
+            - button "Allocators" [expanded] [ref=e92] [cursor=pointer]:
+              - generic [ref=e94]: Allocators
+              - img [ref=e96]
+            - paragraph [ref=e98]: Discover fund managers that match your mandates
+          - listitem [ref=e99]:
+            - button "Fund Managers" [ref=e100] [cursor=pointer]:
+              - generic [ref=e102]: Fund Managers
+              - img [ref=e104]
+          - listitem [ref=e106]:
+            - button "Service Providers" [ref=e107] [cursor=pointer]:
+              - generic [ref=e109]: Service Providers
+              - img [ref=e111]
+        - generic [ref=e115]:
+          - paragraph [ref=e116]: AI-powered search surfaces relevant managers based on your investment preferences, allocation history, and active mandate criteria.
+          - list [ref=e117]:
+            - listitem [ref=e118]:
+              - img [ref=e120]
+              - generic [ref=e123]:
+                - strong [ref=e124]: Discover
+                - text: funds with AI-powered search across 200+ filters for strategies, geographies, and fund types.
+            - listitem [ref=e125]:
+              - img [ref=e127]
+              - generic [ref=e130]:
+                - strong [ref=e131]: Research
+                - text: thousands of fund documents, pitch decks, DDQs, and track records uploaded directly by managers.
+            - listitem [ref=e132]:
+              - img [ref=e134]
+              - generic [ref=e137]:
+                - strong [ref=e138]: Track
+                - text: funds you're watching with notifications on updates, new documents, and milestones.
+            - listitem [ref=e139]:
+              - img [ref=e141]
+              - generic [ref=e144]:
+                - strong [ref=e145]: Diligence
+                - text: with peers evaluating the same managers. Connect with fellow allocators running similar processes.
+            - listitem [ref=e146]:
+              - img [ref=e148]
+              - generic [ref=e151]:
+                - strong [ref=e152]: Meet
+                - text: managers directly in the app, at Global Alts events, or through AI-matched introductions.
+            - listitem [ref=e153]:
+              - img [ref=e155]
+              - generic [ref=e158]:
+                - strong [ref=e159]: All at no cost
+                - text: for verified allocators.
+          - link [ref=e161] [cursor=pointer]:
+            - /url: "#"
+            - text: Request Access for Allocators →
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - paragraph [ref=e164]: What Members Say
+        - heading "Trusted by the Alternatives Community" [level=2] [ref=e165]
+      - generic [ref=e166]:
+        - generic [ref=e168]:
+          - paragraph [ref=e169]: "\"The platform has fundamentally changed how we source and evaluate managers. Instead of sifting through hundreds of cold inbound pitches, we can filter by mandate fit and connect with funds that actually match what we're looking for. The quality of intelligence behind each profile means we walk into every meeting already prepared — and the peer network we've built through the community has become one of our most trusted resources for reference checks and deal flow.\""
+          - generic [ref=e170]:
+            - paragraph [ref=e171]: Allocator
+            - paragraph [ref=e172]: Multi-Strategy Family Office
+        - generic [ref=e174]:
+          - paragraph [ref=e175]: "\"For a firm our size, getting in front of the right institutional allocators used to take months of travel and cold outreach. Now we can have 20+ high-quality, pre-qualified meetings in a few days with LPs who are genuinely aligned to our strategy. The depth of the allocator database and the matching tools let us focus our energy where it matters most — building real relationships with investors who are actually ready to deploy capital.\""
+          - generic [ref=e176]:
+            - paragraph [ref=e177]: Fund Manager
+            - paragraph [ref=e178]: Emerging Private Credit Manager
+        - generic [ref=e180]:
+          - paragraph [ref=e181]: "\"No other platform gives us this level of direct access to the fund managers we want to work with. We use it as our primary lead generation channel — the concentration of GPs across every asset class and AUM range means our business development team can run a highly targeted outreach strategy. The density of the ecosystem in one place is something we simply can't replicate anywhere else.\""
+          - generic [ref=e182]:
+            - paragraph [ref=e183]: Service Provider
+            - paragraph [ref=e184]: Fund Administration & Technology
+    - generic [ref=e185]:
+      - generic [ref=e186]:
+        - paragraph [ref=e187]: Trust & Verification
+        - heading "Every Connection Is Real. Every Allocator Is Vetted." [level=2] [ref=e188]
+        - paragraph [ref=e189]: iConnections isn't an open marketplace. Every allocator is hand-vetted by our Investor Relations team, so when a manager connects, they're talking to a real, qualified decision-maker.
+      - generic [ref=e191]:
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - generic [ref=e194]:
+              - figure [ref=e195]
+              - paragraph [ref=e196]: Vetted by Our IR Team
+            - list [ref=e197]:
+              - listitem [ref=e198]: Every allocator reviewed by our Investor Relations team before joining
+              - listitem [ref=e199]: Institutional credentials, role, and active mandates confirmed
+              - listitem [ref=e200]: Managers engage knowing every allocator is real and qualified
+          - generic [ref=e201]:
+            - generic [ref=e202]:
+              - figure [ref=e203]
+              - paragraph [ref=e204]: Compliance-Ready Communications
+            - list [ref=e205]:
+              - listitem [ref=e206]: Platform messaging integrates with Global Relay and Smarsh
+              - listitem [ref=e207]: Communications archived for institutional compliance
+              - listitem [ref=e208]: Built for the standards allocators and managers operate under
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - figure [ref=e211]
+              - paragraph [ref=e212]: A Trusted Intermediary
+            - list [ref=e213]:
+              - listitem [ref=e214]: iConnections sits between both sides of the market
+              - listitem [ref=e215]: Quality enforced on the platform and at events
+              - listitem [ref=e216]: Nearly half of live event meetings are allocator-initiated
+        - generic [ref=e217]:
+          - paragraph [ref=e218]: Compliance Partners
+          - generic [ref=e219]:
+            - figure [ref=e220]
+            - figure [ref=e221]:
+              - img "AICPA SOC" [ref=e222]
+            - figure [ref=e223]
+  - generic [ref=e226]:
+    - generic [ref=e227]:
+      - paragraph [ref=e228]: The iConnections Network
+      - heading "LP-GP Events, Roadshows, and Year-Round Programming" [level=2] [ref=e229]
+      - paragraph [ref=e230]: Global Alts is where the relationship starts. iConnections is where it continues, with agentic AI keeping momentum between every event. No other platform and no other event series does both.
+    - generic [ref=e231]:
+      - paragraph [ref=e232]: Over 100 in-person and digital touchpoints every year for LPs and GPs across hedge funds, private equity, private credit, venture capital, and beyond.
+      - paragraph [ref=e233]: Flagship gatherings, regional roadshows, intimate roundtables, digital programming, and a year-round platform working on your behalf every day.
+    - generic [ref=e234]:
+      - generic [ref=e236]:
+        - generic [ref=e237]:
+          - generic:
+            - paragraph
+        - generic [ref=e239]:
+          - generic [ref=e240]:
+            - paragraph [ref=e243]: FLAGSHIP EXPERIENCES
+            - paragraph [ref=e244]: Global Alts & Funds4Charity
+            - paragraph [ref=e245]: Owned-and-operated cap intro conferences across four continents. Pre-scheduled one-on-one meetings, curated panels, and the largest active LP-GP gatherings in alternatives.
+            - list [ref=e246]:
+              - listitem [ref=e247]: Global Alts Miami
+              - listitem [ref=e248]: Global Alts Europe
+              - listitem [ref=e249]: Global Alts New York
+              - listitem [ref=e250]: Global Alts Asia
+              - listitem [ref=e251]: Funds4Charity
+          - link "View All Flagship Events" [ref=e255] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e257]:
+        - generic [ref=e258]:
+          - generic:
+            - paragraph
+        - generic [ref=e260]:
+          - generic [ref=e261]:
+            - paragraph [ref=e264]: REGIONAL COMMUNITY
+            - paragraph [ref=e265]: Roadshows, Coffee & Connections, Roundtables
+            - paragraph [ref=e266]: Intimate, high-signal in-person gatherings throughout the year in major financial centers. Designed for candid peer exchange and fund manager visibility on allocator home turf.
+            - list [ref=e267]:
+              - listitem [ref=e268]: "Roadshows: multi-city manager visits to allocator markets"
+              - listitem [ref=e269]: "Coffee & Connections: morning networking in key markets"
+              - listitem [ref=e270]: "Roundtables & Breakfasts: small-group, strategy-focused discussions"
+          - link "View Regional Events" [ref=e274] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e276]:
+        - generic [ref=e277]:
+          - generic:
+            - paragraph
+        - generic [ref=e279]:
+          - generic [ref=e280]:
+            - paragraph [ref=e283]: DIGITAL GATHERINGS
+            - paragraph [ref=e284]: Webinars, Showcases & Live Q&A
+            - paragraph [ref=e285]: Always-on virtual programming that brings allocators, managers, and industry leaders together between in-person events.
+            - list [ref=e286]:
+              - listitem [ref=e287]: Webinars & Thought Leadership
+              - listitem [ref=e288]: "Manager Showcases: virtual GP spotlights"
+              - listitem [ref=e289]: "Meet the Allocator: live Q&A with CIOs and portfolio managers"
+          - link "View Digital Programming" [ref=e293] [cursor=pointer]:
+            - /url: "#"
+  - generic [ref=e295]:
+    - generic [ref=e296]:
+      - paragraph [ref=e297]: Agentic Capital Introduction
+      - heading "Not Just AI-Powered. Agentic." [level=2] [ref=e298]:
+        - text: Not Just AI-Powered.
+        - text: Agentic.
+      - paragraph [ref=e299]:
+        - text: Most platforms use AI to help you search. iConnections uses AI that
+        - strong [ref=e300]: works on your behalf, continuously
+        - text: . Allocators get matched to fit, managers get surfaced on real intent.
+    - generic [ref=e301]:
+      - generic [ref=e302]:
+        - generic:
+          - generic:
+            - paragraph
+      - generic [ref=e303]:
+        - generic [ref=e304]:
+          - generic [ref=e305]:
+            - paragraph [ref=e306]: 100K+
+            - paragraph [ref=e307]: AI-powered searches in the last 90 days.
+            - paragraph [ref=e308]: 70,000 initiated by allocators actively discovering fund managers
+          - separator [ref=e309]
+          - generic [ref=e310]:
+            - generic [ref=e311]:
+              - paragraph [ref=e312]: <1s
+              - paragraph [ref=e313]: Results delivered
+            - generic [ref=e314]:
+              - paragraph [ref=e315]: 200+
+              - paragraph [ref=e316]: Search filters
+        - generic [ref=e317]:
+          - paragraph [ref=e318]:
+            - strong [ref=e319]: "For Managers:"
+            - text: Your fund is continuously matched against live LP mandates. When there’s a fit, the right allocator is surfaced to you on real intent.
+          - paragraph [ref=e320]:
+            - strong [ref=e321]: "For Allocators:"
+            - text: Create a mandate. The agentic AI keeps it active, scanning new managers and alerting you the moment something fits.
+    - generic [ref=e322]:
+      - generic [ref=e323]:
+        - figure [ref=e324]
+        - heading "Built-In AI Workflows" [level=3] [ref=e325]
+        - paragraph [ref=e326]: AI runs in the background. Opportunities surface to you, not the other way around.
+      - generic [ref=e327]:
+        - figure [ref=e328]
+        - heading "Behavioral Matching Models" [level=3] [ref=e329]
+        - paragraph [ref=e330]: Trained on real network activity. The more your team engages, the sharper the matches.
+      - generic [ref=e331]:
+        - figure [ref=e332]
+        - heading "Violet, Your AI Assistant" [level=3] [ref=e333]
+        - paragraph [ref=e334]: A co-pilot who drafts outreach, runs analysis, and takes action, the way a senior IR analyst would.
+      - generic [ref=e335]:
+        - figure [ref=e336]
+        - heading "MCP Integration" [level=3] [ref=e337]
+        - paragraph [ref=e338]: Bring iConnections data into the LLM of your choice via Model Context Protocol. Your stack, your workflow.
+    - link "Request Access" [ref=e342] [cursor=pointer]:
+      - /url: "#"
+  - generic [ref=e346]:
+    - separator [ref=e347]
+    - generic [ref=e348]:
+      - paragraph [ref=e349]: Latest From iConnections
+      - heading "Insights, Reports & Allocator Pulse" [level=2] [ref=e350]
+    - generic [ref=e351]:
+      - generic [ref=e353]:
+        - generic [ref=e354]:
+          - generic:
+            - paragraph
+        - generic [ref=e356]:
+          - generic [ref=e358]:
+            - figure [ref=e359]
+            - paragraph [ref=e360]: Report
+          - heading "Global Allocator Report" [level=3] [ref=e361]
+          - paragraph [ref=e362]: What allocators are looking for this year, by strategy, geography, and check size. Annual research drawn from thousands of LP conversations.
+          - paragraph [ref=e363]:
+            - link "Read Report →" [ref=e364] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e366]:
+        - generic [ref=e367]:
+          - generic:
+            - paragraph
+        - generic [ref=e369]:
+          - generic [ref=e371]:
+            - figure [ref=e372]
+            - paragraph [ref=e373]: Perspective
+          - heading "Three Signals From 500 LP Conversations at Global Alts Miami" [level=3] [ref=e374]
+          - paragraph [ref=e375]: "What allocators told us in person at Miami: where capital is moving, what strategies are catching attention, and what's getting passed on."
+          - paragraph [ref=e376]:
+            - link "Read Breakdown →" [ref=e377] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e379]:
+        - generic [ref=e380]:
+          - generic:
+            - paragraph
+        - generic [ref=e382]:
+          - generic [ref=e384]:
+            - figure [ref=e385]
+            - paragraph [ref=e386]: Magazine
+          - heading "iConnections Magazine, Issue 4" [level=3] [ref=e387]
+          - paragraph [ref=e388]: Long-form features, manager profiles, and on-the-record conversations from across the alternatives community.
+          - paragraph [ref=e389]:
+            - link "Read Issue →" [ref=e390] [cursor=pointer]:
+              - /url: "#"
+    - link "View All Insights" [ref=e394] [cursor=pointer]:
+      - /url: "#"

@@ -1,0 +1,11 @@
+.wp-block-mesa-gutenberg-feature-carousel.is-editor {
+	.feature-carousel__track {
+		display: grid;
+		grid-template-columns: repeat(var(--fc-cards), 1fr);
+		overflow: visible;
+	}
+	.feature-carousel__track > * {
+		flex: initial;
+		width: auto;
+	}
+}

@@ -40,6 +40,30 @@
 		"marginBottom": {
 			"type": "number",
 			"default": 0
+		},
+		"roundTopLeft": {
+			"type": "boolean",
+			"default": true
+		},
+		"roundTopRight": {
+			"type": "boolean",
+			"default": true
+		},
+		"roundBottomRight": {
+			"type": "boolean",
+			"default": true
+		},
+		"roundBottomLeft": {
+			"type": "boolean",
+			"default": true
+		},
+		"showHaloTop": {
+			"type": "boolean",
+			"default": true
+		},
+		"showHaloBottom": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"supports": {

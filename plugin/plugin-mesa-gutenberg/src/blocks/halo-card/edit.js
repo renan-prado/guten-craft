@@ -1,8 +1,17 @@
 import { useBlockProps, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, ColorPicker, BaseControl, TextControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ColorPicker, BaseControl, TextControl, ToggleControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { radius, cardColor, haloColor, haloWidth, haloHeight, marginTop, marginBottom } = attributes;
+	const {
+		radius, cardColor, haloColor, haloWidth, haloHeight, marginTop, marginBottom,
+		roundTopLeft, roundTopRight, roundBottomRight, roundBottomLeft,
+		showHaloTop, showHaloBottom,
+	} = attributes;
+
+	const allCornersRounded = roundTopLeft && roundTopRight && roundBottomRight && roundBottomLeft;
+	const innerRadius = allCornersRounded
+		? `${ radius }px`
+		: `${ roundTopLeft ? radius : 0 }px ${ roundTopRight ? radius : 0 }px ${ roundBottomRight ? radius : 0 }px ${ roundBottomLeft ? radius : 0 }px`;
 
 	const wrapperStyle = {};
 	if ( typeof marginTop === 'number' && marginTop !== 0 ) {
@@ -65,6 +74,40 @@ export default function Edit( { attributes, setAttributes } ) {
 						/>
 					</BaseControl>
 				</PanelBody>
+				<PanelBody title="Rounded corners" initialOpen={ false }>
+					<ToggleControl
+						label="Top left"
+						checked={ roundTopLeft }
+						onChange={ ( v ) => setAttributes( { roundTopLeft: v } ) }
+					/>
+					<ToggleControl
+						label="Top right"
+						checked={ roundTopRight }
+						onChange={ ( v ) => setAttributes( { roundTopRight: v } ) }
+					/>
+					<ToggleControl
+						label="Bottom right"
+						checked={ roundBottomRight }
+						onChange={ ( v ) => setAttributes( { roundBottomRight: v } ) }
+					/>
+					<ToggleControl
+						label="Bottom left"
+						checked={ roundBottomLeft }
+						onChange={ ( v ) => setAttributes( { roundBottomLeft: v } ) }
+					/>
+				</PanelBody>
+				<PanelBody title="Halo visibility" initialOpen={ false }>
+					<ToggleControl
+						label="Show top halo"
+						checked={ showHaloTop }
+						onChange={ ( v ) => setAttributes( { showHaloTop: v } ) }
+					/>
+					<ToggleControl
+						label="Show bottom halo"
+						checked={ showHaloBottom }
+						onChange={ ( v ) => setAttributes( { showHaloBottom: v } ) }
+					/>
+				</PanelBody>
 				<PanelBody title="Spacing">
 					<NumberControl
 						label="Margin top (px, accepts negatives)"
@@ -86,22 +129,26 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div { ...blockProps }>
-				<span
-					className="halo-card__halo halo-card__halo--top"
-					style={ haloTop }
-					aria-hidden="true"
-				/>
+				{ showHaloTop && (
+					<span
+						className="halo-card__halo halo-card__halo--top"
+						style={ haloTop }
+						aria-hidden="true"
+					/>
+				) }
 				<div
 					className="halo-card__inner"
-					style={ { background: cardColor, borderRadius: `${ radius }px` } }
+					style={ { background: cardColor, borderRadius: innerRadius } }
 				>
 					<InnerBlocks />
 				</div>
-				<span
-					className="halo-card__halo halo-card__halo--bottom"
-					style={ haloBottom }
-					aria-hidden="true"
-				/>
+				{ showHaloBottom && (
+					<span
+						className="halo-card__halo halo-card__halo--bottom"
+						style={ haloBottom }
+						aria-hidden="true"
+					/>
+				) }
 			</div>
 		</>
 	);

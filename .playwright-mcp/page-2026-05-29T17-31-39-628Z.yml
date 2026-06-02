@@ -1,0 +1,24 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - paragraph [ref=e5]: What You Can Do
+    - heading "Run Your Entire Capital Introduction Workflow on One Platform" [level=2] [ref=e6]
+    - paragraph [ref=e8]: From first search to final allocation, iConnections gives allocators and managers the tools to find each other, evaluate each other, and stay connected year-round.
+  - generic [ref=e10]:
+    - generic [ref=e12]:
+      - generic [ref=e14]:
+        - figure [ref=e15]:
+          - img "AI search interface mockup" [ref=e16]
+        - heading "AI-Powered Search & Research" [level=3] [ref=e17]
+        - paragraph [ref=e18]: 26,000+ active members and live mandates, filtered across 200+ criteria. AI surfaces what matters in under a second.
+      - generic [ref=e20]:
+        - figure [ref=e21]:
+          - img "Pipeline tracking interface mockup" [ref=e22]
+        - heading "Build Your Pipeline" [level=3] [ref=e23]
+        - paragraph [ref=e24]: "Track allocators and managers that match your criteria. Get notified the moment something changes: new mandate, new fundraise, new fit."
+      - generic [ref=e26]:
+        - figure [ref=e27]:
+          - img "Fund diligence interface mockup" [ref=e28]
+        - heading "Diligence" [level=3] [ref=e29]
+        - paragraph [ref=e30]: Pitch decks, DDQs, track records, and Get Verified fund returns, all in one place. Compare notes with peer allocators running parallel processes.
+    - tablist "Carousel pagination" [ref=e31]:
+      - tab "Go to slide 1" [ref=e32] [cursor=pointer]

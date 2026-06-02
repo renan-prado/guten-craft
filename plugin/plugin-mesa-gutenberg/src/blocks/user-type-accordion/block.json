@@ -1,0 +1,97 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mesa-gutenberg/user-type-accordion",
+	"version": "1.0.0",
+	"title": "User Type Accordion",
+	"category": "mesa-gutenberg",
+	"icon": "list-view",
+	"description": "Accordion para tipos de usuário (Allocators, Managers, Service Providers). Item aberto mostra ícone, título colorido e descrição curta na coluna esquerda; coluna direita exibe um painel com intro, checklist e CTA. Mobile empilha tudo.",
+	"keywords": ["accordion", "user-type", "iconnections"],
+	"textdomain": "mesa-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "allocators",
+					"title": "Allocators",
+					"titleColor": "#169778",
+					"panelBgColor": "rgba(17,117,93,0.05)",
+					"checkColor": "#11755d",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"summary": "Discover fund managers that match your mandates",
+					"intro": "AI-powered search surfaces relevant managers based on your investment preferences, allocation history, and active mandate criteria.",
+					"checks": [
+						{ "strong": "Discover", "text": " funds with AI-powered search across 200+ filters for strategies, geographies, and fund types." },
+						{ "strong": "Research", "text": " thousands of fund documents, pitch decks, DDQs, and track records uploaded directly by managers." },
+						{ "strong": "Track", "text": " funds you're watching with notifications on updates, new documents, and milestones." },
+						{ "strong": "Diligence", "text": " with peers evaluating the same managers. Connect with fellow allocators running similar processes." },
+						{ "strong": "Meet", "text": " managers directly in the app, at Global Alts events, or through AI-matched introductions." },
+						{ "strong": "All at no cost", "text": " for verified allocators." }
+					],
+					"buttonLabel": "Request Access for Allocators →",
+					"buttonUrl": "#"
+				},
+				{
+					"id": "managers",
+					"title": "Fund Managers",
+					"titleColor": "#692b7e",
+					"panelBgColor": "rgba(105,43,126,0.05)",
+					"checkColor": "#692b7e",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"summary": "Get discovered by institutional LPs actively allocating capital",
+					"intro": "Put your fund in front of allocators who are actively searching for your strategy — across the platform and at Global Alts events.",
+					"checks": [
+						{ "strong": "Showcase", "text": " your fund with a verified profile, pitch deck, DDQs, and performance data in one place." },
+						{ "strong": "Reach", "text": " allocators across pensions, endowments, foundations, family offices, and consultants." },
+						{ "strong": "Match", "text": " with LPs whose live mandates fit your strategy, stage, and geography." },
+						{ "strong": "Meet", "text": " in-person at Global Alts flagship events curated for high-intent fundraising conversations." },
+						{ "strong": "Measure", "text": " interest with engagement analytics on who's viewing, downloading, and saving your materials." },
+						{ "strong": "Real inbound", "text": ", not cold outreach." }
+					],
+					"buttonLabel": "Request Access for Managers →",
+					"buttonUrl": "#"
+				},
+				{
+					"id": "service-providers",
+					"title": "Service Providers",
+					"titleColor": "#9b71a9",
+					"panelBgColor": "rgba(155,113,169,0.06)",
+					"checkColor": "#9b71a9",
+					"icon": { "id": 0, "url": "", "alt": "" },
+					"summary": "Reach the decision-makers who are in the room",
+					"intro": "Sponsor Global Alts events and reach 26K+ allocators, managers, and service providers year-round on the platform.",
+					"checks": [
+						{ "strong": "Sponsor", "text": " Global Alts flagship events with packages tailored to your audience and reach goals." },
+						{ "strong": "Brand", "text": " your firm in front of the institutional alternatives community across the platform." },
+						{ "strong": "Connect", "text": " directly with allocators and managers through curated 1:1 meetings." },
+						{ "strong": "Target", "text": " buyers by strategy, AUM band, region, and procurement stage." },
+						{ "strong": "Repeat", "text": " access to the same decision-makers year-round, not just at one event." },
+						{ "strong": "Concentrated", "text": " exposure to the buyers actually shaping alternatives." }
+					],
+					"buttonLabel": "Explore Sponsorships →",
+					"buttonUrl": "#"
+				}
+			]
+		},
+		"defaultOpenIndex": { "type": "number", "default": 0 },
+		"columnGap": { "type": "number", "default": 100 },
+		"itemGap": { "type": "number", "default": 40 },
+		"closedTitleColor": { "type": "string", "default": "#94a3b8" },
+		"summaryColor": { "type": "string", "default": "#475569" },
+		"dividerColor": { "type": "string", "default": "#e2e8f0" },
+		"chevronColor": { "type": "string", "default": "#94a3b8" },
+		"panelRadius": { "type": "number", "default": 16 },
+		"panelPadding": { "type": "number", "default": 24 }
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	}
+}

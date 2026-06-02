@@ -1,0 +1,35 @@
+- generic [ref=e5]:
+  - separator [ref=e6]
+  - generic [ref=e7]:
+    - paragraph [ref=e8]: Latest From iConnections
+    - heading "Insights, Reports & Allocator Pulse" [level=2] [ref=e9]
+  - generic [ref=e10]:
+    - generic [ref=e14]:
+      - generic [ref=e16]:
+        - figure [ref=e17]
+        - paragraph [ref=e18]: Report
+      - heading "Global Allocator Report" [level=3] [ref=e19]
+      - paragraph [ref=e20]: What allocators are looking for this year, by strategy, geography, and check size. Annual research drawn from thousands of LP conversations.
+      - paragraph [ref=e21]:
+        - link "Read Report →" [ref=e22] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=e26]:
+      - generic [ref=e28]:
+        - figure [ref=e29]
+        - paragraph [ref=e30]: Perspective
+      - heading "Three Signals From 500 LP Conversations at Global Alts Miami" [level=3] [ref=e31]
+      - paragraph [ref=e32]: "What allocators told us in person at Miami: where capital is moving, what strategies are catching attention, and what's getting passed on."
+      - paragraph [ref=e33]:
+        - link "Read Breakdown →" [ref=e34] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=e38]:
+      - generic [ref=e40]:
+        - figure [ref=e41]
+        - paragraph [ref=e42]: Magazine
+      - heading "iConnections Magazine, Issue 4" [level=3] [ref=e43]
+      - paragraph [ref=e44]: Long-form features, manager profiles, and on-the-record conversations from across the alternatives community.
+      - paragraph [ref=e45]:
+        - link "Read Issue →" [ref=e46] [cursor=pointer]:
+          - /url: "#"
+  - link "View All Insights" [ref=e50] [cursor=pointer]:
+    - /url: "#"

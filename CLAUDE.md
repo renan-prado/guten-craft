@@ -157,6 +157,24 @@ When Figma applies alignment (on the element OR a parent it inherits from):
 
 Figma MCP returns React/Tailwind. Before writing any text block, scan the element AND ancestors for every typography class. Map each via the [Tailwind → Gutenberg reference](#tailwind--gutenberg-map). Gutenberg blocks don't inherit — materialize every property.
 
+### Capturing Spacing from Figma — THE RULE I KEEP BREAKING
+
+**Whenever Figma shows `gap-[Npx]` on a flex/flow container, that gap MUST be materialized as explicit `margin-bottom:Npx` on every non-last child — JSON `spacing.margin.bottom` + mirrored inline `style="margin-bottom:Npx"`.**
+
+`blockGap` alone is NOT enough in local preview. The base.css rule that turns blockGap into spacing is `> * + * { margin-top: var(--wp--style--block-gap) }`. As soon as a child has `margin-top:0px` inline (which every text block does, because we set `margin:{top:"0px",bottom:"0px"}` to match WP's output), inline specificity beats the class selector and the gap collapses to zero. The user sees texts glued together — and this has happened repeatedly.
+
+**Process for every Figma frame with a `gap-[N]` container:**
+
+1. Read `gap-[N]` value from the Figma container.
+2. List the children top-to-bottom.
+3. For each child except the last: set `style.spacing.margin.bottom` = N in JSON AND mirror as `margin-bottom:Npx` in inline `style=""`. Keep `margin-top:0px`.
+4. Last child stays `margin-bottom:0px`.
+5. This applies to EVERY text block, image/cover, tag-wrap group, list, button group — anything that's a child of a `gap`-spaced container. No exceptions.
+
+**Do not skip this for tag-wrap, cover blocks, or button groups just because they don't normally carry margin.** If they're a non-last sibling under a `gap` container, they get explicit `margin-bottom`.
+
+When the user shows a screenshot of "tudo colado" with no spacing — the fix is always this rule, applied retroactively to every non-last child. Do it the first time.
+
 ## Block-Specific Rules
 
 ### Images: CSS Inline Styles, Not HTML Attributes

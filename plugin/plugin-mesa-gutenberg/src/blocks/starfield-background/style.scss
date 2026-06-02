@@ -7,6 +7,56 @@
 	background-clip: text;
 }
 
+// Compliance partner logos row: equalize visual weight (varied native sizes
+// from 32px to 69px tall), unify to a muted grayscale chip. The figure widths
+// are inline (160px / 70px / 158px) so we override with width:auto and cap
+// height to keep a consistent eyeline across the three brands.
+.compliance-partners-logos {
+	.wp-block-image {
+		img {
+			max-height: 32px !important;
+			width: auto !important;
+			height: auto !important;
+			filter: grayscale(1);
+			opacity: 0.6;
+		}
+	}
+}
+
+// Card stretch utility — mirrors styles/base.css so cards equalize in WP too,
+// not just in local preview. Applied to wp:columns with verticalAlignment:stretch
+// where each column's inner group carries is-card-stretch, and the content
+// region inside carries is-card-fill (so buttons can push to the bottom).
+.wp-block-column.is-vertically-aligned-stretch {
+	display: flex;
+	flex-direction: column;
+}
+.wp-block-column.is-vertically-aligned-stretch > .is-card-stretch {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+.is-card-stretch > .is-card-fill {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+.is-card-fill > .wp-block-buttons {
+	margin-top: auto;
+}
+
+// big-numbers section that follows the hero with a negative margin-top.
+// The starfield is position:relative (positioned beats static), and the
+// hero's devices image overflows downward via negative margins. Without
+// an explicit stacking context here, that overflowing image paints over
+// the stats. Positioned + z-index:1 ensures the numbers win.
+.big-numbers-section {
+	position: relative;
+	z-index: 1;
+}
+
 .wp-block-mesa-gutenberg-starfield-background {
 	position: relative;
 	display: block;
@@ -27,19 +77,6 @@
 		}
 	}
 
-	// Top dark fade only — the bottom transition is now owned by whatever
-	// block follows the hero (e.g. logos-carousel paints its own top fade).
-	&::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		height: 160px;
-		z-index: 2;
-		pointer-events: none;
-		background: linear-gradient(to bottom, #000000, transparent);
-	}
 
 	.starfield-background__canvas {
 		position: absolute;

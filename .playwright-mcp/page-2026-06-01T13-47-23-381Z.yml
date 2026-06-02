@@ -1,0 +1,44 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - paragraph [ref=e5]: The iConnections Network
+    - heading "LP-GP Events, Roadshows, and Year-Round Programming" [level=2] [ref=e6]
+    - paragraph [ref=e7]: Global Alts is where the relationship starts. iConnections is where it continues, with agentic AI keeping momentum between every event. No other platform and no other event series does both.
+  - generic [ref=e8]:
+    - paragraph [ref=e9]: Over 100 in-person and digital touchpoints every year for LPs and GPs across hedge funds, private equity, private credit, venture capital, and beyond.
+    - paragraph [ref=e10]: Flagship gatherings, regional roadshows, intimate roundtables, digital programming, and a year-round platform working on your behalf every day.
+  - generic [ref=e11]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - paragraph [ref=e20]: FLAGSHIP EXPERIENCES
+        - paragraph [ref=e21]: Global Alts & Funds4Charity
+        - paragraph [ref=e22]: Owned-and-operated cap intro conferences across four continents. Pre-scheduled one-on-one meetings, curated panels, and the largest active LP-GP gatherings in alternatives.
+        - list [ref=e23]:
+          - listitem [ref=e24]: Global Alts Miami
+          - listitem [ref=e25]: Global Alts Europe
+          - listitem [ref=e26]: Global Alts New York
+          - listitem [ref=e27]: Global Alts Asia
+          - listitem [ref=e28]: Funds4Charity
+      - link "View All Flagship Events" [ref=e32] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=e37]:
+      - generic [ref=e38]:
+        - paragraph [ref=e41]: REGIONAL COMMUNITY
+        - paragraph [ref=e42]: Roadshows, Coffee & Connections, Roundtables
+        - paragraph [ref=e43]: Intimate, high-signal in-person gatherings throughout the year in major financial centers. Designed for candid peer exchange and fund manager visibility on allocator home turf.
+        - list [ref=e44]:
+          - listitem [ref=e45]: "Roadshows: multi-city manager visits to allocator markets"
+          - listitem [ref=e46]: "Coffee & Connections: morning networking in key markets"
+          - listitem [ref=e47]: "Roundtables & Breakfasts: small-group, strategy-focused discussions"
+      - link "View Regional Events" [ref=e51] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - paragraph [ref=e60]: DIGITAL GATHERINGS
+        - paragraph [ref=e61]: Webinars, Showcases & Live Q&A
+        - paragraph [ref=e62]: Always-on virtual programming that brings allocators, managers, and industry leaders together between in-person events.
+        - list [ref=e63]:
+          - listitem [ref=e64]: Webinars & Thought Leadership
+          - listitem [ref=e65]: "Manager Showcases: virtual GP spotlights"
+          - listitem [ref=e66]: "Meet the Allocator: live Q&A with CIOs and portfolio managers"
+      - link "View Digital Programming" [ref=e70] [cursor=pointer]:
+        - /url: "#"
