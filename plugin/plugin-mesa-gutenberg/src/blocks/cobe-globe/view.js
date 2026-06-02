@@ -33,11 +33,15 @@ function initGlobe( wrapper ) {
 	const canvas = wrapper.querySelector( 'canvas[data-cobe-globe]' );
 	if ( ! canvas ) return;
 
-	const size = parseInt( wrapper.dataset.globeSize || '600', 10 );
+	const baseSize = parseInt( wrapper.dataset.globeSize || '600', 10 );
 	const rotationSpeed = parseFloat( wrapper.dataset.rotationSpeed ?? '3' ) * 0.0002;
-	// Expose the rendered size as a CSS variable so style.scss can compute
-	// anchor offsets (e.g. `is-anchor-right` → `right: calc(var(--cobe-globe-size) * -0.5)`).
-	// Set at runtime so it never has to live in the serialized inline style.
+	// Effective render size tracks the wrapper's actual width. style.scss can
+	// stretch the wrapper via min-width: 100vw (is-anchor-right desktop) so
+	// the globe grows with the viewport — we follow that so cobe's framebuffer
+	// and the card projection stay in sync with what's on screen.
+	const measure = () =>
+		Math.round( wrapper.getBoundingClientRect().width ) || baseSize;
+	let size = measure();
 	wrapper.style.setProperty( '--cobe-globe-size', size + 'px' );
 	const mapSamples = parseInt( wrapper.dataset.mapSamples || '6000', 10 );
 	let arcsData = [];
@@ -97,27 +101,49 @@ function initGlobe( wrapper ) {
 
 	// cobe v2 removed the onRender callback. We drive the render loop ourselves
 	// via requestAnimationFrame and call globe.update({phi}) every frame.
-	const globe = createGlobe( canvas, {
-		devicePixelRatio: dpr,
-		width: size,
-		height: size,
-		phi,
-		theta,
-		dark: 1,
-		diffuse: 1.2,
-		mapSamples,
-		mapBrightness: 6,
-		mapBaseBrightness: 0,
-		baseColor,
-		markerColor: [ 1, 1, 1 ],
-		glowColor,
-		markers,
-		arcs,
-		arcColor,
-		arcWidth,
-		arcHeight,
-		markerElevation: 0.02,
+	let globe = createCobe( size );
+
+	function createCobe( s ) {
+		return createGlobe( canvas, {
+			devicePixelRatio: dpr,
+			width: s,
+			height: s,
+			phi,
+			theta,
+			dark: 1,
+			diffuse: 1.2,
+			mapSamples,
+			mapBrightness: 6,
+			mapBaseBrightness: 0,
+			baseColor,
+			markerColor: [ 1, 1, 1 ],
+			glowColor,
+			markers,
+			arcs,
+			arcColor,
+			arcWidth,
+			arcHeight,
+			markerElevation: 0.02,
+		} );
+	}
+
+	// Re-init cobe whenever the wrapper width changes (e.g. window resize
+	// when min-width: 100vw is in effect). Debounced via rAF so rapid resize
+	// events collapse into a single reinit.
+	let resizeRaf = 0;
+	const observer = new ResizeObserver( () => {
+		if ( resizeRaf ) return;
+		resizeRaf = requestAnimationFrame( () => {
+			resizeRaf = 0;
+			const next = measure();
+			if ( next === size || next < 1 ) return;
+			size = next;
+			wrapper.style.setProperty( '--cobe-globe-size', size + 'px' );
+			globe.destroy();
+			globe = createCobe( size );
+		} );
 	} );
+	observer.observe( wrapper );
 
 	function frame() {
 		if ( ! isDragging ) {

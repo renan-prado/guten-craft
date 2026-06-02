@@ -152,6 +152,12 @@
 
 	.network-section__panel-inner {
 		min-height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		transition: padding-top 0.45s ease, padding-bottom 0.45s ease;
+	}
+
+	&.is-open .network-section__panel-inner {
 		padding-top: var(--ns-panel-pad-top);
 		padding-bottom: var(--ns-panel-pad-bottom);
 	}

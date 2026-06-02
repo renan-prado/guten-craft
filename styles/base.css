@@ -168,6 +168,33 @@ html, body {
   object-position: center center;
 }
 
+/* 2-line clamp with ellipsis; fixed min-height so 1-line titles align with 2-line neighbours. */
+.card-title-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 56px;
+}
+
+/* 4-line clamp for card descriptions. line-height 20px → 80px. */
+.card-desc-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 80px;
+}
+
+/* 4-line clamp for persona/who-its-for descriptions (16px / 24px line-height). 4 × 24 = 96px. */
+.card-desc-clamp-lg {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 96px;
+}
+
 .has-gradient-purple-text {
   background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
   -webkit-background-clip: text;

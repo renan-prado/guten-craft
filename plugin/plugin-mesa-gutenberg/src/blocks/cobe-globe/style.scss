@@ -37,6 +37,18 @@
 		top: 50%;
 		transform: translate(50%, calc(-50% + 80px));
 
+		// Desktop: inline width/height (e.g. 1300px) acts as the floor;
+		// above that, the globe scales gently with the viewport. 75vw means
+		// the globe only starts growing past 1300px once the viewport
+		// crosses ~1733px, and stays well below 100vw so it doesn't reach
+		// the full midpoint of the screen — visible half reaches roughly
+		// 38% of the viewport. view.js reads the rendered width to drive
+		// canvas resolution and card projection on resize.
+		@media (min-width: 1141px) {
+			min-width: 75vw;
+			min-height: 75vw;
+		}
+
 		// Mobile: globe oversized and anchored bottom-right, extrapolating off
 		// the right edge (mirrors the desktop "half-off-screen" feel) while
 		// also pushed down so the visible portion favors the northern

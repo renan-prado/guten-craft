@@ -22,6 +22,37 @@
 	box-shadow: 0 0 40px rgba(71, 85, 105, 0.1) !important;
 }
 
+/* Clamp card titles to 2 lines with ellipsis; keep a fixed min-height so
+ * single-line titles don't shrink the card vs neighbours with 2-line titles.
+ * line-height is 28px → 2 lines = 56px. */
+.card-title-clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 56px;
+}
+
+/* Clamp card descriptions to 4 lines with ellipsis.
+ * line-height is 20px → 4 lines = 80px. */
+.card-desc-clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 80px;
+}
+
+/* Same as .card-desc-clamp but for descriptions with 24px line-height
+ * (16px font on who-its-for / persona cards). 4 lines = 96px. */
+.card-desc-clamp-lg {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	min-height: 96px;
+}
+
 .has-gradient-purple-text {
 	background: linear-gradient(to left, #ba9dc4 0%, #692b7e 100%);
 	-webkit-background-clip: text;

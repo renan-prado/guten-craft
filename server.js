@@ -132,7 +132,14 @@ const COBE_INIT_SCRIPT = `
     var legacySvg = wrapper.querySelector('.cobe-globe-arcs');
     if (legacySvg) legacySvg.remove();
 
-    var size = parseInt(wrapper.dataset.globeSize || '600', 10);
+    var baseSize = parseInt(wrapper.dataset.globeSize || '600', 10);
+    // Track the wrapper's actual rendered width — style.scss can stretch it
+    // beyond the inline size (e.g. is-anchor-right desktop uses min-width: 100vw)
+    // so cobe's framebuffer and card projection must follow that.
+    function measure() {
+      return Math.round(wrapper.getBoundingClientRect().width) || baseSize;
+    }
+    var size = measure();
     // Expose globe size as a CSS variable so style.scss can compute anchor offsets
     // (matches the plugin's view.js so localhost == WP).
     wrapper.style.setProperty('--cobe-globe-size', size + 'px');
@@ -186,35 +193,54 @@ const COBE_INIT_SCRIPT = `
     });
 
     // cobe v2: width/height are passed un-multiplied; the lib applies dpr.
-    var globe = createGlobe(canvas, {
-      devicePixelRatio: dpr,
-      width: size,
-      height: size,
-      phi: phi,
-      theta: theta,
-      dark: 1,
-      diffuse: 1.2,
-      mapSamples: mapSamples,
-      mapBrightness: 6,
-      mapBaseBrightness: 0,
-      baseColor: baseColor,
-      markerColor: [1, 1, 1],
-      glowColor: glowColor,
-      markers: markers,
-      arcs: arcs,
-      arcColor: arcColor,
-      arcWidth: arcWidth,
-      arcHeight: arcHeight,
-      markerElevation: 0.02,
+    function createCobe(s) {
+      return createGlobe(canvas, {
+        devicePixelRatio: dpr,
+        width: s,
+        height: s,
+        phi: phi,
+        theta: theta,
+        dark: 1,
+        diffuse: 1.2,
+        mapSamples: mapSamples,
+        mapBrightness: 6,
+        mapBaseBrightness: 0,
+        baseColor: baseColor,
+        markerColor: [1, 1, 1],
+        glowColor: glowColor,
+        markers: markers,
+        arcs: arcs,
+        arcColor: arcColor,
+        arcWidth: arcWidth,
+        arcHeight: arcHeight,
+        markerElevation: 0.02,
+      });
+    }
+    var globe = createCobe(size);
+
+    // Re-init cobe when the wrapper width changes (window resize with
+    // min-width: 100vw in effect). Debounced via rAF to coalesce events.
+    var resizeRaf = 0;
+    var observer = new ResizeObserver(function() {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(function() {
+        resizeRaf = 0;
+        var next = measure();
+        if (next === size || next < 1) return;
+        size = next;
+        wrapper.style.setProperty('--cobe-globe-size', size + 'px');
+        globe.destroy();
+        globe = createCobe(size);
+      });
     });
+    observer.observe(wrapper);
 
     // cobe v2 has no onRender callback; we drive animation + card projection.
     function frame() {
       if (!isDragging) phi += 0.0012;
       globe.update({ phi: phi });
-      var w = size, h = size;
       cards.forEach(function(card) {
-        var p = project(parseFloat(card.dataset.lat), parseFloat(card.dataset.lng), phi, theta, w, h);
+        var p = project(parseFloat(card.dataset.lat), parseFloat(card.dataset.lng), phi, theta, size, size);
         if (p) { card.style.left = p.x + 'px'; card.style.top = p.y + 'px'; card.classList.add('is-visible'); }
         else { card.classList.remove('is-visible'); }
       });
@@ -372,6 +398,24 @@ ${hasExpandableCards ? '<script src="/plugin-build/blocks/expandable-cards/view.
 ${hasNetworkSection ? '<script src="/plugin-build/blocks/network-section/view.js"></script>' : ''}
 ${hasFeatureCarousel ? '<script src="/plugin-build/blocks/feature-carousel/view.js"></script>' : ''}
 ${hasUserTypeAccordion ? '<script src="/plugin-build/blocks/user-type-accordion/view.js"></script>' : ''}
+<script>
+  // Card title tooltip: set title attr on .card-title-clamp when text is truncated.
+  (function () {
+    function sync() {
+      document.querySelectorAll('.card-title-clamp').forEach(function (el) {
+        var full = (el.textContent || '').trim();
+        if (el.scrollHeight > el.clientHeight + 1) {
+          if (el.getAttribute('title') !== full) el.setAttribute('title', full);
+        } else if (el.hasAttribute('title')) {
+          el.removeAttribute('title');
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sync);
+    else sync();
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(sync, 150); });
+  })();
+</script>
 </body>
 </html>`;
 }

@@ -53,7 +53,15 @@ export default function Save( { attributes } ) {
 				<ul className="feature-accordion__list">
 					{ items.map( ( item, i ) => {
 						const isOpen = i === openIndex;
-						return (
+						return [
+							i > 0 && (
+								<li
+									key={ `divider-${ item.id || i }` }
+									className="feature-accordion__divider"
+									role="presentation"
+									aria-hidden="true"
+								/>
+							),
 							<li
 								key={ item.id || i }
 								className={ `feature-accordion__item${ isOpen ? ' is-open' : '' }` }
@@ -96,8 +104,8 @@ export default function Save( { attributes } ) {
 										</figure>
 									) }
 								</div>
-							</li>
-						);
+							</li>,
+						];
 					} ) }
 				</ul>
 

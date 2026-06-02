@@ -47,9 +47,9 @@
 
 	.logos-carousel__logo {
 		flex-shrink: 0;
-		width: auto;
-		height: auto !important;
-		max-height: 60px;
+		width: auto !important;
+		height: 100% !important;
+		max-height: none;
 		object-fit: contain;
 		display: block;
 		user-select: none;

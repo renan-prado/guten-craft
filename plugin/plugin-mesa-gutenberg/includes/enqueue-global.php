@@ -12,5 +12,13 @@ function mesa_gutenberg_enqueue_global_styles(): void {
 		[],
 		'1.8.3'
 	);
+
+	wp_enqueue_script(
+		'mesa-gutenberg-card-title-tooltip',
+		MESA_GUTENBERG_URL . 'assets/card-title-tooltip.js',
+		[],
+		'1.8.3',
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'mesa_gutenberg_enqueue_global_styles' );

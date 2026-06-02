@@ -3,7 +3,7 @@
 	--fa-item-gap: 24px;
 	--fa-title-color: #f8fafc;
 	--fa-desc-color: #e2e8f0;
-	--fa-divider-color: rgba(255, 255, 255, 0.1);
+	--fa-divider-color: #475569;
 	--fa-chevron-color: #ffffff;
 	--fa-image-radius: 16px;
 	--fa-image-min-height: 540px;
@@ -33,11 +33,15 @@
 		flex-direction: column;
 		border-radius: 16px;
 		position: relative;
+	}
 
-		& + & {
-			border-top: 1px solid var(--fa-divider-color);
-			padding-top: var(--fa-item-gap);
-		}
+	.feature-accordion__divider {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		height: 1px;
+		background: var(--fa-divider-color);
+		border: 0;
 	}
 
 	.feature-accordion__header,
@@ -145,15 +149,13 @@
 	}
 
 	.feature-accordion__stage {
-		position: relative;
+		display: grid;
 		width: 100%;
-		min-height: var(--fa-image-min-height);
 		border-radius: var(--fa-image-radius);
 		overflow: hidden;
 
 		.feature-accordion__image {
-			position: absolute;
-			inset: 0;
+			grid-area: 1 / 1;
 			margin: 0;
 			opacity: 0;
 			visibility: hidden;
@@ -166,8 +168,7 @@
 
 			img {
 				width: 100%;
-				height: 100%;
-				object-fit: cover;
+				height: auto;
 				display: block;
 				border-radius: var(--fa-image-radius);
 			}
