@@ -21,9 +21,6 @@ const TEMPLATE = [
 	[ 'mesa-gutenberg/site-button', { variant: 'gray-primary' }, [
 		[ 'core/button', { text: 'Request Access', url: '#' } ],
 	] ],
-	[ 'mesa-gutenberg/site-button', { variant: 'gray-secondary' }, [
-		[ 'core/button', { text: 'Explore Global Alts Events', url: '#' } ],
-	] ],
 ];
 
 const ALLOWED_BLOCKS = [ 'mesa-gutenberg/site-button' ];

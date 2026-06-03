@@ -1,3 +1,8 @@
+// Hide the WP theme's default page header on pages built with these blocks.
+div.page-header {
+	display: none !important;
+}
+
 // Gradient text utility — used by hero H1 inside starfield blocks.
 // Applied via wp:heading className so WP serialization stays clean.
 .has-gradient-heading {
@@ -7,19 +12,17 @@
 	background-clip: text;
 }
 
-// Compliance partner logos row: equalize visual weight (varied native sizes
-// from 32px to 69px tall), unify to a muted grayscale chip. The figure widths
-// are inline (160px / 70px / 158px) so we override with width:auto and cap
-// height to keep a consistent eyeline across the three brands.
+// Compliance partner logos row: unify to a muted grayscale chip. Per-logo
+// dimensions live on the inline style="" of each wp:image so each brand keeps
+// a balanced visual weight (square seals stay taller than wordmarks). The SVG
+// smarsh logo has no intrinsic dimensions, so a blanket width:auto would let
+// it expand to the browser default — keep explicit width/height inline.
 .compliance-partners-logos {
-	.wp-block-image {
-		img {
-			max-height: 32px !important;
-			width: auto !important;
-			height: auto !important;
-			filter: grayscale(1);
-			opacity: 0.6;
-		}
+	.wp-block-image img {
+		max-width: 100%;
+		object-fit: contain;
+		filter: grayscale(1);
+		opacity: 0.6;
 	}
 }
 

@@ -63,6 +63,27 @@
 		height: 100%;
 	}
 
+	/* Equalize card content height: title clamps to 1 line, description to 3.
+	   Fixed min-heights so a short title/desc still reserves the same vertical
+	   slot — keeps all cards in the row visually identical regardless of copy. */
+	.feature-carousel__track .network-card__inner {
+		.wp-block-heading {
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			min-height: 28px;
+		}
+
+		p {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			min-height: 72px;
+		}
+	}
+
 	&.is-editor .feature-carousel__track {
 		overflow-x: visible;
 	}
